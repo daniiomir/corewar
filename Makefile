@@ -15,13 +15,13 @@ COREWAR = corewar
 ASM_SRC = asm_source
 COREWAR_SRC = corewar_source
 
-all: $(ASM_SRC) $(COREWAR_SRC)
+all: $(ASM) $(COREWAR)
 
-$(ASM_SRC):
+$(ASM):
 	@make -C $(ASM_SRC)
 	@cp $(ASM_SRC)/$(ASM) $(ASM)
 
-$(COREWAR_SRC):
+$(COREWAR):
 	@make -C $(COREWAR_SRC)
 	@cp $(COREWAR_SRC)/$(COREWAR) $(COREWAR)
 
