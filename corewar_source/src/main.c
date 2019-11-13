@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "corewar.h"
 
 int		main(void)
 {
-	printf("Hello, i'm corewar!");
+	ft_putstr("Hello, i'm corewar!");
 }

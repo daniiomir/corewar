@@ -13,6 +13,7 @@
 #ifndef ASM_H
 # define ASM_H
 
+# include <fcntl.h>
 # include "libft.h"
 
 #endif

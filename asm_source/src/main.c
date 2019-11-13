@@ -10,10 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "asm.h"
 
-int		main(void)
+int		open_file(char *file)
 {
-	ft_putstr("Hello, i'm asm!");
+	int		fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		ft_putendl("Error: invalid file name.");
+	return (fd);
+}
+
+int		main(int argc, char **argv)
+{
+	int		fd;
+
+	if (argc == 2)
+	{
+		fd = open_file(argv[1]);
+		close(fd);
+	}
+	else if (argc > 2)
+		ft_putendl("Error: too much files.");
+	else
+		ft_putendl("Error: no file.");
 }
