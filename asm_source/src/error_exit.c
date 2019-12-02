@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 15:44:25 by swarner           #+#    #+#             */
-/*   Updated: 2019/11/13 15:44:27 by swarner          ###   ########.fr       */
+/*   Created: 2019/11/15 16:38:27 by swarner           #+#    #+#             */
+/*   Updated: 2019/11/15 16:38:29 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		main(int argc, char **argv)
+void	simple_error(char *error_text)
 {
-	int		fd;
-	t_pasm	*pasm;
+	ft_putstr("Error: ");
+	ft_putendl(error_text);
+	exit(1);
+}
 
-	if (argc == 2)
-	{
-		fd = open_file(argv[1]);
-		pasm = init_pasm();
-		parse_file(fd, pasm);
-		close(fd);
-	}
-	else if (argc > 2)
-		ft_putendl("Error: too much files.");
-	else
-		ft_putendl("Error: no file.");
+void	error_exit(t_pasm *pasm, char *error_text)
+{
+	ft_putstr("Error: ");
+	ft_putendl(error_text);
+	free_pasm(pasm);
+	exit(1);
+}
+
+void	error_exit_line(t_pasm *pasm, char *error_text, int line_number)
+{
+	ft_putstr("Error: line - ");
+	ft_putnbr(line_number);
+	ft_putstr(", ");
+	ft_putendl(error_text);
+	free_pasm(pasm);
+	exit(1);
 }
