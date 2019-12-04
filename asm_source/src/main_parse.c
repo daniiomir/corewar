@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_parse.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/04 17:29:30 by swarner           #+#    #+#             */
+/*   Updated: 2019/12/04 17:29:33 by swarner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 void	label_to_code_line(t_code *code_line, char **label)
@@ -222,30 +234,84 @@ int		get_champion_name_and_comment(t_pasm *pasm,
 	return (0);
 }
 
+int		check_for_code_arg_type(t_code *code_line)
+{
+	if (ft_strequ(code_line->operation, "live")
+		|| ft_strequ(code_line->operation, "zjmp")
+		|| ft_strequ(code_line->operation, "fork")
+		|| ft_strequ(code_line->operation, "lfork"))
+		return (0);
+	return (1);
+}
+
+int		check_dir_size(t_code *code_line)
+{
+	if (ft_strequ(code_line->operation, "zjmp")
+		|| ft_strequ(code_line->operation, "ldi")
+		|| ft_strequ(code_line->operation, "sti")
+		|| ft_strequ(code_line->operation, "fork")
+		|| ft_strequ(code_line->operation, "lldi")
+		|| ft_strequ(code_line->operation, "lfork"))
+		return (2);
+	return (4);
+}
+
 void	size_to_code_line(t_code *code_line)
 {
 	int		size;
 
 	size = 0;
-
 	if (code_line->operation)
-		size += 2;
+		size += 1;
+	size += check_for_code_arg_type(code_line);
 	if (code_line->arg1_type == IND_CODE)
 		size += 2;
-	else if (code_line->arg1_type == REG_CODE
-		|| code_line->arg1_type == DIR_CODE)
+	else if (code_line->arg1_type == REG_CODE)
 		size += 1;
+	else if (code_line->arg1_type == DIR_CODE)
+		size += check_dir_size(code_line);
 	if (code_line->arg2_type == IND_CODE)
 		size += 2;
-	else if (code_line->arg2_type == REG_CODE
-		|| code_line->arg2_type == DIR_CODE)
+	else if (code_line->arg2_type == REG_CODE)
 		size += 1;
+	else if (code_line->arg2_type == DIR_CODE)
+		size += check_dir_size(code_line);
 	if (code_line->arg3_type == IND_CODE)
 		size += 2;
-	else if (code_line->arg3_type == REG_CODE
-		|| code_line->arg3_type == DIR_CODE)
+	else if (code_line->arg3_type == REG_CODE)
 		size += 1;
+	else if (code_line->arg3_type == DIR_CODE)
+		size += check_dir_size(code_line);
 	code_line->size = size;
+}
+
+void	args_count_check(t_pasm *pasm, t_code *code_line)
+{
+	int		i;
+	int		count;
+	int		line;
+
+	i = 0;
+	count = 0;
+	line = code_line->line; 
+	if (code_line->arg1)
+		count++;
+	if (code_line->arg2)
+		count++;
+	if (code_line->arg3)
+		count++;
+	while (op_tab[i].op_name)
+	{
+		if (ft_strequ(code_line->operation, op_tab[i].op_name))
+		{
+			if (op_tab[i].nbrarg != count)
+			{
+				free_code_lines(code_line);
+				error_exit_line(pasm, "wrong arguments.", line);
+			}
+		}
+		i++;
+	}
 }
 
 void	line_parse(t_pasm *pasm, char *line,
@@ -261,8 +327,9 @@ void	line_parse(t_pasm *pasm, char *line,
 	normalised_line = ft_strtrim(line);
 	code_line->line = line_number;
 	i = op_to_code_line(pasm, code_line, normalised_line);
-	args_to_code_line(code_line, normalised_line, i);
+	args_to_code_line(pasm, code_line, normalised_line, i);
 	label_to_code_line(code_line, label);
+	args_count_check(pasm, code_line);
 	size_to_code_line(code_line);
 	add_code_line(pasm, code_line);
 	free(normalised_line);

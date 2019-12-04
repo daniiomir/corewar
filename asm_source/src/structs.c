@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/04 17:30:04 by swarner           #+#    #+#             */
+/*   Updated: 2019/12/04 17:30:06 by swarner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "asm.h"
 
 t_pasm	*init_pasm(void)
@@ -8,6 +20,7 @@ t_pasm	*init_pasm(void)
 	pasm->champion_name = NULL;
 	pasm->comment = NULL;
 	pasm->code = NULL;
+	pasm->hex_code = create_hex_struct();
 	pasm->final_code = NULL;
 	return (pasm);
 }
@@ -22,9 +35,48 @@ void	free_pasm(t_pasm *pasm)
 			free(pasm->comment);
 		if (pasm->code)
 			free_code_lines(pasm->code);
+		if (pasm->hex_code)
+			free_hex_struct(pasm->hex_code);
 		if (pasm->final_code)
 			free(pasm->final_code);
 		free(pasm);
+	}
+}
+
+t_hcode	*create_hex_struct(void)
+{
+	t_hcode		*hex_code;
+
+	hex_code = (t_hcode *)malloc(sizeof(t_hcode));
+	hex_code->magic_header = NULL;
+	hex_code->champion_name = NULL;
+	hex_code->null_octet = NULL;
+	hex_code->exec_size = NULL;
+	hex_code->champion_comment = NULL;
+	hex_code->null_octet2 = NULL;
+	hex_code->exec_code = NULL;
+	return (hex_code);
+}
+
+void	free_hex_struct(t_hcode *hex_code)
+{
+	if (hex_code)
+	{
+		if (hex_code->magic_header)
+			free(hex_code->magic_header);
+		if (hex_code->champion_name)
+			free(hex_code->champion_name);
+		if (hex_code->null_octet)
+			free(hex_code->null_octet);
+		if (hex_code->exec_size)
+			free(hex_code->exec_size);
+		if (hex_code->champion_comment)
+			free(hex_code->champion_comment);
+		if (hex_code->null_octet2)
+			free(hex_code->null_octet2);
+		if (hex_code->exec_code)
+			free(hex_code->exec_code);
+		free(hex_code);
 	}
 }
 

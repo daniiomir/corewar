@@ -21,7 +21,8 @@ SRC_FOLDER = src
 OBJ_FOLDER = obj
 
 SRC_NAMES = main.c parse.c error_exit.c \
-			structs.c main_parse.c op.c
+			structs.c main_parse.c op.c \
+			write_hex.c write_hex_exec_code.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 
