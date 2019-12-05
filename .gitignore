@@ -1,0 +1,5 @@
+.DS_Store
+examples/*
+corewar_source/.idea/
+corewar_source/CMakeLists.txt
+corewar_source/cmake-build-debug/
