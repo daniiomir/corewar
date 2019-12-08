@@ -32,9 +32,9 @@
 typedef struct		s_gstate
 {
     int     players_num;
-    char    f_dump:1;
-    char    f_dump_arg;
-    char    f_v:1;
+    char    f_dump:2;
+    int     f_dump_arg;
+    char    f_v:2;
 }					t_gstate;
 
 
@@ -44,6 +44,8 @@ t_gstate    *init_global_state();
 void        parse_arguments(t_gstate *gstate, int argc, char **argv);
 void        parse_flag_dump(t_gstate *gstate, int *argc, char ***argv);
 void        parse_flag_v(t_gstate *gstate, int *argc, char ***argv);
+int			parse_flag_n(int *argc, char ***argv);
 int         is_champion_filename(char *filename);
+void        parse_champion_file(t_gstate *gstate, int *argc, char ***argv);
 
 #endif
