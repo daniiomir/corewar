@@ -12,7 +12,15 @@
 
 #include "corewar.h"
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	ft_putstr("Hello, i'm corewar!");
+    t_gstate *gstate;
+
+    gstate = init_global_state();
+	parse_arguments(gstate, argc - 1, argv + 1);
+}
+
+void print_error_and_exit(char *errstr, int errno) {
+    printf("%s\n", errstr);
+    exit(errno);
 }
