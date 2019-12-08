@@ -33,7 +33,6 @@ typedef struct 	s_hex_code
 	char	*exec_size;
 	char	*champion_comment;
 	char	*null_octet2;
-	char	*exec_code;
 }				t_hcode;
 
 typedef struct	s_code
@@ -48,6 +47,7 @@ typedef struct	s_code
 	char			*label_name;
 	int				size;
 	int				line;
+	char			*hex;
 	struct s_code 	*next;
 	struct s_code 	*prev;
 }				t_code;
@@ -79,11 +79,17 @@ void			free_code_lines(t_code *code_lines);
 
 int 			position_of_comm(char *line, char comm, char alt_comm);
 char			*check_comm(char *line);
+int				check_legal_chars(const char *check, const char *legal_chars);
 char 			*label_check(t_pasm *pasm, char *line, int line_number);
+int				check_is_label(char *arg);
 int				check_for_arg_type(char *arg);
 int				check_for_op_name(char *op);
+int				check_dir_size(t_code *code_line);
 int				check_for_code_arg_type(t_code *code_line);
 void			args_count_check(t_pasm *pasm, t_code *code_line);
+
+int				switch_label(t_pasm *pasm, t_code *ptr, int arg);
+void			switch_labels_to_adress(t_pasm *pasm, t_code *code);
 
 int				get_champion_name_and_comment(t_pasm *pasm,
 					char *line, int line_number);
@@ -107,10 +113,18 @@ void			get_hex_champ_name(t_pasm *pasm);
 void			get_hex_champ_comment(t_pasm *pasm);
 void			get_exec_size(t_pasm *pasm);
 
+void			code_to_hex(t_pasm *pasm);
+char 			*code_get_hex_op(char *op_code);
+char 			*code_get_hex_addcode(t_code *code_line);
+char 			*code_get_hex_arg1(t_code *code_line);
+char 			*code_get_hex_arg2(t_code *code_line);
+char 			*code_get_hex_arg3(t_code *code_line);
+
 void			simple_error(char *error_text);
 void			error_exit(t_pasm *pasm, char *error_text);
 void			error_exit_line(t_pasm *pasm, char *error_text, int line_number);
 
 int 			ft_strchr_i(const char *s, int c);
+int				setbit(const int value, const int position);
 
 #endif

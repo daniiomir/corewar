@@ -12,18 +12,6 @@
 
 #include "asm.h"
 
-char	*get_nulls(int len)
-{
-	int		i;
-	char	*nulls;
-
-	i = 0;
-	nulls = ft_strnew(len);
-	while (nulls[i])
-		nulls[i] = '0';
-	return (nulls);
-}
-
 void	get_null_octets(t_pasm *pasm)
 {
 	char	*null_octet;
@@ -60,8 +48,10 @@ void	get_exec_size(t_pasm *pasm)
 	}
 	hex_code_size = ft_itoa_base(code_size, 16);
 	len = (int)ft_strlen(hex_code_size);
-	if (len < 4 * 2)
+	if (len < 8)
 		hex_code_size = ft_strjoin_free_all(get_nulls(8 - len), hex_code_size);
+	else
+		error_exit(pasm, "size of assembler code is too big in bytes.");
 	pasm->hex_code->exec_size = hex_code_size;
 }
 
@@ -113,19 +103,6 @@ void	get_hex_champ_name(t_pasm *pasm)
 	pasm->hex_code->champion_name = hex_champ_name;
 }
 
-void	write_all_to_final_code(t_pasm *pasm)
-{
-	char	*buffer;
-
-	buffer = ft_strjoin(pasm->magic_header, pasm->champion_name);
-	buffer = ft_strjoin_free(buffer, pasm->null_octet);
-	buffer = ft_strjoin_free(buffer, pasm->exec_size);
-	buffer = ft_strjoin_free(buffer, pasm->champion_comment);
-	buffer = ft_strjoin_free(buffer, pasm->null_octet2);
-	buffer = ft_strjoin_free(buffer, pasm->exec_code);
-	pasm->final_code = buffer;
-}
-
 void	write_hex_to_pasm(t_pasm *pasm)
 {
 	get_magic_header(pasm);
@@ -133,8 +110,7 @@ void	write_hex_to_pasm(t_pasm *pasm)
 	get_null_octets(pasm);
 	get_exec_size(pasm);
 	get_hex_champ_comment(pasm);
-	get_hex_exec_code(pasm);
-	write_all_to_final_code(pasm);
+	code_to_hex(pasm);
 }
 
 char	*new_filename(char *name)
@@ -154,7 +130,8 @@ void	write_hex_to_file(t_pasm *pasm, char *file_name)
 	new_name = new_filename(file_name);
 	fd = open(new_name, O_CREAT);
 	write_hex_to_pasm(pasm);
-	write(fd, pasm->final_code, ft_strlen(pasm->final_code));
+	switch_labels_to_adress(pasm, pasm->code);
+	// write(fd, pasm->final_code, ft_strlen(pasm->final_code));
 	close(fd);
 	free(new_name);
 }

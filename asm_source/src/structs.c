@@ -54,7 +54,6 @@ t_hcode	*create_hex_struct(void)
 	hex_code->exec_size = NULL;
 	hex_code->champion_comment = NULL;
 	hex_code->null_octet2 = NULL;
-	hex_code->exec_code = NULL;
 	return (hex_code);
 }
 
@@ -74,8 +73,6 @@ void	free_hex_struct(t_hcode *hex_code)
 			free(hex_code->champion_comment);
 		if (hex_code->null_octet2)
 			free(hex_code->null_octet2);
-		if (hex_code->exec_code)
-			free(hex_code->exec_code);
 		free(hex_code);
 	}
 }
@@ -97,9 +94,31 @@ t_code	*create_code_line(void)
 	code->label_name = NULL;
 	code->size = 0;
 	code->line = 0;
+	code->hex = NULL;
 	code->next = NULL;
 	code->prev = NULL;
 	return (code);
+}
+
+void	add_code_line(t_pasm *pasm, t_code *code_line)
+{
+	t_code	*prev;
+	t_code	*code_ptr;
+
+	if (!pasm->code)
+		pasm->code = code_line;
+	else
+	{
+		code_ptr = pasm->code;
+		while (code_ptr->next)
+		{
+			prev = code_ptr;
+			code_ptr = code_ptr->next;
+		}
+		code_ptr = code_line;
+		prev->next = code_line;
+		code_ptr->prev = prev;
+	}
 }
 
 void	free_code_lines(t_code *code_lines)
@@ -120,6 +139,8 @@ void	free_code_lines(t_code *code_lines)
 			free(temp->arg3);
 		if (temp->label_name)
 			free(temp->label_name);
+		if (temp->hex)
+			free(temp->hex);
 		free(temp);
 		temp = NULL;
 	}

@@ -25,20 +25,6 @@ void	label_to_code_line(t_code *code_line, char **label)
 	}
 }
 
-int		check_for_op_name(char *op)
-{
-	int		i;
-
-	i = 0;
-	while (op_tab[i].op_name)
-	{
-		if (ft_strequ(op, op_tab[i].op_name))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 int		op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
 {
 	int		i;
@@ -52,27 +38,6 @@ int		op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
 		error_exit_line(pasm, "wrong operation name.", code_line->line);
 	code_line->operation = op;
 	return (i);
-}
-
-void	add_code_line(t_pasm *pasm, t_code *code_line)
-{
-	t_code	*prev;
-	t_code	*code_ptr;
-
-	if (!pasm->code)
-		pasm->code = code_line;
-	else
-	{
-		code_ptr = pasm->code;
-		while (code_ptr->next)
-		{
-			prev = code_ptr;
-			code_ptr = code_ptr->next;
-		}
-		code_ptr = code_line;
-		prev->next = code_line;
-		code_ptr->prev = prev;
-	}
 }
 
 static void	name_and_comment_to_pasm(t_pasm *pasm, char *line,
@@ -95,19 +60,6 @@ static void	name_and_comment_to_pasm(t_pasm *pasm, char *line,
 			error_exit_line(pasm,
 				"length of comment bigger than 2048 symbols.", 2);
 		pasm->comment = text;
-}
-
-int			check_for_arg_type(char *arg)
-{
-	if (arg[0] == 'r')
-		return (REG_CODE);
-	else if (arg[0] == DIRECT_CHAR)
-		return (DIR_CODE);
-	else if (ft_isdigit(arg[0])
-		|| (arg[0] == LABEL_CHAR && ft_isalpha(arg[1]))
-		|| (arg[0] == '-' && ft_isdigit(arg[1])))
-		return (IND_CODE);
-	return (0);
 }
 
 void		arg_one(t_pasm *pasm, t_code *code_line, char *arg1)
@@ -163,7 +115,7 @@ void		arg_three(t_pasm *pasm, t_code *code_line, char *arg3)
 	buffer = ft_strtrim(arg3);
 	arg_type = check_for_arg_type(buffer);
 	if (!arg_type)
-		error_exit_line(pasm, "wrong first argument.",
+		error_exit_line(pasm, "wrong third argument.",
 			code_line->line);
 	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
 		third_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
@@ -232,28 +184,6 @@ int		get_champion_name_and_comment(t_pasm *pasm,
 		return (1);
 	}
 	return (0);
-}
-
-int		check_for_code_arg_type(t_code *code_line)
-{
-	if (ft_strequ(code_line->operation, "live")
-		|| ft_strequ(code_line->operation, "zjmp")
-		|| ft_strequ(code_line->operation, "fork")
-		|| ft_strequ(code_line->operation, "lfork"))
-		return (0);
-	return (1);
-}
-
-int		check_dir_size(t_code *code_line)
-{
-	if (ft_strequ(code_line->operation, "zjmp")
-		|| ft_strequ(code_line->operation, "ldi")
-		|| ft_strequ(code_line->operation, "sti")
-		|| ft_strequ(code_line->operation, "fork")
-		|| ft_strequ(code_line->operation, "lldi")
-		|| ft_strequ(code_line->operation, "lfork"))
-		return (2);
-	return (4);
 }
 
 void	size_to_code_line(t_code *code_line)
