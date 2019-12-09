@@ -6,7 +6,7 @@
 /*   By: rrika <rrika@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:56:31 by swarner           #+#    #+#             */
-/*   Updated: 2019/12/06 19:13:17 by rrika            ###   ########.fr       */
+/*   Updated: 2019/12/09 16:19:23 by rrika            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct		s_champ
 	int id; //уникальный идентификационный номер
 	char *name;
 	char *comment;
-	unsigned char *size; //размер исполняемого кода
+	int	size; //размер исполняемого кода
 	unsigned char *code; //исполныемый код
 }									t_champ;
 
