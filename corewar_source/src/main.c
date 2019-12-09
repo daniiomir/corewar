@@ -6,18 +6,11 @@
 /*   By: rrika <rrika@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 15:44:25 by swarner           #+#    #+#             */
-/*   Updated: 2019/12/09 17:00:27 by rrika            ###   ########.fr       */
+/*   Updated: 2019/12/09 18:28:10 by rrika            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 
 void	error(char *str)
 {
@@ -27,6 +20,7 @@ void	error(char *str)
 	while (str[i])
 		i++;
 	write(1, str, i);
+	write(1, "\n", 1);
 	exit(1);
 }
 
@@ -46,11 +40,15 @@ t_champ	*init(int id)
 
 void	check_header(int fd)
 {
+	int size;
 	unsigned int i;
-	unsigned char buff[5];
+	unsigned char buff[4];
 
-	if ((read(fd, buff, 4) < 0))
+	size = read(fd, &buff, 4);
+	if (size < 0)
 		error("error in reading file");
+	if (size < 4)
+		error("wrong magic header");
 	i = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);
 	if (i != COREWAR_EXEC_MAGIC)
 		error("wrong magic header");
@@ -62,7 +60,7 @@ int		miss_nulls(int fd)
 	int i;
 	unsigned char buff[5];
 
-	if ((size = read(fd, &buff, 4) < 0))
+	if ((size = read(fd, &buff, 4)) < 0)
 		error("error in reading file");
 	if (size < 4)
 		error("wrong size");
@@ -75,9 +73,9 @@ char	*check_name(int fd)
 	int size;
 	char *buff;
 
-	if (!(buff = malloc(PROG_NAME_LENGTH + 1)))
-		error("error in malloc");
-	if ((size = read(fd, &buff, PROG_NAME_LENGTH) < 0))
+	if (!(buff = ft_strnew(PROG_NAME_LENGTH)))
+        error("error in malloc");
+	if ((size = read(fd, buff, PROG_NAME_LENGTH)) < 0)
 		error("error in reading file");
 	if (size < PROG_NAME_LENGTH)
 		error("bad name");
@@ -89,9 +87,9 @@ char	*check_comment(int fd)
 	int	size;
 	char *buff;
 
-	if (!(buff = malloc(COMMENT_LENGTH + 1)))
+	if (!(buff = ft_strnew(COMMENT_LENGTH)))
 		error("error in malloc");
-	if ((size = read(fd, &buff, COMMENT_LENGTH) < 0))
+	if ((size = read(fd, buff, COMMENT_LENGTH)) < 0)
 		error("error in reading file");
 	if (size < COMMENT_LENGTH)
 		error("wrong comment");
@@ -104,37 +102,38 @@ int	size_of_code(int fd)
 	int size;
 	unsigned char buff[5];
 
-	if ((size = read(fd, &buff, 4) < 0))
+	if ((size = read(fd, &buff, 4)) < 0)
 		error("error in reading file");
 	if (size < 4)
 		error("wrong size of code");
 	i = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);
+	printf("%d\n", i);
 	return (i);
 }
 
-unsigned char	*check_code(int fd, int len)
+unsigned char	*add_code(int fd, int len)
 {
 	int size;
+	unsigned char one_more;
 	unsigned char *buff;
 
-	if (!(buff = malloc(len + 1)))
+	if (!(buff = malloc(len)))
 		error("error in malloc");
-	if ((size = read(fd, &buff, len) < 0))
+	if ((size = read(fd, buff, len)) < 0)
 		error("error in reading file");
-	if (size < len)
+	if (size < len || read(fd, &one_more, 1) != 0)
 		error("wrong code");
+	printf("%x\n", buff);
 	return (buff);
 }
 
 int     main(int argc, char **argv)
 {
 	int fd;
-	int id;
 	t_champ *player;
 
-	id = 1;
-	player = init(id);
-	if ((fd = open(argv[1], O_RDONLY) < 0))
+	player = init(argc);
+	if ((fd = open(argv[1], O_RDONLY)) <= 0)
 		error("error in opening file");
 	check_header(fd);
 	player->name = check_name(fd);
@@ -145,7 +144,7 @@ int     main(int argc, char **argv)
 	player->comment = check_comment(fd);
 	if (miss_nulls(fd) != 0)
 		error("no null");
-	player->code = check_code(fd, player->size);
+	player->code = add_code(fd, player->size);
 
 	/* printf("%x ", buff[0]);
 	printf("%x ", buff[1]);
