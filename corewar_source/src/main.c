@@ -107,7 +107,6 @@ int	size_of_code(int fd)
 	if (size < 4)
 		error("wrong size of code");
 	i = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);
-	printf("%d\n", i);
 	return (i);
 }
 
@@ -122,8 +121,7 @@ unsigned char	*add_code(int fd, int len)
 	if ((size = read(fd, buff, len)) < 0)
 		error("error in reading file");
 	if (size < len || read(fd, &one_more, 1) != 0)
-		error("wrong code");
-	printf("%x\n", buff);
+		error("wrong code")
 	return (buff);
 }
 
