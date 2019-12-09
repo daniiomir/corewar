@@ -15,4 +15,5 @@
 int		main(void)
 {
 	ft_putstr("Hello, i'm corewar!");
+
 }
