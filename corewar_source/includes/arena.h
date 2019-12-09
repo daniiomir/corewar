@@ -37,7 +37,7 @@ typedef struct		s_gstate
 
 typedef struct	s_arena
 {
-	int 	arena[MEM_SIZE];
+	unsigned char 	arena[MEM_SIZE];
 }				t_arena;
 
 void 	init_arena();

@@ -20,7 +20,7 @@ FLAGS = -Wall -Wextra -Werror
 SRC_FOLDER = src
 OBJ_FOLDER = obj
 
-SRC_NAMES = main.c
+SRC_NAMES = main.c init_arena.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

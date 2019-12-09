@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include "arena.h"
 
 int		main(void)
 {
 	ft_putstr("Hello, i'm corewar!");
-
+	init_arena();
 }
