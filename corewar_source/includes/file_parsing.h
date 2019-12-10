@@ -13,7 +13,6 @@
 #ifndef FILE_PARSING_H
 # define FILE_PARSING_H
 
-
 typedef struct		s_champ
 {
 	int id; /* уникальный идентификационный номер */
@@ -32,5 +31,6 @@ int             miss_nulls(int fd);
 void            check_header(int fd);
 t_champ         *init(int id);
 void            error(char *str);
+void			parse_champion(int champ_num, char *filename);
 
 #endif
