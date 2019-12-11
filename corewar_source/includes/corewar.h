@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "op.h"
-# include "file_parsing.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -31,23 +30,25 @@
 **  f_v         - flag v (visualisation).
 */
 
+typedef struct		s_champ
+{
+	int id; /* уникальный идентификационный номер */
+	char *name;
+	char *comment;
+	int	size; /* размер исполняемого кода */
+	unsigned char *code; /* исполныемый код */
+}					t_champ;
+
 typedef struct		s_gstate
 {
-    int     players_num;
-    char    f_dump:2;
-    int     f_dump_arg;
-    char    f_v:2;
+	int     players_num;
+	t_champ	all_players[MAX_PLAYERS];
+	char    f_dump:2;
+	int     f_dump_arg;
+	char    f_v:2;
 }					t_gstate;
 
-
-void        print_usage();
-void        print_error_and_exit(char *errstr, int errno);
-t_gstate    *init_global_state();
-void        parse_arguments(t_gstate *gstate, int argc, char **argv);
-void        parse_flag_dump(t_gstate *gstate, int *argc, char ***argv);
-void        parse_flag_v(t_gstate *gstate, int *argc, char ***argv);
-int			parse_flag_n(int *argc, char ***argv);
-int         is_champion_filename(char *filename);
-void        parse_champion_file(t_gstate *gstate, int *argc, char ***argv);
+# include "arguments_parsing.h"
+# include "file_parsing.h"
 
 #endif

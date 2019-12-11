@@ -86,7 +86,7 @@ void	parse_champion(int champ_num, char *filename)
 	int fd;
 	t_champ *player;
 
-	player = init(champ_num);
+	player = init_champion(champ_num);
 	if ((fd = open(filename, O_RDONLY)) <= 0)
 		error("error in opening file");
 	check_header(fd);

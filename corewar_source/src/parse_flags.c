@@ -7,8 +7,8 @@ int parse_flag_n(int *argc, char ***argv)
 	champion_order = -1;
 	if (*argc > 1 && (champion_order = ft_atoi(*(*argv + 1))))
 	{
-		if (champion_order < 1 || champion_order > 4)
-			print_error_and_exit("Champion number cannot be less than 1 and more than 4", 110);
+		if (champion_order < 1)
+			print_error_and_exit("Champion number cannot be less than 1", 110);
 	}
 	else
 		print_error_and_exit("Invalid argument with flag 'n'", 110);

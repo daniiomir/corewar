@@ -12,7 +12,7 @@
 
 #include "../includes/corewar.h"
 
-t_champ	*init(int id)
+t_champ	*init_champion(int id)
 {
 	t_champ *player;
 
@@ -23,7 +23,6 @@ t_champ	*init(int id)
 	player->comment = NULL;
 	player->size = 0;
 	player->code = NULL;
-	player->next = NULL;
 	return (player);
 }
 
