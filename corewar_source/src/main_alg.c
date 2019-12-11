@@ -15,6 +15,7 @@
 
 void	end_of_battle()
 {
+	printf("\e[1;1H\e[2J");
 	printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
@@ -53,10 +54,11 @@ void	init_battle(t_gstate *gstate)
 	int 		a;
 
 	a = 0;
+	printf("\e[1;1H\e[2J");
+	printf("Introducing contestants...\n");
 	while (a < gstate->players_num)
 	{
-		printf("Introducing contestants...\n"
-			   "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+			   printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			   (a + 1), gstate->all_players[a]->size, gstate->all_players[a]->name,
 			   gstate->all_players[a]->comment);
 		a++;

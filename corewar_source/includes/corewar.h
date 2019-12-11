@@ -98,6 +98,14 @@ typedef struct		s_cursor
 	struct s_cursor	*prev;
 }					t_cursor;
 
+typedef struct	s_op
+{
+	char *op_name;
+	int nbrarg;
+	char arg[3];
+	int op_code;
+}				t_op;
+
 # include "arguments_parsing.h"
 # include "file_parsing.h"
 # include "arena.h"

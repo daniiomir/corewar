@@ -22,5 +22,6 @@ void				free_all(t_arena *arena);
 t_cursor			*fill_cursors(t_gstate *gstate, t_arena *arena);
 void 				dead_cursor(t_cursor **cursor, t_cursor **start);
 void				main_alg(t_gstate *gstate);
+t_op    			op_tab[17];
 
 #endif
