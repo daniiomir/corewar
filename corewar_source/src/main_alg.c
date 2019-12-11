@@ -12,43 +12,69 @@
 
 #include "corewar.h"
 #include <stdio.h>
+
 void	end_of_battle()
 {
 	printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
-void	main_cycle()
+void	main_cycle(t_arena *arena, t_cursor *cursor)
 {
-	printf("CHEMPIONY SRAZHAUTSYA DAAAAA"); // почти закончил функцию, надо парочку вещей всего дописать
+	t_cursor	*wst;
+
+    while (cursor)
+    {
+        if (arena->all_cycles % arena->cycles_to_die == 0 || arena->cycles_to_die <= 0)
+        {
+        	wst = cursor;
+            while (wst)
+            {
+                if (arena->all_cycles - wst->last_live_cycle >= arena->cycles_to_die
+                || arena->cycles_to_die <= 0)
+                    dead_cursor(&wst, &cursor);
+				wst = wst->next;
+            }
+            if (arena->recent_live >= NBR_LIVE || arena->checks >= MAX_CHECKS)
+			{
+				arena->cycles_to_die -= CYCLE_DELTA;
+				arena->checks = 0;
+				arena->recent_live = 0;
+			}
+            else
+            	arena->checks++;
+        }
+        arena->all_cycles++;
+        cursor = NULL;
+    }
 }
 
-void	init_battle(t_champ *champs)
+void	init_battle(t_gstate *gstate)
 {
-	t_champs	*wst;
 	int 		a;
 
-	wst = champs;
 	a = 0;
-	while (wst)
+	while (a < gstate->players_num)
 	{
 		printf("Introducing contestants...\n"
 			   "* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-			   a, 0, wst->name, wst->comment); // где ноль я хз где эта инфа лежит
-		wst = wst->next;
+			   (a + 1), gstate->all_players[a]->size, gstate->all_players[a]->name,
+			   gstate->all_players[a]->comment);
+		a++;
 	}
+	sleep(1);
 }
 
-void	main_alg(t_gstate *gstate, t_champ *champs)
+void	main_alg(t_gstate *gstate)
 {
 	t_arena		*arena;
 	t_cursor	*cursor;
 
 	arena = init_arena();
-	fill_champions_code(arena, gstate, champs);
-	cursor = fill_cursors(arena, gstate);
-	init_battle(champs);
-	print_arena(arena);
-	main_cycle();
+	fill_champions_code(arena, gstate);
+	cursor = fill_cursors(gstate, arena);
+	init_battle(gstate);
+	print_arena(arena, cursor);
+	main_cycle(arena, cursor);
 	end_of_battle();
 	free_all(arena);
 }
