@@ -19,5 +19,5 @@ int	main(int argc, char **argv)
 	gstate = init_global_state();
 	parse_arguments(gstate, argc - 1, argv + 1);
 
-	init_arena();
+//	init_arena();
 }
