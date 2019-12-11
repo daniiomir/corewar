@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 15:44:25 by swarner           #+#    #+#             */
-/*   Updated: 2019/11/13 15:44:27 by swarner          ###   ########.fr       */
+/*   Created: 2019/12/09 18:26:42 by cnikia            #+#    #+#             */
+/*   Updated: 2019/12/09 18:26:43 by cnikia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/corewar.h"
+#include "arena.h"
+#include "corewar.h"
 
-int	main(int argc, char **argv)
+void		free_arena(t_arena *arena)
 {
-	t_gstate *gstate;
+	if (arena)
+	{
+		free(arena);
+	}
+}
 
-	gstate = init_global_state();
-	parse_arguments(gstate, argc - 1, argv + 1);
-
-	init_arena();
+void		free_all(t_arena *arena)
+{
+	free_arena(arena);
 }
