@@ -21,6 +21,6 @@ int             miss_nulls(int fd);
 void            check_header(int fd);
 t_champ         *init_champion(int id);
 void            error(char *str);
-void			parse_champion(int champ_num, char *filename);
+t_champ			*parse_champion(int champ_num, char *filename);
 
 #endif

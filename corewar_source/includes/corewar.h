@@ -19,6 +19,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+typedef struct		s_champ
+{
+	int f_n_arg; /* переменная, которая указывает, был ли флаг -n или нет */
+	int id; /* уникальный идентификационный номер */
+	char *name;
+	char *comment;
+	int	size; /* размер исполняемого кода */
+	unsigned char *code; /* исполныемый код */
+}					t_champ;
+
 /*
 ** __________________________ Structure Definition _____________________________
 **
@@ -30,19 +40,10 @@
 **  f_v         - flag v (visualisation).
 */
 
-typedef struct		s_champ
-{
-	int id; /* уникальный идентификационный номер */
-	char *name;
-	char *comment;
-	int	size; /* размер исполняемого кода */
-	unsigned char *code; /* исполныемый код */
-}					t_champ;
-
 typedef struct		s_gstate
 {
 	int     players_num;
-	t_champ	all_players[MAX_PLAYERS];
+	t_champ	*all_players[MAX_PLAYERS];
 	char    f_dump:2;
 	int     f_dump_arg;
 	char    f_v:2;

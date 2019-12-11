@@ -18,6 +18,7 @@ t_champ	*init_champion(int id)
 
 	if (!(player = (t_champ *)malloc(sizeof(t_champ))))
 		error("error with malloc");
+	player->f_n_arg = id;
 	player->id = id;
 	player->name = NULL;
 	player->comment = NULL;

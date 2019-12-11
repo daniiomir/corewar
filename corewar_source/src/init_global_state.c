@@ -1,4 +1,4 @@
-#include "corewar.h"
+#include "../includes/corewar.h"
 
 t_gstate	*init_global_state(void)
 {

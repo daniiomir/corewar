@@ -1,4 +1,4 @@
-#include "corewar.h"
+#include "../includes/corewar.h"
 
 int is_champion_filename(char *filename)
 {
@@ -36,9 +36,9 @@ void    parse_arguments(t_gstate *gstate, int argc, char **argv)
             print_usage();
     }
 
-    if (gstate->players_num < 1 || gstate->players_num > 4)
+    if (gstate->players_num < 1 || gstate->players_num > MAX_PLAYERS)
     {
-        print_error_and_exit("Players amount less than 1 or more than 4", 1);
+        print_error_and_exit(ft_strjoin("Players amount less than 1 or more than ", ft_itoa(MAX_PLAYERS)), 1);
     }
 }
 

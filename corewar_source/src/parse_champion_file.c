@@ -1,4 +1,4 @@
-#include "corewar.h"
+#include "../includes/corewar.h"
 
 void	parse_champion_file(t_gstate *gstate, int *argc, char ***argv)
 {
@@ -8,7 +8,7 @@ void	parse_champion_file(t_gstate *gstate, int *argc, char ***argv)
 	if (ft_strequ(**argv, "-n"))
 		champion_order = parse_flag_n(argc, argv);
 	if (is_champion_filename(**argv))
-		parse_champion(champion_order, **argv);
+		gstate->all_players[gstate->players_num] = parse_champion(champion_order, **argv);
 }
 
 

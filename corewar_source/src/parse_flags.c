@@ -1,4 +1,4 @@
-#include "corewar.h"
+#include "../includes/corewar.h"
 
 int parse_flag_n(int *argc, char ***argv)
 {

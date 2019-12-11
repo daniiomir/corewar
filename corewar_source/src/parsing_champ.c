@@ -81,7 +81,7 @@ void	print_all(t_champ *player)
 }
 */
 
-void	parse_champion(int champ_num, char *filename)
+t_champ	*parse_champion(int champ_num, char *filename)
 {
 	int fd;
 	t_champ *player;
@@ -101,4 +101,5 @@ void	parse_champion(int champ_num, char *filename)
 	player->code = add_code(fd, player->size);
 	/* print_all(player); */
 	close(fd);
+	return (player);
 }

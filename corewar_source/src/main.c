@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../includes/corewar.h"
 
 int	main(int argc, char **argv)
 {
