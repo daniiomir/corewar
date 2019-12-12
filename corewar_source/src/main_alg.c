@@ -69,7 +69,7 @@ void	init_battle(t_gstate *gstate)
 void	main_alg(t_gstate *gstate)
 {
 	t_arena		*arena;
-	t_cursor	*cursor;        // todo: cursors?
+	t_cursor	*cursor;
 
 	arena = init_arena();
 	fill_champions_code(arena, gstate);

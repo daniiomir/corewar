@@ -52,23 +52,24 @@ typedef struct		s_gstate
 /*
 ** _______________________________ Structure Definition _______________________________
 **
-**	memory	      - arena of memory, array of bytes.
-**  last_live     - last player to say that he is alive.
-**  all_cycles    - number of cycles that have passed since the beginning of the game.
-**  recent_live   - number of live operations made by start of the last cycles_to_die.
-**  cycles_to_die - duration before the next check.
-**  checks        - current number of checks performed.
+**	memory	        - arena of memory, array of bytes.
+**  last_live       - last player to say that he is alive.
+**  all_cycles      - number of cycles that have passed since the beginning of the game.
+**  recent_live     - number of live operations made by start of the last cycles_to_die.
+**  cycles_to_die   - duration before the next check.
+**  checks          - current number of checks performed.
+**	next_cursor_num - number that will be given to the next created cursor
 */
 
 typedef struct		s_arena
 {
-	unsigned char 	memory[MEM_SIZE];   // TODO: maybe map
+	unsigned char 	memory[MEM_SIZE];
 	int 			last_live;
 	int 			all_cycles;
-	int 			recent_live;        // TODO: maybe live_nbr?
+	int 			recent_live;
 	int 			cycles_to_die;
-	int 			checks;         // TODO: maybe checks_nbr?
-	int 			next_cursor_num;        // TODO: need description
+	int 			checks;
+	int 			next_cursor_num;
 }					t_arena;
 
 /*
@@ -86,9 +87,9 @@ typedef struct		s_arena
 
 typedef struct		s_cursor
 {
-	int 			num;    // TODO: maybe id?
+	int 			id;
 	int 			carry;
-	unsigned char	current_code;   // TODO: maybe current_op
+	unsigned char	current_code;
 	int 			last_live_cycle;
 	int 			cycles_remaining;
 	int 			current_position;
