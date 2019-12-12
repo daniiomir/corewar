@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arena.h"
+#include "main_alg.h"
 #include "corewar.h"
 
 void		free_arena(t_arena *arena)

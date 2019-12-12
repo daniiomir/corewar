@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "arena.h"
+#include "main_alg.h"
 #include "corewar.h"
 #include <stdio.h>
 
@@ -33,7 +33,30 @@ t_arena		*init_arena()
 	return (arena);
 }
 
-t_cursor	*init_cursor(int id, int reg)
+void		fill_champions_code(t_arena *arena, t_gstate *gstate)
+{
+	int 	order;
+	int 	a;
+	int 	b;
+	int 	c;
+	int 	d;
+
+	order = MEM_SIZE / gstate->players_num;
+	c = 0;
+	a = 0;
+	while(c < gstate->players_num)
+	{
+		b = 0;
+		d = a;
+		while (b < gstate->all_players[c]->size)
+			arena->memory[a++] = gstate->all_players[c]->code[b++];
+		c++;
+		a = d;
+		a += order;
+	}
+}
+
+static t_cursor		*init_cursor(int id, int reg)
 {
 	t_cursor	*cursor;
 	int 		a;
@@ -56,27 +79,7 @@ t_cursor	*init_cursor(int id, int reg)
 	return (cursor);
 }
 
-void		fill_champions_code(t_arena *arena, t_gstate *gstate)
-{
-	int 	order;
-	int 	a;
-	int 	b;
-	int 	c;
-
-	order = MEM_SIZE / gstate->players_num;
-	c = 0;
-	a = 0;
-	while(c < gstate->players_num)
-	{
-		b = 0;
-		while (b < gstate->all_players[c]->size)
-			arena->memory[a++] = gstate->all_players[c]->code[b++];
-		c++;
-		a += order;
-	}
-}
-
-t_cursor	*fill_cursors(t_gstate *gstate, t_arena *arena)
+t_cursor			*fill_cursors(t_gstate *gstate, t_arena *arena)
 {
 	int 		order;
 	t_cursor	*next;
@@ -93,8 +96,8 @@ t_cursor	*fill_cursors(t_gstate *gstate, t_arena *arena)
 		next = init_cursor(a, a);
 		next->current_position = b;
 		next->next = curr;
-		next->next_operation_steps = 0; // я не знаю пока как это написать
 		next->current_code = arena->memory[b];
+		next->next_operation_steps = next_operation_steps_calculation(next, arena->memory[b + 1]);
 		if (curr)
 			curr->prev = next;
 		curr = next;

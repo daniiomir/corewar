@@ -22,7 +22,7 @@ OBJ_FOLDER = obj
 
 SRC_NAMES = main.c for_parsing_champ.c init_global_state.c parse_arguments.c \
     parse_champion_file.c parse_flags.c parsing_champ.c print_error.c main_alg.c \
-    init_arena.c free_all.c cursor_operations.c visualisation.c
+    init_arena.c free_all.c cursor_operations.c visualisation.c op.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

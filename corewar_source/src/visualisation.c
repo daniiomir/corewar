@@ -25,9 +25,9 @@ int			fill_color_cursor(t_cursor *cursors, int a)
 				printf("\033[1;31m");
 			if (cursor->reg[0] == -2)
 				printf("\033[1;32m");
-			if (cursor->reg[0] == -1)
+			if (cursor->reg[0] == -3)
 				printf("\033[1;34m");
-			if (cursor->reg[0] == -1)
+			if (cursor->reg[0] == -4)
 				printf("\033[1;35m");
 			return (1);
 		}

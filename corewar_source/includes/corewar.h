@@ -19,6 +19,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+#define T_REG_SIZE 1
+#define T_IND_SIZE 2
+
 typedef struct		s_champ
 {
 	int f_n_arg; /* переменная, которая указывает, был ли флаг -n или нет */
@@ -99,18 +102,36 @@ typedef struct		s_cursor
 	struct s_cursor	*prev;
 }					t_cursor;
 
+/*
+** _______________________________ Structure Definition _______________________________
+**
+**	op	                 - unique cursor number.
+**  carry                - a flag that some operations may change.
+**  current_code         - code of the operation in which the cursor are.
+**  last_live_cycle      - last cycle in which the last operation "live" was completed.
+**  cycles_remaining     - number of cycles needed to do the remaining operation.
+**  current_position     - current cursor position.
+**  next_operation_steps - amount of bytes needed to skip to be on the next operation.
+**  reg                  - registers.
+*/
+
 typedef struct	s_op
 {
-	char *op_name;
-	int nbrarg;
-	unsigned char arg[3]; // TODO: unsigned char
-	int op_code;
+	int		op_code;
+	char	*op_name;
+	int		nbrarg;
+	char	arg[3]; // TODO: unsigned char
+	int		need_cycles;
+	char	*description;
+	int		argument_code_type;
+	int		change_carry;
+	int 	t_dir_size;
 }				t_op;
 
 t_op			op_tab[17];
 
 # include "arguments_parsing.h"
 # include "file_parsing.h"
-# include "arena.h"
+# include "main_alg.h"
 
 #endif

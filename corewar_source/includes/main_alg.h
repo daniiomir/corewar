@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arena.h                                            :+:      :+:    :+:   */
+/*   main_alg.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 16:55:15 by cnikia            #+#    #+#             */
-/*   Updated: 2019/12/09 16:55:16 by cnikia           ###   ########.fr       */
+/*   Created: 2019/12/12 21:50:03 by cnikia            #+#    #+#             */
+/*   Updated: 2019/12/12 21:50:04 by cnikia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARENA_H
-# define ARENA_H
+#ifndef MAIN_ALG_H
+# define MAIN_ALG_H
 
 #include "corewar.h"
 
@@ -22,6 +22,7 @@ void				free_all(t_arena *arena);
 t_cursor			*fill_cursors(t_gstate *gstate, t_arena *arena);
 void 				dead_cursor(t_cursor **cursor, t_cursor **start);
 void				main_alg(t_gstate *gstate);
-t_op    			op_tab[17];
+int 				next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
+void 				dead_cursor(t_cursor **cursor, t_cursor **start);
 
 #endif
