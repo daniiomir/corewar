@@ -103,9 +103,11 @@ typedef struct	s_op
 {
 	char *op_name;
 	int nbrarg;
-	char arg[3]; // TODO: unsigned char
+	unsigned char arg[3]; // TODO: unsigned char
 	int op_code;
 }				t_op;
+
+t_op			op_tab[17];
 
 # include "arguments_parsing.h"
 # include "file_parsing.h"
