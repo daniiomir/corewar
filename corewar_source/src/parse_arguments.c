@@ -9,7 +9,7 @@ int is_champion_filename(char *filename)
     {
         if (filename_len > 4 && ft_strequ(filename + (filename_len - 4), ".cor"))
             return (1);
-        print_error_and_exit("Champion filename is invalid\n", 2);
+        print_error_and_exit("Champion filename is invalid", 40);
     }
     return (0);
 }
@@ -38,12 +38,12 @@ void    parse_arguments(t_gstate *gstate, int argc, char **argv)
 
     if (gstate->players_num < 1 || gstate->players_num > 4)
     {
-        print_error_and_exit("Players amount less than 1 or more than 4", 1);
+        print_error_and_exit("Players amount less than 1 or more than 4", 45);
     }
 }
 
 void print_usage()
 {
-    printf("Usage: ./corewar [-v][-d <num> | -n <num> ] <champion1.cor> <...>");
+    printf("Usage: ./corewar [-v][-d <num> | -n <num> ] <champion1.cor> <...>\n");
     exit(1);
 }
