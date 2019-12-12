@@ -32,6 +32,7 @@
 typedef struct		s_champ
 {
 	int				id;
+	int 			f_n_arg;
 	char			*name;
 	char			*comment;
 	int				size;
@@ -52,7 +53,7 @@ typedef struct		s_champ
 typedef struct	s_gstate
 {
 	int			players_num;
-	t_champ		all_players[MAX_PLAYERS];
+	t_champ		*all_players[MAX_PLAYERS];
 	char		f_dump:2;
 	int			f_dump_arg;
 	char		f_v:2;
