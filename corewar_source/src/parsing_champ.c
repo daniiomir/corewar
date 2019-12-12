@@ -70,6 +70,10 @@ static int32_t	bytecode_to_int32(const uint8_t *bytecode, size_t size)
 		result = ~(result);
 	return (result);
 }
+1101 0101
+1000 0000
+1000 0000
+
 
 void	print_all(t_champ *player)
 {
@@ -81,12 +85,12 @@ void	print_all(t_champ *player)
 }
 */
 
-t_champ	*parse_champion(int champ_num, char *filename)
+t_champ	*parse_champion(int n_arg, int id, char *filename)
 {
 	int fd;
 	t_champ *player;
 
-	player = init_champion(champ_num);
+	player = init_champion(n_arg, id);
 	if ((fd = open(filename, O_RDONLY)) <= 0)
 		error("error in opening file");
 	check_header(fd);

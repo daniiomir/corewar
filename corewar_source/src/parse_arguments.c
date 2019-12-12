@@ -1,23 +1,23 @@
 #include "../includes/corewar.h"
 
-int is_champion_filename(char *filename)
+int		is_champion_filename(char *filename)
 {
-    size_t filename_len;
+	size_t	filename_len;
 
-    filename_len = ft_strlen(filename);
-    if (ft_strchr(filename, '.'))
-    {
-        if (filename_len > 4 && ft_strequ(filename + (filename_len - 4), ".cor"))
-            return (1);
-        print_error_and_exit("Champion filename is invalid\n", 2);
-    }
-    return (0);
+	filename_len = ft_strlen(filename);
+	if (ft_strchr(filename, '.'))
+	{
+		if (filename_len > 4 && ft_strequ(filename + (filename_len - 4), ".cor"))
+			return (1);
+		print_error_and_exit("Champion filename is invalid\n", 2);
+	}
+	return (0);
 }
 
-void    parse_arguments(t_gstate *gstate, int argc, char **argv)
+void	parse_arguments(t_gstate *gstate, int argc, char **argv)
 {
-    if (argc == 0)
-        print_usage();
+	if (argc == 0)
+		print_usage();
 
     while (argc > 0)
     {
@@ -38,7 +38,8 @@ void    parse_arguments(t_gstate *gstate, int argc, char **argv)
 
     if (gstate->players_num < 1 || gstate->players_num > MAX_PLAYERS)
     {
-        print_error_and_exit(ft_strjoin("Players amount less than 1 or more than ", ft_itoa(MAX_PLAYERS)), 1);
+		print_error_and_exit(CONCAT_STR_WITH_NBR(
+	"Players amount less than 1 or more than ", MAX_PLAYERS), 1);
     }
 }
 

@@ -6,6 +6,7 @@ t_gstate	*init_global_state(void)
 
 	gstate = (t_gstate *)malloc(sizeof(t_gstate));
 	gstate->players_num = 0;
+	ft_bzero(&gstate->all_players, MAX_PLAYERS * sizeof(t_champ*));
 	gstate->f_dump = 0;
 	gstate->f_dump_arg = 0;
 	gstate->f_v = 0;

@@ -13,7 +13,7 @@
 #ifndef ARENA_H
 # define ARENA_H
 
-#include "../../asm_source/includes/op.h"
+#include "../includes/corewar.h"
 
 /*
 ** _______________________________ Structure Definition _______________________________
@@ -24,13 +24,11 @@
 **  recent_live   - number of live operations made by start of the last cycles_to_die.
 **  cycles_to_die - duration before the next check.
 **  checks        - current number of checks performed.
-**  ||
-**  ||
-**  \/
+**
 */
 typedef struct		s_arena
 {
-	unsigned char 	memory[MEM_SIZE];
+	unsigned char 	memory[MEM_SIZE]; // TODO: что насчёт того, чтобы назвать его map?
 	int 			last_live;
 	int 			all_cycles;
 	int 			recent_live;
@@ -50,9 +48,7 @@ typedef struct		s_arena
 **  current_position     - current cursor position.
 **  next_operation_steps - amount of bytes needed to skip to be on the next operation.
 **  reg                  - registers.
-**  ||
-**  ||
-**  \/
+**
 */
 typedef struct		s_cursor
 {
