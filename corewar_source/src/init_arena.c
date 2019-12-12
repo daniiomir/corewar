@@ -33,7 +33,7 @@ t_arena		*init_arena()
 	return (arena);
 }
 
-t_cursor	*init_cursor(int num, int reg)
+t_cursor	*init_cursor(int num, int reg)  // TODO: num и reg в этой функции одно и тоже
 {
 	t_cursor	*cursor;
 	int 		a;
@@ -72,7 +72,7 @@ void		fill_champions_code(t_arena *arena, t_gstate *gstate)
 		while (b < gstate->all_players[c]->size)
 			arena->memory[a++] = gstate->all_players[c]->code[b++];
 		c++;
-		a = order;
+		a = order;          // TODO: следующие две строки можно заменить одной: a += order;
 		order += order;
 	}
 }
@@ -80,7 +80,7 @@ void		fill_champions_code(t_arena *arena, t_gstate *gstate)
 t_cursor	*fill_cursors(t_gstate *gstate, t_arena *arena)
 {
 	int 		order;
-	t_cursor	*next;
+	t_cursor	*next;  // todo: maybe next_cursor
 	t_cursor	*curr;
 	int 		a;
 	int 		b;
@@ -91,7 +91,7 @@ t_cursor	*fill_cursors(t_gstate *gstate, t_arena *arena)
 	curr = NULL;
 	while (a <= gstate->players_num)
 	{
-		next = init_cursor(a, a);
+		next = init_cursor(a, a);   // todo: какой смысл отправлять одинаковые числа
 		next->current_position = b;
 		next->next = curr;
 		next->next_operation_steps = 0; // я не знаю пока как это написать
@@ -99,7 +99,7 @@ t_cursor	*fill_cursors(t_gstate *gstate, t_arena *arena)
 		if (curr)
 			curr->prev = next;
 		curr = next;
-		b = order;
+		b = order;      // todo: можно заменить одной строчкой b += order
 		order += order;
 		a++;
 	}

@@ -62,13 +62,13 @@ typedef struct		s_gstate
 
 typedef struct		s_arena
 {
-	unsigned char 	memory[MEM_SIZE];
+	unsigned char 	memory[MEM_SIZE];   // TODO: maybe map
 	int 			last_live;
 	int 			all_cycles;
-	int 			recent_live;
+	int 			recent_live;        // TODO: maybe live_nbr?
 	int 			cycles_to_die;
-	int 			checks;
-	int 			next_cursor_num;
+	int 			checks;         // TODO: maybe checks_nbr?
+	int 			next_cursor_num;        // TODO: need description
 }					t_arena;
 
 /*
@@ -86,9 +86,9 @@ typedef struct		s_arena
 
 typedef struct		s_cursor
 {
-	int 			num;
+	int 			num;    // TODO: maybe id?
 	int 			carry;
-	unsigned char	current_code;
+	unsigned char	current_code;   // TODO: maybe current_op
 	int 			last_live_cycle;
 	int 			cycles_remaining;
 	int 			current_position;
@@ -102,7 +102,7 @@ typedef struct	s_op
 {
 	char *op_name;
 	int nbrarg;
-	char arg[3];
+	char arg[3]; // TODO: unsigned char
 	int op_code;
 }				t_op;
 
