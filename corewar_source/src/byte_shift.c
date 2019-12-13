@@ -1,9 +1,9 @@
 #include "../includes/corewar.h"
 
-unsigned int    byte_shift(unsigned char *buff, int byte, int sign)
+unsigned int	byte_shift(unsigned char *buff, int byte, int sign)
 {
-	unsigned int i;
-	int j;
+	unsigned int	i;
+	int				j;
 
 	i = 0;
 	j = 0;
@@ -20,7 +20,6 @@ unsigned int    byte_shift(unsigned char *buff, int byte, int sign)
     else
         i = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);*/
 }
-
 
 // TODO: сделать функцию на нахождение отрицательных чисел х2
 // доделать функцию
