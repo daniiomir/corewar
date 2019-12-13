@@ -19,6 +19,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+#define CONCAT_STR_WITH_NBR(str, nbr) str STR(nbr)
+#define CONCAT_STR_WITH_STR(str1, str2) str1 str2
+
 /*
 ** _____________________ Champion Structure Definition _____________________
 **

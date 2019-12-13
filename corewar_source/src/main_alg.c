@@ -24,7 +24,7 @@ void	main_cycle()
 
 void	init_battle(t_champ *champs)
 {
-	t_champs	*wst;
+	t_champ	*wst;
 	int 		a;
 
 	wst = champs;
