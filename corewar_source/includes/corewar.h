@@ -111,10 +111,11 @@ void	        order_of_champs(t_gstate *gstate);
 **	Arguments validation
 **	40 - champion filename is invalid.
 **	41 - invalid argument with flag 'n'.
-**	42 - champion id cannot be less than 1.
-**	43 - invalid dump flag.
-**	44 - dump flag argument cannot be negative number.
-**	45 - players amount less than 1 or more than MAX_PLAYERS.
+**	42 - after the -n flag should be the name of the champion file.
+**	43 - champion id cannot be less than 1.
+**	44 - invalid dump flag.
+**	45 - dump flag argument cannot be negative number.
+**	46 - players amount less than 1 or more than MAX_PLAYERS.
 **
 **	Champion file validation
 **	50 - cannot open file.

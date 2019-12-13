@@ -19,6 +19,8 @@ static void    champs_with_n(t_gstate *gstate, t_champ **result)
 				result[n_arg - 1]->id = n_arg;
 			}
 		}
+		else
+			gstate->all_players[i]->f_n_arg = 0;
 		i++;
 	}
 }
