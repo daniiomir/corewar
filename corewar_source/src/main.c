@@ -14,11 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	t_gstate *gstate;
+	t_gstate	*gstate;
 
 	gstate = init_global_state();
 	parse_arguments(gstate, argc - 1, argv + 1);
-	// TODO: не забыть завришить all_players
 	order_of_champs(gstate);
 //	init_arena();
 }

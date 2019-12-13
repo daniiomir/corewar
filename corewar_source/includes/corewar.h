@@ -14,15 +14,11 @@
 # define COREWAR_H
 
 # include "libft.h"
+# include "macroses.h"
 # include "op.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-
-#define STR_HELPER(x) #x
-#define STR(x) STR_HELPER(x)
-#define CONCAT_STR_WITH_NBR(str, nbr) str STR(nbr)
-#define CONCAT_STR_WITH_STR(str1, str2) str1 str2
 
 /*
 ** _____________________ Champion Structure Definition _____________________
@@ -50,6 +46,7 @@ typedef struct		s_champ
 **  f_*         - flag
 **
 **	players_num	- number of players.
+**	all_players	- array of all players in game.
 **  f_dump      - flag dump (stops execution on a specific loop).
 **  f_dump_arg  - dump flag argument.
 **  f_v         - flag v (visualisation).
@@ -64,8 +61,46 @@ typedef struct	s_gstate
 	char		f_v:2;
 }				t_gstate;
 
-# include "arguments_parsing.h"
-# include "file_parsing.h"
+/*
+** ___________________________ General Functions _______________________________
+*/
+
+void			print_error_and_exit(char *errstr, int errno);
+void			print_usage();
+unsigned int	byte_shift(unsigned char *buff, int byte, int sign);
+
+/*
+** ________________________ Structure Initialization ___________________________
+*/
+
+t_gstate		*init_global_state(void);
+t_champ         *init_champion(int n_arg, int id);
+
+/*
+** ____________________________ Arguments Parsing _______________________________
+*/
+
+void			parse_arguments(t_gstate *gstate, int argc, char **argv);
+void			parse_flag_dump(t_gstate *gstate, int *argc, char ***argv);
+void			parse_flag_v(t_gstate *gstate, int *argc, char ***argv);
+int				parse_flag_n(int *argc, char ***argv);
+
+/*
+** _________________________ Champion File Parsing _____________________________
+*/
+
+t_champ         *parse_champion_file(int n_arg, int id, char *filename);
+unsigned char   *get_exec_code(int fd, int len);
+int             get_exec_code_size(int fd);
+char			*get_name_and_comment(int fd, int len);
+unsigned int    miss_nulls(int fd);
+void            check_header(int fd);
+
+/*
+** _________________________ Players Order _____________________________
+*/
+
+void	        order_of_champs(t_gstate *gstate);
 
 /*
 ** ______________________________ Error Number _________________________________
@@ -86,15 +121,13 @@ typedef struct	s_gstate
 **	51 - cannot read file.
 **	52 - wrong magic header.
 **	53 - wrong null symbol.
-**	54 - name is invalid.
-**	55 - comment is invalid.
-**	56 - wrong size of execution code.
-**	57 - execution code is too big
-**	58 - wrong size of execution code
+**	54 - name or comment is invalid
+**	55 - wrong size of execution code.
+**	56 - execution code is too big
+**	57 - wrong size of execution code
 **
 **  6  - error in get_next_line.
 **  7  - exit from -v flag.
 */
-
 
 #endif

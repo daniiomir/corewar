@@ -51,7 +51,7 @@ static void    remaining_champs(t_gstate *gstate, t_champ **result)
 
 void	order_of_champs(t_gstate *gstate)
 {
-	t_champ *result[gstate->players_num];
+	t_champ	*result[gstate->players_num];
 
 	ft_bzero(&result, gstate->players_num * sizeof(t_champ*));
 	champs_with_n(gstate, &(*result));
