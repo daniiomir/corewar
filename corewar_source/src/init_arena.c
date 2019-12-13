@@ -33,7 +33,7 @@ t_arena		*init_arena()
 	return (arena);
 }
 
-void		fill_champions_code(t_arena *arena, t_gstate *gstate)
+void		fill_champions_code(t_arena *arena, t_gstate *gstate)	// TODO: эту функцию, можно упростить и заменить на вторую версию (ниже)
 {
 	int 	order;
 	int 	a;
@@ -55,6 +55,57 @@ void		fill_champions_code(t_arena *arena, t_gstate *gstate)
 		a += order;
 	}
 }
+/*
+void		fill_champions_code(t_arena *arena, t_gstate *gstate)		// вторая весия
+{
+	int 	step;
+	int 	first_pos;
+	int 	i;
+
+	step = MEM_SIZE / gstate->players_num;
+	first_pos = 0;
+	i = 0;
+	while(i < gstate->players_num)
+	{
+		ft_memcpy(arena->memory + first_pos, gstate->all_players[i]->code, gstate->all_players[i]->size);
+		first_pos += step;
+		i++;
+	}
+}
+*/
+
+// TODO: а вторую версию уже возможно объеденить с fill_cursors (пример ниже) (но выглядит не очень, поэтому сам решай как поступить)
+/*
+t_cursor	*fill_champions_code_and_cursors(t_arena *arena, t_gstate *gstate)
+{
+	int 		step;
+	int 		first_pos;
+	t_cursor	*next;
+	t_cursor	*curr;
+	int 		i;
+
+	step = MEM_SIZE / gstate->players_num;
+	first_pos = 0;
+	curr = NULL;
+	i = 0;
+	while(i < gstate->players_num)
+	{
+		ft_memcpy(arena->memory + first_pos, gstate->all_players[i]->code, gstate->all_players[i]->size);
+		next = init_cursor(i, i);
+		next->current_position = first_pos;
+		next->next = curr;
+		next->current_code = arena->memory[first_pos];
+		next->next_operation_steps = next_operation_steps_calculation(next, arena->memory[first_pos + 1]);
+		if (curr)
+			curr->prev = next;
+		curr = next;
+		first_pos += step;
+		i++;
+	}
+	return (curr);
+}
+*/
+
 
 static t_cursor		*init_cursor(int id, int reg)
 {
