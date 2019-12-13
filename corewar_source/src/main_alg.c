@@ -34,6 +34,8 @@ void	main_cycle(t_arena *arena, t_cursor *cursor)
                 if (arena->all_cycles - wst->last_live_cycle >= arena->cycles_to_die
                 || arena->cycles_to_die <= 0)
                     dead_cursor(&wst, &cursor);
+                if (!wst)
+					continue ;
 				wst = wst->next;
             }
             if (arena->recent_live >= NBR_LIVE || arena->checks >= MAX_CHECKS)
@@ -46,7 +48,6 @@ void	main_cycle(t_arena *arena, t_cursor *cursor)
             	arena->checks++;
         }
         arena->all_cycles++;
-        cursor = NULL;
     }
 }
 

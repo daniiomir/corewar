@@ -12,7 +12,8 @@
 
 #include "corewar.h"
 
-static int	next_operation_argument_code_type_case(t_cursor *cursor, int arg_type)
+static int	next_operation_argument_code_type_case(t_cursor *cursor,
+		int arg_type)
 {
 	int		num;
 
@@ -39,7 +40,7 @@ static int	next_operation_argument_code_type_case(t_cursor *cursor, int arg_type
 }
 
 int			next_operation_steps_calculation(t_cursor *cursor,
-														unsigned char arg_type)
+		unsigned char arg_type)
 {
 	int		num;
 	int		a;
@@ -68,10 +69,10 @@ int			next_operation_steps_calculation(t_cursor *cursor,
 	return (num);
 }
 
-void	cursor_operations_exec(t_cursor **cursor, t_arena *arena)
+void		cursor_operations_exec(t_cursor **cursor, t_arena *arena)
 {
-	t_cursor *wst;
-	
+	t_cursor	*wst;
+
 	wst = *cursor;
 	while (wst)
 	{
@@ -82,7 +83,8 @@ void	cursor_operations_exec(t_cursor **cursor, t_arena *arena)
 			wst->current_code = arena->memory[wst->current_position];
 			wst->dont_move = 0;
 			if (wst->current_code >= 0x01 && wst->current_code <= 0x10)
-				wst->cycles_remaining = op_tab[(int)wst->current_code].need_cycles;
+				wst->cycles_remaining =
+						op_tab[(int)wst->current_code].need_cycles;
 			else
 				wst->cycles_remaining = 0;
 		}
@@ -110,6 +112,8 @@ void		dead_cursor(t_cursor **cursor, t_cursor **start)
 		if (!((*cursor)->prev))
 		{
 			(*start) = (*cursor)->next;
+			if (*start)
+				(*start)->prev = NULL;
 			wst = (*cursor);
 			(*cursor) = (*cursor)->next;
 			free(wst);

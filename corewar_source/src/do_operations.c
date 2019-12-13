@@ -12,17 +12,27 @@
 
 #include "corewar.h"
 
-void	argument_code_type_check(int arg_code_type)
+static int	argument_code_type_check(int arg_code_type)
 {
-	arg_code_type = 0;
+	if (!arg_code_type) // TODO parse argument_code_type
+		return (0);
+	return (1);
 }
 
-void	do_operations(t_cursor *wst, t_arena *arena)
+static void	move_error_code(t_cursor *wst, t_arena *arena)
+{
+	wst->next_operation_steps = next_operation_steps_calculation(wst, arena->memory[wst->current_position + 1]);
+	wst->dont_move = 0;
+	wst->cycles_remaining = 0;
+}
+
+void		do_operations(t_cursor *wst, t_arena *arena)
 {
 	if (wst->current_code >= 0x01 && wst->current_code <= 0x10)
 	{
 		if (op_tab[(int)wst->current_code].argument_code_type)
-			argument_code_type_check(op_tab[(int)wst->current_code].argument_code_type);
+			if (!(argument_code_type_check(arena->memory[wst->current_position + 1])))
+				move_error_code(wst, arena);
 		wst->next_operation_steps = next_operation_steps_calculation(wst, arena->memory[wst->current_position + 1]);
 	}
 	else
