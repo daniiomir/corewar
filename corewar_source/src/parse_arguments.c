@@ -4,6 +4,8 @@ int is_champion_filename(char *filename)
 {
     size_t filename_len;
 
+	if (!filename)
+		print_error_and_exit("Champion filename is invalid", 40);
     filename_len = ft_strlen(filename);
     if (ft_strchr(filename, '.'))
     {
