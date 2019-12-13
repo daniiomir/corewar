@@ -24,12 +24,7 @@ void    parse_arguments(t_gstate *gstate, int argc, char **argv)
     while (argc > 0)
     {
         if (ft_strequ(*argv, "-n") || is_champion_filename(*argv))
-        {
 			parse_champion_file(gstate, &argc, &argv);
-			argc--;
-			argv++;
-			gstate->players_num++;
-        }
         else if (ft_strequ(*argv, "-dump"))
             parse_flag_dump(gstate, &argc, &argv);
         else if (ft_strequ(*argv, "-v"))
@@ -39,9 +34,7 @@ void    parse_arguments(t_gstate *gstate, int argc, char **argv)
     }
 
     if (gstate->players_num < 1 || gstate->players_num > MAX_PLAYERS)
-    {
         print_error_and_exit("Players amount less than 1 or more than 4", 45);
-    }
 }
 
 void print_usage()
