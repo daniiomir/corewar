@@ -25,6 +25,7 @@ void	main_cycle(t_arena *arena, t_cursor *cursor)
 
     while (cursor)
     {
+    	cursor_operations_exec(&cursor, arena);
         if (arena->all_cycles % arena->cycles_to_die == 0 || arena->cycles_to_die <= 0)
         {
         	wst = cursor;
@@ -73,7 +74,7 @@ void	main_alg(t_gstate *gstate)
 
 	arena = init_arena();
 	fill_champions_code(arena, gstate);
-	cursor = fill_cursors(gstate, arena);
+	cursor = fill_cursors(gstate);
 	init_battle(gstate);
 	print_arena(arena, cursor);
 	main_cycle(arena, cursor);

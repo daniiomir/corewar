@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main_alg.h"
 #include "corewar.h"
 #include <stdio.h>
 
@@ -79,7 +78,7 @@ static t_cursor		*init_cursor(int id, int reg)
 	return (cursor);
 }
 
-t_cursor			*fill_cursors(t_gstate *gstate, t_arena *arena)
+t_cursor			*fill_cursors(t_gstate *gstate)
 {
 	int 		order;
 	t_cursor	*next;
@@ -96,8 +95,7 @@ t_cursor			*fill_cursors(t_gstate *gstate, t_arena *arena)
 		next = init_cursor(a, a);
 		next->current_position = b;
 		next->next = curr;
-		next->current_code = arena->memory[b];
-		next->next_operation_steps = next_operation_steps_calculation(next, arena->memory[b + 1]);
+		next->dont_move = 1;
 		if (curr)
 			curr->prev = next;
 		curr = next;

@@ -86,6 +86,7 @@ typedef struct		s_arena
 **  current_position     - current cursor position.
 **  next_operation_steps - amount of bytes needed to skip to be on the next operation.
 **  reg                  - registers.
+**	dont_move            - flag that says that cursor don't need to move
 */
 
 typedef struct		s_cursor
@@ -98,6 +99,7 @@ typedef struct		s_cursor
 	int 			current_position;
 	int 			next_operation_steps;
 	int 			reg[REG_NUMBER];
+	int 			dont_move;
 	struct s_cursor *next;
 	struct s_cursor	*prev;
 }					t_cursor;
