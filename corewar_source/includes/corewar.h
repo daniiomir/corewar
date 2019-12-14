@@ -158,6 +158,7 @@ unsigned int	byte_shift(unsigned char *buff, int byte, int sign);
 
 t_gstate		*init_global_state(void);
 t_champ         *init_champion(int n_arg, int id);
+t_arena			*init_arena();
 
 /*
 ** ____________________________ Arguments Parsing _______________________________
@@ -185,7 +186,40 @@ void            check_header(int fd);
 
 void	        order_of_champs(t_gstate *gstate);
 
-# include "main_alg.h"
+/*
+** _________________________ Arena initiation __________________________________
+*/
+
+void			fill_champions_code(t_arena *arena, t_gstate *gstate);
+t_cursor		*fill_cursors(t_gstate *gstate);
+
+/*
+** _________________________ Main algorythm __________________________________
+*/
+
+void			main_alg(t_gstate *gstate);
+void			cursor_operations_exec(t_cursor **cursor, t_arena *arena);
+
+/*
+** _________________________ Graphic ______________________________
+*/
+
+void			print_arena(t_arena *arena, t_cursor *cursor);
+
+/*
+** _________________________ Memory erase ______________________________
+*/
+
+void			free_all(t_arena *arena);
+
+/*
+** _________________________ Cursor operations ______________________________
+*/
+
+void 			dead_cursor(t_cursor **cursor, t_cursor **start);
+int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
+void			do_operations(t_cursor *wst, t_arena *arena);
+void			exactly_do(int num);
 
 /*
 ** ______________________________ Error Number _________________________________

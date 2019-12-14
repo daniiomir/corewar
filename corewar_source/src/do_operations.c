@@ -12,31 +12,15 @@
 
 #include "corewar.h"
 
-static int	argument_code_type_check(unsigned char arg_code_type, t_op operation)
+static int 	check_registers() // TODO need to check if registers are valid (бля проверить короче валидны ли регистры ; я ебал на английском писать)
 {
-	unsigned char	check_arg[3];
-	int				a;
+	return (1);
+}
 
-	if (!arg_code_type) // TODO parse argument_code_type
-		return (0);
-	if ((arg_code_type & 3) != 0)
-		return (0);
-	if ((arg_code_type & 192) == 192)
-		check_arg[0] = T_IND;
-	else if ((arg_code_type & 128) == 128)
-		check_arg[0] = T_DIR;
-	else if ((arg_code_type & 64) == 64)
-		check_arg[0] = T_REG;
-	else
-		return (0);
-	if ((arg_code_type & 48) == 48)
-		check_arg[1] = T_IND;
-	else if ((arg_code_type & 32) == 32)
-		check_arg[1] = T_DIR;
-	else if ((arg_code_type & 16) == 16)
-		check_arg[1] = T_REG;
-	else
-		check_arg[1] = 0;
+static int	argument_code_type_check_ex(unsigned char arg_code_type, t_op operation, unsigned char check_arg[3])
+{
+	int 	a;
+
 	if ((arg_code_type & 12) == 12)
 		check_arg[2] = T_IND;
 	else if ((arg_code_type & 8) == 8)
@@ -62,9 +46,31 @@ static int	argument_code_type_check(unsigned char arg_code_type, t_op operation)
 	return (1);
 }
 
-static int 	check_registers() // TODO need to check if registers are valid (бля проверить короче валидны ли регистры ; я ебал на английском писать)
+static int	argument_code_type_check(unsigned char arg_code_type, t_op operation)
 {
-	return (1);
+	unsigned char	check_arg[3];
+
+	if (!arg_code_type)
+		return (0);
+	if ((arg_code_type & 3) != 0)
+		return (0);
+	if ((arg_code_type & 192) == 192)
+		check_arg[0] = T_IND;
+	else if ((arg_code_type & 128) == 128)
+		check_arg[0] = T_DIR;
+	else if ((arg_code_type & 64) == 64)
+		check_arg[0] = T_REG;
+	else
+		return (0);
+	if ((arg_code_type & 48) == 48)
+		check_arg[1] = T_IND;
+	else if ((arg_code_type & 32) == 32)
+		check_arg[1] = T_DIR;
+	else if ((arg_code_type & 16) == 16)
+		check_arg[1] = T_REG;
+	else
+		check_arg[1] = 0;
+	return (argument_code_type_check_ex(arg_code_type, operation, check_arg));
 }
 
 static void	move_error_code(t_cursor *wst, t_arena *arena)
@@ -72,12 +78,6 @@ static void	move_error_code(t_cursor *wst, t_arena *arena)
 	wst->next_operation_steps = next_operation_steps_calculation(wst, arena->memory[wst->current_position + 1]);
 	wst->dont_move = 0;
 	wst->cycles_remaining = 0;
-}
-
-static void	exactly_do(int num) // TODO need to EXACTLY! do operation with operation num added as argument
-{
-	num = 0;
-	return ;
 }
 
 void		do_operations(t_cursor *wst, t_arena *arena)
