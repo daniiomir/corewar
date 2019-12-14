@@ -218,8 +218,8 @@ void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 void 			dead_cursor(t_cursor **cursor, t_cursor **start);
 int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
-void			do_operations(t_cursor *wst, t_arena *arena);
-void			exactly_do(int num);
+void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursor);
+void			exactly_do(int num, t_cursor *wst, t_cursor **cursor, t_arena *arena);
 
 /*
 ** ______________________________ Error Number _________________________________

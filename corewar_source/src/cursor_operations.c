@@ -91,7 +91,7 @@ void		cursor_operations_exec(t_cursor **cursor, t_arena *arena)
 		if (wst->cycles_remaining > 0)
 			wst->cycles_remaining--;
 		if (wst->cycles_remaining == 0)
-			do_operations(wst, arena);  // TODO need to parse all operations and pastle them to this funct
+			do_operations(wst, arena, cursor);  // TODO need to parse all operations and pastle them to this funct
 		wst = wst->next;
 	}
 }

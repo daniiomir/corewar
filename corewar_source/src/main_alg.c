@@ -25,7 +25,6 @@ void	main_cycle(t_arena *arena, t_cursor **cursor)
 
     while (*cursor)
     {
-    	cursor_operations_exec(cursor, arena);
         if (arena->all_cycles % arena->cycles_to_die == 0 || arena->cycles_to_die <= 0)
         {
         	wst = *cursor;
@@ -47,6 +46,7 @@ void	main_cycle(t_arena *arena, t_cursor **cursor)
             else
             	arena->checks++;
         }
+		cursor_operations_exec(cursor, arena);
         arena->all_cycles++;
     }
 }
