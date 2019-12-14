@@ -76,6 +76,7 @@ static void	move_error_code(t_cursor *wst, t_arena *arena)
 
 static void	exactly_do(int num) // TODO need to EXACTLY! do operation with operation num added as argument
 {
+	num = 0;
 	return ;
 }
 
