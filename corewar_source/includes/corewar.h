@@ -119,15 +119,15 @@ typedef struct		s_cursor
 
 typedef struct	s_op
 {
-	int		op_code;
-	char	*op_name;
-	int		nbrarg;
-	char	arg[3]; // TODO: unsigned char
-	int		need_cycles;
-	char	*description;
-	int		argument_code_type;
-	int		change_carry;
-	int 	t_dir_size;
+	int				op_code;
+	char			*op_name;
+	int				nbrarg;
+	unsigned char	arg[3]; // TODO: unsigned char
+	int				need_cycles;
+	char			*description;
+	int				argument_code_type;
+	int				change_carry;
+	int 			t_dir_size;
 }				t_op;
 
 t_op			op_tab[17];
