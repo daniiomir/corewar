@@ -3,3 +3,5 @@
 CMakeLists.txt
 cmake-build-debug/
 examples/champs/
+*.o
+.vscode

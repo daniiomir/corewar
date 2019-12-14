@@ -20,9 +20,22 @@ FLAGS = -Wall -Wextra -Werror
 SRC_FOLDER = src
 OBJ_FOLDER = obj
 
-SRC_NAMES = main.c for_parsing_champ.c init_global_state.c parse_arguments.c \
-    parse_champion_file.c parse_flags.c parsing_champ.c print_error.c main_alg.c \
-    init_arena.c free_all.c cursor_operations.c visualisation.c op.c do_operations.c
+SRC_NAMES = main.c \
+			init.c \
+			parse_arguments.c \
+    		parse_flags.c \
+    		parse_champion_file.c \
+			read_and_check_champ_file.c \
+    		put_players_in_order.c \
+    		byte_shift.c \
+    		print_error.c \
+    		main_alg.c \
+    		init_arena.c \
+    		free_all.c \
+    		cursor_operations.c \
+    		visualisation.c \
+    		op.c \
+    		do_operations.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

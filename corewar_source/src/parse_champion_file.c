@@ -1,33 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_champ.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rrika <rrika@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/10 14:04:53 by rrika             #+#    #+#             */
+/*   Updated: 2019/12/10 14:04:53 by rrika            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/corewar.h"
 
-void	parse_champion_file(t_gstate *gstate, int *argc, char ***argv)
+t_champ	*parse_champion_file(int n_arg, int id, char *filename)
 {
-	int	champion_order;
+	int fd;
+	t_champ *player;
 
-	champion_order = 0;
-	if (ft_strequ(**argv, "-n"))
-		champion_order = parse_flag_n(argc, argv);
-	if (is_champion_filename(**argv))
-		gstate->all_players[gstate->players_num] = parse_champion(champion_order, **argv);
+	player = init_champion(n_arg, id);
+	if ((fd = open(filename, O_RDONLY)) <= 0)
+		print_error_and_exit(ft_strjoin("Cannot open file ", filename), 50);	// утечка
+	check_header(fd);
+	player->name = get_name_and_comment(fd, PROG_NAME_LENGTH);
+	miss_nulls(fd);
+	player->size = get_exec_code_size(fd);
+	player->comment = get_name_and_comment(fd, COMMENT_LENGTH);;
+	miss_nulls(fd);
+	player->code = get_exec_code(fd, player->size);
+	close(fd);
+	return (player);
 }
-
-
-/*
-int i = 0;
-		int g = 0;
-
-		char *all_champs = {champ1, 0, champ3, 0};
-		char queue[4] = {champ2, 0, champ4, 0};
-
-		while (i < gstate->players_num) {		// i = 1; players_num = 4
-			if (all_champs[g] == 0) {
-				g++;
-				continue ;
-			}
-
-			if (queue[i] != 0) {
-				i++;
-				continue ;
-			}
-			queue[i] = all_champs[g];
-		}*/

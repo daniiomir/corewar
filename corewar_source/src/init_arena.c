@@ -16,13 +16,10 @@
 t_arena		*init_arena()
 {
 	t_arena		*arena;
-	int 		a;
 
-	a = 0;
 	if (!(arena = (t_arena *)malloc(sizeof(t_arena))))
 		return (NULL);
-	while (a < MEM_SIZE)
-		arena->memory[a++] = 0x0;
+	ft_bzero(arena->memory, MEM_SIZE);
 	arena->last_live = 0;
 	arena->all_cycles = 0;
 	arena->recent_live = 0;
@@ -58,9 +55,7 @@ void		fill_champions_code(t_arena *arena, t_gstate *gstate)
 static t_cursor		*init_cursor(int id, int reg)
 {
 	t_cursor	*cursor;
-	int 		a;
 
-	a = 0;
 	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
 		return (NULL);
 	cursor->carry = 0;
@@ -72,8 +67,7 @@ static t_cursor		*init_cursor(int id, int reg)
 	cursor->prev = NULL;
 	cursor->next_operation_steps = 0;
 	cursor->id = id;
-	while (a < 16)
-		cursor->reg[a++] = 0;
+	ft_bzero(cursor->reg, 16);
 	cursor->reg[0] = -1 * reg;
 	return (cursor);
 }
