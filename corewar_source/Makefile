@@ -35,7 +35,8 @@ SRC_NAMES = main.c \
     		cursor_operations.c \
     		visualisation.c \
     		op.c \
-    		do_operations.c
+    		do_operations.c \
+    		exactly_do.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

@@ -210,7 +210,7 @@ void			print_arena(t_arena *arena, t_cursor *cursor);
 ** _________________________ Memory erase ______________________________
 */
 
-void			free_all(t_arena *arena);
+void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 /*
 ** _________________________ Cursor operations ______________________________

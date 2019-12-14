@@ -20,7 +20,18 @@ void		free_arena(t_arena *arena)
 	}
 }
 
-void		free_all(t_arena *arena)
+void		free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate)
 {
-	free_arena(arena);
+	if (arena)
+		free_arena(arena);
+	if (cursor)
+	{
+		while (cursor)
+		{
+			free(cursor);
+			cursor = cursor->next;
+		}
+	}
+	if (gstate)
+		free(gstate);
 }

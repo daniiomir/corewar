@@ -19,21 +19,21 @@ void	end_of_battle()
 	printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
-void	main_cycle(t_arena *arena, t_cursor *cursor)
+void	main_cycle(t_arena *arena, t_cursor **cursor)
 {
 	t_cursor	*wst;
 
-    while (cursor)
+    while (*cursor)
     {
-    	cursor_operations_exec(&cursor, arena);
+    	cursor_operations_exec(cursor, arena);
         if (arena->all_cycles % arena->cycles_to_die == 0 || arena->cycles_to_die <= 0)
         {
-        	wst = cursor;
+        	wst = *cursor;
             while (wst)
             {
                 if (arena->all_cycles - wst->last_live_cycle >= arena->cycles_to_die
                 || arena->cycles_to_die <= 0)
-                    dead_cursor(&wst, &cursor);
+                    dead_cursor(&wst, cursor);
                 if (!wst)
 					continue ;
 				wst = wst->next;
@@ -78,7 +78,7 @@ void	main_alg(t_gstate *gstate)
 	cursor = fill_cursors(gstate);
 	init_battle(gstate);
 	print_arena(arena, cursor);
-	main_cycle(arena, cursor);
+	main_cycle(arena, &cursor);
 	end_of_battle();
-	free_all(arena);
+	free_all(arena, cursor, gstate);
 }
