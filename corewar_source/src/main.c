@@ -20,4 +20,8 @@ int	main(int argc, char **argv)
 	parse_arguments(gstate, argc - 1, argv + 1);
 	order_of_champs(gstate);
 	main_alg(gstate);
+
+	/*
+	 * t_op->func(t_arena, t_cursor)
+	 * */
 }

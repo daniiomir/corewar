@@ -140,6 +140,7 @@ typedef struct	s_op
 	int				argument_code_type;
 	int				change_carry;
 	int 			t_dir_size;
+	void			(*func)(t_arena *, t_cursor *);
 }				t_op;
 
 t_op			op_tab[17];
