@@ -110,14 +110,15 @@ void	write_hex_to_pasm(t_pasm *pasm)
 	get_null_octets(pasm);
 	get_exec_size(pasm);
 	get_hex_champ_comment(pasm);
+	switch_labels_to_adress(pasm, pasm->code);
 	code_to_hex(pasm);
 }
 
-char	*new_filename(char *name)
+char	*new_filename(char *prev_name)
 {
 	char	*name;
 
-	name = ft_strsub(name, 0, ft_strlen(name) - 2);
+	name = ft_strsub(prev_name, 0, ft_strlen(prev_name) - 2);
 	name = ft_strjoin_free(name, ".cor");
 	return (name);
 }
@@ -130,8 +131,7 @@ void	write_hex_to_file(t_pasm *pasm, char *file_name)
 	new_name = new_filename(file_name);
 	fd = open(new_name, O_CREAT);
 	write_hex_to_pasm(pasm);
-	switch_labels_to_adress(pasm, pasm->code);
-	// write(fd, pasm->final_code, ft_strlen(pasm->final_code));
+	write_all_to_file(fd, pasm);
 	close(fd);
 	free(new_name);
 }

@@ -72,7 +72,6 @@ t_code			*create_code_line(void);
 t_hcode			*create_hex_struct(void);
 void			add_code_line(t_pasm *pasm, t_code *code_line);
 
-
 void			free_pasm(t_pasm *pasm);
 void			free_hex_struct(t_hcode *hex_code);
 void			free_code_lines(t_code *code_lines);
@@ -104,7 +103,11 @@ void			arg_three(t_pasm *pasm, t_code *code_line, char *arg3);
 char			*new_filename(char *name);
 void			write_hex_to_file(t_pasm *pasm, char *file_name);
 void			write_hex_to_pasm(t_pasm *pasm);
-void			write_all_to_final_code(t_pasm *pasm);
+void			write_in_hex(int fd, char *hex_string);
+void			write_in_hex_part1(char *s, char **bytecode, size_t len);
+void			write_in_hex_part2(char *s, char **bytecode, size_t len);
+void			write_all_to_file(int fd, t_pasm *pasm);
+// void			write_all_to_final_code(t_pasm *pasm);
 
 char			*get_nulls(int len);
 void			get_null_octets(t_pasm *pasm);
@@ -116,15 +119,15 @@ void			get_exec_size(t_pasm *pasm);
 void			code_to_hex(t_pasm *pasm);
 char 			*code_get_hex_op(char *op_code);
 char 			*code_get_hex_addcode(t_code *code_line);
-char 			*code_get_hex_arg1(t_code *code_line);
-char 			*code_get_hex_arg2(t_code *code_line);
-char 			*code_get_hex_arg3(t_code *code_line);
+char 			*code_get_hex_arg(t_pasm *pasm, t_code *code_line, char *argument, int arg_type);
+char 			*code_get_hex_arg_positive(t_pasm *pasm, t_code *code_line, char *arg, int arg_type);
+char 			*code_get_hex_arg_negative(t_code *code_line, char *argument, int arg_type);
 
 void			simple_error(char *error_text);
 void			error_exit(t_pasm *pasm, char *error_text);
 void			error_exit_line(t_pasm *pasm, char *error_text, int line_number);
 
 int 			ft_strchr_i(const char *s, int c);
-int				setbit(const int value, const int position);
+unsigned char	setbit(const unsigned char value, const int position);
 
 #endif

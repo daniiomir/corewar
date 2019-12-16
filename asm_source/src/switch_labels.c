@@ -62,19 +62,19 @@ void	switch_labels_to_adress(t_pasm *pasm, t_code *code)
 	{
 		if (check_is_label(ptr->arg1))
 		{
-			offset = switch_label(ptr, 1);
+			offset = switch_label(pasm, ptr, 1);
 			free(ptr->arg1);
 			ptr->arg1 = ft_itoa(offset);
 		}
 		if (check_is_label(ptr->arg2))
 		{
-			offset = switch_label(ptr, 2);
+			offset = switch_label(pasm, ptr, 2);
 			free(ptr->arg2);
 			ptr->arg2 = ft_itoa(offset);
 		}
 		if (check_is_label(ptr->arg3))
 		{
-			offset = switch_label(ptr, 3);
+			offset = switch_label(pasm, ptr, 3);
 			free(ptr->arg3);
 			ptr->arg3 = ft_itoa(offset);
 		}

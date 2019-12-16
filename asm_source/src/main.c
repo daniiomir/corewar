@@ -23,6 +23,7 @@ int		main(int argc, char **argv)
 		pasm = init_pasm();
 		parse_file(fd, pasm);
 		write_hex_to_file(pasm, argv[1]);
+		free_pasm(pasm);
 		close(fd);
 	}
 	else if (argc > 2)

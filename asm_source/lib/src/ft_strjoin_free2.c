@@ -19,6 +19,7 @@ char	*ft_strjoin_free2(char *s1, char *s2)
 	if (!s2)
 		return (s1);
 	result = ft_strjoin(s1, s2);
-	free(s2);
+	if (s2)
+		free(s2);
 	return (result);
 }
