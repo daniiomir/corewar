@@ -13,40 +13,52 @@
 #include "corewar.h"
 #include <stdio.h>
 
+static void update_arena_state(t_arena *arena)
+{
+	if (arena->lives_nbr >= NBR_LIVE || arena->checks >= MAX_CHECKS)
+	{
+		arena->cycles_to_die -= CYCLE_DELTA;
+		arena->checks = 0;
+		arena->lives_nbr = 0;
+	}
+	else
+		arena->checks++;
+}
+
+static void check_cursor_is_alive(t_arena *arena, t_cursor **cursors)
+{
+	t_cursor			*current;
+
+	current = (*cursors);
+	while (current)
+	{
+		if (arena->all_cycles - current->last_live_cycle >= arena->cycles_to_die)
+			kill_cursor(&current, cursors);
+		if (!current)
+			continue ;
+		current = current->next;
+	}
+}
+
 void	end_of_battle()
 {
 	printf("\e[1;1H\e[2J");
 	printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
-void	main_cycle(t_arena *arena, t_cursor **cursor)
+void	main_cycle(t_arena *arena, t_cursor **cursors)
 {
-	t_cursor	*wst;
+	static unsigned int	prev_check;
 
-    while (*cursor)
+    while (*cursors)
     {
-        if (arena->all_cycles % arena->cycles_to_die == 0 || arena->cycles_to_die <= 0)
+		cursor_operations_exec(arena, cursors);
+        if (arena->all_cycles - prev_check == arena->cycles_to_die || arena->cycles_to_die <= 0) //событие "проверка"
         {
-        	wst = *cursor;
-            while (wst)
-            {
-                if (arena->all_cycles - wst->last_live_cycle >= arena->cycles_to_die
-                || arena->cycles_to_die <= 0)
-                    dead_cursor(&wst, cursor);
-                if (!wst)
-					continue ;
-				wst = wst->next;
-            }
-            if (arena->recent_live >= NBR_LIVE || arena->checks >= MAX_CHECKS)
-			{
-				arena->cycles_to_die -= CYCLE_DELTA;
-				arena->checks = 0;
-				arena->recent_live = 0;
-			}
-            else
-            	arena->checks++;
+			check_cursor_is_alive(arena, cursors);
+			update_arena_state(arena);
+            prev_check = arena->all_cycles;
         }
-		cursor_operations_exec(cursor, arena);
         arena->all_cycles++;
     }
 }
@@ -65,20 +77,19 @@ void	init_battle(t_gstate *gstate)
 			   gstate->all_players[a]->comment);
 		a++;
 	}
-	sleep(1);
+//	sleep(1);
 }
 
 void	main_alg(t_gstate *gstate)
 {
 	t_arena		*arena;
-	t_cursor	*cursor;
+	t_cursor	*cursors;
 
 	arena = init_arena();
-	fill_champions_code(arena, gstate);
-	cursor = fill_cursors(gstate);
+	cursors = fill_arena_and_init_cursors(arena, gstate);
 	init_battle(gstate);
-	print_arena(arena, cursor);
-	main_cycle(arena, &cursor);
+	print_arena(arena, cursors);
+	main_cycle(arena, &cursors);
 	end_of_battle();
-	free_all(arena, cursor, gstate);
+	free_all(arena, cursors, gstate);
 }

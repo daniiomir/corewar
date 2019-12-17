@@ -29,3 +29,38 @@ t_champ		*init_champion(int n_arg, int id)
 	player->code = NULL;
 	return (player);
 }
+
+t_arena		*init_arena()
+{
+	t_arena		*arena;
+
+	if (!(arena = (t_arena *)malloc(sizeof(t_arena))))
+		return (NULL);
+	ft_bzero(arena->map, MEM_SIZE);
+	arena->last_live = 0;
+	arena->all_cycles = 0;
+	arena->lives_nbr = 0;
+	arena->cycles_to_die = CYCLE_TO_DIE;
+	arena->checks = 0;
+	arena->next_cursor_num = 0;
+	return (arena);
+}
+
+t_cursor		*init_cursor(int id, int reg)
+{
+	t_cursor	*cursor;
+
+	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
+		return (NULL);
+	cursor->carry = 0;
+	cursor->current_code = 0;
+	cursor->current_position = 0;
+	cursor->cycles_remaining = 0;
+	cursor->last_live_cycle = 0;
+	cursor->next = NULL;
+	cursor->next_operation_steps = 0;
+	cursor->id = id;
+	ft_bzero(cursor->reg, 16);
+	cursor->reg[0] = -1 * reg;
+	return (cursor);
+}

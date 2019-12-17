@@ -67,10 +67,10 @@ typedef struct	s_gstate
 /*
 ** _______________________________ Structure Definition _______________________________
 **
-**	memory	        - arena of memory, array of bytes.
+**	map	        - arena of map, array of bytes.
 **  last_live       - last player to say that he is alive.
 **  all_cycles      - number of cycles that have passed since the beginning of the game.
-**  recent_live     - number of live operations made by start of the last cycles_to_die.
+**  lives_nbr     	- number of live operations made by start of the last cycles_to_die.
 **  cycles_to_die   - duration before the next check.
 **  checks          - current number of checks performed.
 **	next_cursor_num - number that will be given to the next created cursor
@@ -78,10 +78,10 @@ typedef struct	s_gstate
 
 typedef struct		s_arena
 {
-	unsigned char 	memory[MEM_SIZE];
+	unsigned char 	map[MEM_SIZE];
 	int 			last_live;
 	int 			all_cycles;
-	int 			recent_live;
+	int 			lives_nbr;
 	int 			cycles_to_die;
 	int 			checks;
 	int 			next_cursor_num;
@@ -111,9 +111,7 @@ typedef struct		s_cursor
 	int 			current_position;
 	int 			next_operation_steps;
 	int 			reg[REG_NUMBER];
-	int 			dont_move;
 	struct s_cursor *next;
-	struct s_cursor	*prev;
 }					t_cursor;
 
 /*
@@ -160,6 +158,7 @@ unsigned int	byte_shift(unsigned char *buff, int byte, int sign);
 t_gstate		*init_global_state(void);
 t_champ         *init_champion(int n_arg, int id);
 t_arena			*init_arena();
+t_cursor		*init_cursor(int id, int reg);
 
 /*
 ** ____________________________ Arguments Parsing _______________________________
@@ -191,15 +190,14 @@ void	        order_of_champs(t_gstate *gstate);
 ** _________________________ Arena initiation __________________________________
 */
 
-void			fill_champions_code(t_arena *arena, t_gstate *gstate);
-t_cursor		*fill_cursors(t_gstate *gstate);
+t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 
 /*
 ** _________________________ Main algorythm __________________________________
 */
 
 void			main_alg(t_gstate *gstate);
-void			cursor_operations_exec(t_cursor **cursor, t_arena *arena);
+void			cursor_operations_exec(t_arena *arena, t_cursor **cursors);
 
 /*
 ** _________________________ Graphic ______________________________
@@ -217,16 +215,16 @@ void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 ** _________________________ Cursor operations ______________________________
 */
 
-void 			dead_cursor(t_cursor **cursor, t_cursor **start);
+void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
-void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursor);
-void			exactly_do(int num, t_cursor *wst, t_cursor **cursor, t_arena *arena);
+void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursors);
+void			exactly_do(t_cursor *wst, t_cursor **cursor, t_arena *arena);
 
 /*
 ** ______________________________ Error Number _________________________________
 **
 **	0  - no error.
-**	3  - memory does not allocated.
+**	3  - map does not allocated.
 **
 **	Arguments validation
 **	40 - champion filename is invalid.

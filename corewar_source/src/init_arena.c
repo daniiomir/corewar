@@ -13,88 +13,26 @@
 #include "corewar.h"
 #include <stdio.h>
 
-t_arena		*init_arena()
+t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 {
-	t_arena		*arena;
+	int 		step;
+	int 		first_pos;
+	int 		i;
+	t_cursor	*current;
+	t_cursor	*first_cursor;
 
-	if (!(arena = (t_arena *)malloc(sizeof(t_arena))))
-		return (NULL);
-	ft_bzero(arena->memory, MEM_SIZE);
-	arena->last_live = 0;
-	arena->all_cycles = 0;
-	arena->recent_live = 0;
-	arena->cycles_to_die = CYCLE_TO_DIE;
-	arena->checks = 0;
-	arena->next_cursor_num = 0;
-	return (arena);
-}
-
-void		fill_champions_code(t_arena *arena, t_gstate *gstate)
-{
-	int 	order;
-	int 	a;
-	int 	b;
-	int 	c;
-	int 	d;
-
-	order = MEM_SIZE / gstate->players_num;
-	c = 0;
-	a = 0;
-	while(c < gstate->players_num)
+	step = MEM_SIZE / gstate->players_num;
+	first_pos = 0;
+	i = 0;
+	while (i < gstate->players_num)
 	{
-		b = 0;
-		d = a;
-		while (b < gstate->all_players[c]->size)
-			arena->memory[a++] = gstate->all_players[c]->code[b++];
-		c++;
-		a = d;
-		a += order;
+		ft_memcpy(arena->map + first_pos, gstate->all_players[i]->code, gstate->all_players[i]->size);
+		current = init_cursor(i + 1, i + 1);
+		current->current_position = first_pos;
+		current->next = first_cursor;
+		first_cursor = current;
+		first_pos += step;
+		i++;
 	}
-}
-
-static t_cursor		*init_cursor(int id, int reg)
-{
-	t_cursor	*cursor;
-
-	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
-		return (NULL);
-	cursor->carry = 0;
-	cursor->current_code = 0;
-	cursor->current_position = 0;
-	cursor->cycles_remaining = 0;
-	cursor->last_live_cycle = 0;
-	cursor->next = NULL;
-	cursor->prev = NULL;
-	cursor->next_operation_steps = 0;
-	cursor->id = id;
-	ft_bzero(cursor->reg, 16);
-	cursor->reg[0] = -1 * reg;
-	return (cursor);
-}
-
-t_cursor			*fill_cursors(t_gstate *gstate)
-{
-	int 		order;
-	t_cursor	*next;
-	t_cursor	*curr;
-	int 		a;
-	int 		b;
-
-	order = MEM_SIZE / gstate->players_num;
-	b = 0;
-	a = 1;
-	curr = NULL;
-	while (a <= gstate->players_num)
-	{
-		next = init_cursor(a, a);
-		next->current_position = b;
-		next->next = curr;
-		next->dont_move = 1;
-		if (curr)
-			curr->prev = next;
-		curr = next;
-		b += order;
-		a++;
-	}
-	return (curr);
+	return (first_cursor);
 }

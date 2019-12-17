@@ -46,11 +46,11 @@ void		print_arena(t_arena *arena, t_cursor *cursor)
 	while (a < MEM_SIZE)
 	{
 		b = fill_color_cursor(cursor, a);
-		printf("%02x ", arena->memory[a++]);
+		printf("%02x ", arena->map[a++]);
 		if (b)
 			printf("\033[0m");
 		if (a % 64 == 0)
 			printf("\n");
 	}
-	sleep(1);
+//	sleep(1);
 }
