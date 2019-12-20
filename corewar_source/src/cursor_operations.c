@@ -18,29 +18,28 @@ static int	next_operation_argument_code_type_case(t_cursor *cursor,
 	int		num;
 
 	num = 0;
-	if (arg_type & 192)
+	if ((arg_type & 192) == 192)
 		num += T_IND_SIZE;
-	else if (arg_type & 128)
+	else if ((arg_type & 128) == 128)
 		num += op_tab[(int)cursor->current_code].t_dir_size;
-	else if (arg_type & 64)
+	else if ((arg_type & 64) == 62)
 		num += T_REG_SIZE;
-	if (arg_type & 48)
+	if ((arg_type & 48) == 48)
 		num += T_IND_SIZE;
-	else if (arg_type & 32)
+	else if ((arg_type & 32) == 32)
 		num += op_tab[(int)cursor->current_code].t_dir_size;
-	else if (arg_type & 16)
+	else if ((arg_type & 16) == 16)
 		num += T_REG_SIZE;
-	if (arg_type & 12)
+	if ((arg_type & 12) == 12)
 		num += T_IND_SIZE;
-	else if (arg_type & 8)
+	else if ((arg_type & 8) == 8)
 		num += op_tab[(int)cursor->current_code].t_dir_size;
-	else if (arg_type & 4)
+	else if ((arg_type & 4) == 4)
 		num += T_REG_SIZE;
 	return (num);
 }
 
-int			next_operation_steps_calculation(t_cursor *cursor,
-		unsigned char arg_type)
+int			next_operation_steps_calculation(t_cursor *cursor, unsigned char arg_type)
 {
 	int		num;
 	int		a;

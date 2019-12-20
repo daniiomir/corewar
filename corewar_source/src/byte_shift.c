@@ -1,12 +1,14 @@
 #include "../includes/corewar.h"
 
-unsigned int	byte_shift(unsigned char *buff, int byte, int sign)
+unsigned int	byte_shift(unsigned char *buff, int byte)
 {
+	int				sign;
 	unsigned int	i;
 	int				j;
 
 	i = 0;
 	j = 0;
+	sign = (buff[0] >> 7) & 0x1;
 	while (byte > 0)
 	{
 		if (sign)
@@ -14,6 +16,8 @@ unsigned int	byte_shift(unsigned char *buff, int byte, int sign)
 		else
 			i += (buff[--byte] << (j++ * 8));
 	}
+	if (sign)
+		i = ~(i);
 	return (i);
 /*    if (sign)
         i = ((buff[0] ^ 0xff) << 24) | ((buff[1] ^ 0xff) << 16) | ((buff[2] ^ 0xff) << 8) | (buff[3] ^ 0xff);

@@ -15,7 +15,6 @@
 void			check_header(int fd)
 {
 	int				size;
-	int				sign;
 	unsigned int	magic_header;
 	unsigned char	buff[4];
 
@@ -24,10 +23,7 @@ void			check_header(int fd)
 		print_error_and_exit("Cannot read file", 51);
 	if (size < 4)
 		print_error_and_exit("Wrong magic header", 52);
-	sign = (buff[0] >> 7) & 0x1;		//	TODO: переменстить это в byte_shift
-	magic_header = byte_shift(buff, 4, sign);
-	if (sign)
-		magic_header = ~(magic_header);
+	magic_header = byte_shift(buff, 4);
 	if (magic_header != COREWAR_EXEC_MAGIC)
 		print_error_and_exit("Wrong magic header", 52);
 }

@@ -149,7 +149,7 @@ t_op			op_tab[17];
 
 void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
-unsigned int	byte_shift(unsigned char *buff, int byte, int sign);
+unsigned int	byte_shift(unsigned char *buff, int byte);
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -219,6 +219,12 @@ void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
 void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursors);
 void			exactly_do(t_cursor *wst, t_cursor **cursor, t_arena *arena);
+
+/*
+** ______________________________ Operations ___________________________________
+*/
+int				get_arg(t_arena *arena, t_cursor *cursor, int current_position, int mod);
+void			op_ld(t_arena *arena, t_cursor *cursor);
 
 /*
 ** ______________________________ Error Number _________________________________

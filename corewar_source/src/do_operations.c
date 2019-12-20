@@ -30,13 +30,14 @@ static unsigned char	check_arg_fill(unsigned char arg_code_type, int buff)
 int 	check_type(unsigned char *args_type, t_cursor *wst, t_arena *arena, t_op operation)
 {
 	int i;
-	int nbrarg;
+	int nbr_arg;
 	int index;
 
 	i = 0;
-	nbrarg = 0;
+	nbr_arg = 0;
 	index = wst->current_position + 2;
-	while (i < operation.nbrarg) {
+	while (i < operation.nbrarg)
+	{
 		if (args_type[i] & operation.arg[i])
 		{
 			if (args_type[i] == REG_CODE)
@@ -49,11 +50,11 @@ int 	check_type(unsigned char *args_type, t_cursor *wst, t_arena *arena, t_op op
 				index += operation.t_dir_size;
 			if (args_type[i] == IND_CODE)
 				index += 2;
-			nbrarg++;
+			nbr_arg++;
 			i++;
 		}
 	}
-	if (nbrarg != operation.nbrarg)
+	if (nbr_arg != operation.nbrarg)
 		return (0);
 	wst->next_operation_steps = index;
 	return (1);
@@ -62,7 +63,7 @@ int 	check_type(unsigned char *args_type, t_cursor *wst, t_arena *arena, t_op op
 static int	argument_code_type_check(t_cursor *wst, t_arena *arena, unsigned char args_type_code, t_op operation)
 {
 	int	i;
-	unsigned char args_type[operation.nbrarg];
+	unsigned char args_type[operation.nbrarg];//todo: по-норме выделить память
 	unsigned char byte_shift;
 
 	i = 0;
