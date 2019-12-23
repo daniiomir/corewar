@@ -96,9 +96,8 @@ typedef struct		s_arena
 **  last_live_cycle      - last cycle in which the last operation "live" was completed.
 **  cycles_remaining     - number of cycles needed to do the remaining operation.
 **  current_position     - current cursor position.
-**  next_operation_steps - amount of bytes needed to skip to be on the next operation.
+**  next_op_steps - amount of bytes needed to skip to be on the next operation.
 **  reg                  - registers.
-**	dont_move            - flag that says that cursor don't need to move
 */
 
 typedef struct		s_cursor
@@ -109,8 +108,9 @@ typedef struct		s_cursor
 	int 			last_live_cycle;
 	int 			cycles_remaining;
 	int 			current_position;
-	int 			next_operation_steps;
+	int 			next_op_steps;
 	int 			reg[REG_NUMBER];
+	unsigned char	args[3];
 	struct s_cursor *next;
 }					t_cursor;
 
@@ -123,7 +123,7 @@ typedef struct		s_cursor
 **  last_live_cycle      - last cycle in which the last operation "live" was completed.
 **  cycles_remaining     - number of cycles needed to do the remaining operation.
 **  current_position     - current cursor position.
-**  next_operation_steps - amount of bytes needed to skip to be on the next operation.
+**  next_op_steps - amount of bytes needed to skip to be on the next operation.
 **  reg                  - registers.
 */
 
@@ -138,7 +138,7 @@ typedef struct	s_op
 	int				argument_code_type;
 	int				change_carry;
 	int 			t_dir_size;
-	void			(*func)(t_arena *, t_cursor *);
+//	void			(*func)(t_arena *, t_cursor *);
 }				t_op;
 
 t_op			op_tab[17];
@@ -149,7 +149,7 @@ t_op			op_tab[17];
 
 void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
-unsigned int	byte_shift(unsigned char *buff, int byte);
+int byte_shift(unsigned char *buff, int byte);
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -217,8 +217,7 @@ void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
-void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursors);
-void			exactly_do(t_cursor *wst, t_cursor **cursor, t_arena *arena);
+void 			do_operation(t_cursor *wst, t_arena *arena);
 
 /*
 ** ______________________________ Operations ___________________________________

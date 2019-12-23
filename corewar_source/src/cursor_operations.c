@@ -84,7 +84,7 @@ void		cursor_operations_exec(t_arena *arena, t_cursor **cursors)
 		if (wst->cycles_remaining > 0)
 			wst->cycles_remaining--;
 		if (wst->cycles_remaining == 0)
-			do_operations(wst, arena, cursors);
+			do_operation(wst, arena);
 		wst = wst->next;
 	}
 }

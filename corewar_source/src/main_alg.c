@@ -48,7 +48,7 @@ void	end_of_battle()
 
 void	main_cycle(t_arena *arena, t_cursor **cursors)
 {
-	static unsigned int	prev_check;
+	static int	prev_check;
 
     while (*cursors)
     {

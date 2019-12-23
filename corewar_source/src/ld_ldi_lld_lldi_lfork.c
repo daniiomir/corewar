@@ -11,3 +11,8 @@ void	op_ld(t_arena *arena, t_cursor *cursor)
 	cursor->reg[INDEX(arg2)] = arg1;
 	cursor->carry = (arg1 != 0) ? 1 : 0;
 }
+
+void	op_ldi(t_arena *arena, t_cursor *cursor)
+{
+	
+}
