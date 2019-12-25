@@ -110,7 +110,7 @@ void	add_code_line(t_pasm *pasm, t_code *code_line)
 	else
 	{
 		code_ptr = pasm->code;
-		while (code_ptr->next)
+		while (code_ptr)
 		{
 			prev = code_ptr;
 			code_ptr = code_ptr->next;

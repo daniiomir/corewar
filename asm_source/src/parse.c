@@ -12,30 +12,25 @@
 
 #include "asm.h"
 
-void	check_for_op_after_label(t_pasm *pasm, char *line,
-	int line_number, int label_char_pos)
+int		check_for_op_after_label(char *line, int label_char_pos)
 {
-	int		i;
-	char 	**check;
+	// int		i;
+	// char 	**check;
 
-	check = ft_strsplit(line, ' ');
-	if (check[1])
-	{
-		i = 0;
-		while (check[i])
-			free(check[i++]);
-		free(check);
-		error_exit_line(pasm,
-			"line after label has operation or characters", line_number);
-	}
-	free(check[0]);
-	free(check);
+//	check = ft_strsplit(line, ' ');
+//	if (check[1])
+//	{
+//		i = 0;
+//		while (check[i])
+//			free(check[i++]);
+//		free(check);
+//		return (1);
+//	}
+//	free(check[0]);
+//	free(check);
 	if (line[label_char_pos + 1])
-	{
-		if (ft_isalnum(line[label_char_pos + 1]))
-			error_exit_line(pasm,
-				"line after label has operation or characters", line_number);
-	}
+		return (1);
+	return (0);
 }
 
 char 	*label_check(t_pasm *pasm, char *line, int line_number)
@@ -50,12 +45,11 @@ char 	*label_check(t_pasm *pasm, char *line, int line_number)
 	// 		line_number);
 	if ((label_char_pos = ft_strchr_i(line, LABEL_CHAR)) == -1)
 		return (NULL);
-	if (!ft_isalpha(line[label_char_pos - 1]))
+	if (!ft_isalpha(line[label_char_pos - 1]) && (line[0] == ' ' || line[0] == '\t'))
 		return (NULL);
-	check_for_op_after_label(pasm, line, line_number, label_char_pos);
 	label = ft_strsub(line, 0, label_char_pos);
 	if (!check_legal_chars(label, LABEL_CHARS))
-		error_exit_line(pasm, "not ASCII characters in label",
+		error_exit_line(pasm, NULL, "not ASCII characters in label",
 			line_number);
 	return (label);
 }
@@ -91,8 +85,19 @@ void	parse_file(int fd, t_pasm *pasm)
 		if (ret < 0)
 			simple_error("corrupted file.");
 		line = check_comm(line);
-		if ((label = label_check(pasm, line, line_number))
-			|| !line)
+		if (!label && line_number > 2 && ft_strlen(line) && line[0] != '\t' && line[0] != ' ')
+		{
+			label = label_check(pasm, line, line_number);
+			if (check_for_op_after_label(line, ft_strchr_i(line, LABEL_CHAR)))
+				line = get_new_line_after_label(&line);
+			else
+			{
+				free(line);
+                line_number++;
+				continue ;
+			}
+		}
+		if (ft_strlen(line) == 0)
 		{
 			free(line);
 			line_number++;

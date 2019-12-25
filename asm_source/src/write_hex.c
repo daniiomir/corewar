@@ -28,7 +28,7 @@ void	get_magic_header(t_pasm *pasm)
 	char	*magic_header;
 
 	magic_header = ft_strlower(ft_itoa_base(COREWAR_EXEC_MAGIC, 16));
-	magic_header = ft_strjoin_free2(get_nulls(2), magic_header);
+	magic_header = ft_strjoin_free_all(get_nulls(2), magic_header);
 	pasm->hex_code->magic_header = magic_header;
 }
 
@@ -46,7 +46,7 @@ void	get_exec_size(t_pasm *pasm)
 		code_size += temp->size;
 		temp = temp->next;
 	}
-	hex_code_size = ft_itoa_base(code_size, 16);
+	hex_code_size = ft_strlower(ft_itoa_base(code_size, 16));
 	len = (int)ft_strlen(hex_code_size);
 	if (len < 8)
 		hex_code_size = ft_strjoin_free_all(get_nulls(8 - len), hex_code_size);
@@ -66,14 +66,14 @@ void	get_hex_champ_comment(t_pasm *pasm)
 	hex_champ_comm = ft_strnew(0);
 	while (pasm->comment[i])
 	{
-		hex_champ_comm = ft_strjoin_free(hex_champ_comm,
+		hex_champ_comm = ft_strjoin_free_all(hex_champ_comm,
 			ft_strlower(ft_itoa_base(pasm->comment[i], 16)));
 		i++;
 	}
 	len = (int)ft_strlen(hex_champ_comm);
-	if (len < 128 * 2)
+	if (len < 2048 * 2)
 	{
-		null_len = 128 * 2 - len;
+		null_len = 2048 * 2 - len;
 		hex_champ_comm = ft_strjoin_free_all(hex_champ_comm, get_nulls(null_len));
 	}
 	pasm->hex_code->champion_comment = hex_champ_comm;
@@ -90,7 +90,7 @@ void	get_hex_champ_name(t_pasm *pasm)
 	hex_champ_name = ft_strnew(0);
 	while (pasm->champion_name[i])
 	{
-		hex_champ_name = ft_strjoin_free(hex_champ_name,
+		hex_champ_name = ft_strjoin_free_all(hex_champ_name,
 			ft_strlower(ft_itoa_base(pasm->champion_name[i], 16)));
 		i++;
 	}
@@ -129,9 +129,14 @@ void	write_hex_to_file(t_pasm *pasm, char *file_name)
 	char	*new_name;
 
 	new_name = new_filename(file_name);
-	fd = open(new_name, O_CREAT);
+	fd = open(new_name, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+	    error_exit(pasm, "can't create file!");
 	write_hex_to_pasm(pasm);
 	write_all_to_file(fd, pasm);
 	close(fd);
+    ft_putendl("Translation of your champion finished!");
+    ft_putstr("Bytecode of champion has written in ");
+    ft_putendl(new_name);
 	free(new_name);
 }

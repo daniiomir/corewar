@@ -27,8 +27,11 @@ void	error_exit(t_pasm *pasm, char *error_text)
 	exit(1);
 }
 
-void	error_exit_line(t_pasm *pasm, char *error_text, int line_number)
+void	error_exit_line(t_pasm *pasm, t_code *code_line,
+		char *error_text, int line_number)
 {
+	if (code_line)
+		ft_putchar('\0');
 	ft_putstr("Error: line - ");
 	ft_putnbr(line_number);
 	ft_putstr(", ");

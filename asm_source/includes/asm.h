@@ -104,9 +104,10 @@ char			*new_filename(char *name);
 void			write_hex_to_file(t_pasm *pasm, char *file_name);
 void			write_hex_to_pasm(t_pasm *pasm);
 void			write_in_hex(int fd, char *hex_string);
-void			write_in_hex_part1(char *s, char **bytecode, size_t len);
-void			write_in_hex_part2(char *s, char **bytecode, size_t len);
+//void			write_in_hex_part1(char *s, unsigned char **bytecode, size_t len);
+//void			write_in_hex_part2(char *s, unsigned char **bytecode, size_t len);
 void			write_all_to_file(int fd, t_pasm *pasm);
+unsigned char	hex_part(char chr);
 // void			write_all_to_final_code(t_pasm *pasm);
 
 char			*get_nulls(int len);
@@ -125,9 +126,12 @@ char 			*code_get_hex_arg_negative(t_code *code_line, char *argument, int arg_ty
 
 void			simple_error(char *error_text);
 void			error_exit(t_pasm *pasm, char *error_text);
-void			error_exit_line(t_pasm *pasm, char *error_text, int line_number);
+void			error_exit_line(t_pasm *pasm, t_code *code_line, char *error_text, int line_number);
 
 int 			ft_strchr_i(const char *s, int c);
 unsigned char	setbit(const unsigned char value, const int position);
+int 			len_of_cmd_names(t_pasm *pasm, char *line, int value);
+char 			*get_new_line_after_label(char **line);
+int				check_for_op_after_label(char *line, int label_char_pos);
 
 #endif

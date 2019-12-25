@@ -59,6 +59,8 @@ int		check_is_label(char *arg)
 {
 	int		i;
 
+	if (!arg)
+	    return (0);
 	i = 0;
 	while (arg[i])
 	{

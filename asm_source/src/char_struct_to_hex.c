@@ -12,41 +12,42 @@
 
 #include "asm.h"
 
-#define CHAR00	0000 0000
+#define CHAR00	0b00000000
 
-#define CHAR01	0000 0001
-#define CHAR02	0000 0010
-#define CHAR03	0000 0011
-#define CHAR04	0000 0100
-#define CHAR05	0000 0101
-#define CHAR06	0000 0110
-#define CHAR07	0000 0111
-#define CHAR08	0000 1000
-#define CHAR09	0000 1001
-#define CHAR0A	0000 1010
-#define CHAR0B	0000 1011
-#define CHAR0C	0000 1100
-#define CHAR0D	0000 1101
-#define CHAR0E	0000 1110
-#define CHAR0F	0000 1111
+#define CHAR01	0b00000001
+#define CHAR02	0b00000010
+#define CHAR03	0b00000011
+#define CHAR04	0b00000100
+#define CHAR05	0b00000101
+#define CHAR06	0b00000110
+#define CHAR07	0b00000111
+#define CHAR08	0b00001000
+#define CHAR09	0b00001001
+#define CHAR0A	0b00001010
+#define CHAR0B	0b00001011
+#define CHAR0C	0b00001100
+#define CHAR0D	0b00001101
+#define CHAR0E	0b00001110
+#define CHAR0F	0b00001111
 
-#define CHAR10	0001 0000
-#define CHAR20	0010 0000
-#define CHAR30	0011 0000
-#define CHAR40	0100 0000
-#define CHAR50	0101 0000
-#define CHAR60	0110 0000
-#define CHAR70	0111 0000
-#define CHAR80	1000 0000
-#define CHAR90	1001 0000
-#define CHARA0	1010 0000
-#define CHARB0	1011 0000
-#define CHARC0	1100 0000
-#define CHARD0	1101 0000
-#define CHARE0	1110 0000
-#define CHARF0	1111 0000
-        
 /*
+#define CHAR10	0b00010000
+#define CHAR20	0b00100000
+#define CHAR30	0b00110000
+#define CHAR40	0b01000000
+#define CHAR50	0b01010000
+#define CHAR60	0b01100000
+#define CHAR70	0b01110000
+#define CHAR80	0b10000000
+#define CHAR90	0b10010000
+#define CHARA0	0b10100000
+#define CHARB0	0b10110000
+#define CHARC0	0b11000000
+#define CHARD0	0b11010000
+#define CHARE0	0b11100000
+#define CHARF0	0b11110000
+        
+
         Char *str = "010000000f";
         int len = ft_strlen(str) / 2; //10/2 = 5
         unsingned char *byte_code[len]; //5 элементов
@@ -65,9 +66,9 @@
             }
             i++;
         }
-*/
 
-void	write_in_hex_part1(char *s, char **bytecode, size_t len)
+
+void	write_in_hex_part1(char *s, unsigned char **bytecode, size_t len)
 {
 	size_t	i;
 
@@ -76,41 +77,41 @@ void	write_in_hex_part1(char *s, char **bytecode, size_t len)
 	{
 		if (s[i * 2] == '0')
 			(*bytecode)[i] |= CHAR00;
-		else if (s[i * 2] == '1')
+		else if (s[i * 2 + 1] == '1')
 			(*bytecode)[i] |= CHAR01;
-		else if (s[i * 2] == '2')
+		else if (s[i * 2 + 1] == '2')
 			(*bytecode)[i] |= CHAR02;
-		else if (s[i * 2] == '3')
+		else if (s[i * 2 + 1] == '3')
 			(*bytecode)[i] |= CHAR03;
-		else if (s[i * 2] == '4')
+		else if (s[i * 2 + 1] == '4')
 			(*bytecode)[i] |= CHAR04;
-		else if (s[i * 2] == '5')
+		else if (s[i * 2 + 1] == '5')
 			(*bytecode)[i] |= CHAR05;
-		else if (s[i * 2] == '6')
+		else if (s[i * 2 + 1] == '6')
 			(*bytecode)[i] |= CHAR06;
-		else if (s[i * 2] == '7')
+		else if (s[i * 2 + 1] == '7')
 			(*bytecode)[i] |= CHAR07;
-		else if (s[i * 2] == '8')
+		else if (s[i * 2 + 1] == '8')
 			(*bytecode)[i] |= CHAR08;
-		else if (s[i * 2] == '9')
+		else if (s[i * 2 + 1] == '9')
 			(*bytecode)[i] |= CHAR09;
-		else if (s[i * 2] == 'a')
+		else if (s[i * 2 + 1] == 'a')
 			(*bytecode)[i] |= CHAR0A;
-		else if (s[i * 2] == 'b')
+		else if (s[i * 2 + 1] == 'b')
 			(*bytecode)[i] |= CHAR0B;
-		else if (s[i * 2] == 'c')
+		else if (s[i * 2 + 1] == 'c')
 			(*bytecode)[i] |= CHAR0C;
-		else if (s[i * 2] == 'd')
+		else if (s[i * 2 + 1] == 'd')
 			(*bytecode)[i] |= CHAR0D;
-		else if (s[i * 2] == 'e')
+		else if (s[i * 2 + 1] == 'e')
 			(*bytecode)[i] |= CHAR0E;
-		else if (s[i * 2] == 'f')
+		else if (s[i * 2 + 1] == 'f')
 			(*bytecode)[i] |= CHAR0F;
 		i++;
 	}
 }
 
-void	write_in_hex_part2(char *s, char **bytecode, size_t len)
+void	write_in_hex_part2(char *s, unsigned char **bytecode, size_t len)
 {
 	size_t	i;
 
@@ -119,38 +120,78 @@ void	write_in_hex_part2(char *s, char **bytecode, size_t len)
 	{
 		if (s[i * 2 + 1] == '0')
 			(*bytecode)[i] |= CHAR00;
-		else if (s[i * 2 + 1] == '1')
+		else if (s[i * 2] == '1')
 			(*bytecode)[i] |= CHAR10;
-		else if (s[i * 2 + 1] == '2')
+		else if (s[i * 2] == '2')
 			(*bytecode)[i] |= CHAR20;
-		else if (s[i * 2 + 1] == '3')
+		else if (s[i * 2] == '3')
 			(*bytecode)[i] |= CHAR30;
-		else if (s[i * 2 + 1] == '4')
+		else if (s[i * 2] == '4')
 			(*bytecode)[i] |= CHAR40;
-		else if (s[i * 2 + 1] == '5')
+		else if (s[i * 2] == '5')
 			(*bytecode)[i] |= CHAR50;
-		else if (s[i * 2 + 1] == '6')
+		else if (s[i * 2] == '6')
 			(*bytecode)[i] |= CHAR60;
-		else if (s[i * 2 + 1] == '7')
+		else if (s[i * 2] == '7')
 			(*bytecode)[i] |= CHAR70;
-		else if (s[i * 2 + 1] == '8')
+		else if (s[i * 2] == '8')
 			(*bytecode)[i] |= CHAR80;
-		else if (s[i * 2 + 1] == '9')
+		else if (s[i * 2] == '9')
 			(*bytecode)[i] |= CHAR90;
-		else if (s[i * 2 + 1] == 'a')
+		else if (s[i * 2] == 'a')
 			(*bytecode)[i] |= CHARA0;
-		else if (s[i * 2 + 1] == 'b')
+		else if (s[i * 2] == 'b')
 			(*bytecode)[i] |= CHARB0;
-		else if (s[i * 2 + 1] == 'c')
+		else if (s[i * 2] == 'c')
 			(*bytecode)[i] |= CHARC0;
-		else if (s[i * 2 + 1] == 'd')
+		else if (s[i * 2] == 'd')
 			(*bytecode)[i] |= CHARD0;
-		else if (s[i * 2 + 1] == 'e')
+		else if (s[i * 2] == 'e')
 			(*bytecode)[i] |= CHARE0;
-		else if (s[i * 2 + 1] == 'f')
+		else if (s[i * 2] == 'f')
 			(*bytecode)[i] |= CHARF0;
 		i++;
 	}
+}
+*/
+unsigned char	hex_part(char chr)
+{
+    unsigned char bytecode;
+
+    bytecode = 0;
+    if (chr == '0')
+        bytecode = CHAR00;
+    else if (chr == '1')
+        bytecode = CHAR01;
+    else if (chr == '2')
+        bytecode = CHAR02;
+    else if (chr == '3')
+        bytecode = CHAR03;
+    else if (chr == '4')
+        bytecode = CHAR04;
+    else if (chr == '5')
+        bytecode = CHAR05;
+    else if (chr == '6')
+        bytecode = CHAR06;
+    else if (chr == '7')
+        bytecode = CHAR07;
+    else if (chr == '8')
+        bytecode = CHAR08;
+    else if (chr == '9')
+        bytecode = CHAR09;
+    else if (chr == 'a')
+        bytecode = CHAR0A;
+    else if (chr == 'b')
+        bytecode = CHAR0B;
+    else if (chr == 'c')
+        bytecode = CHAR0C;
+    else if (chr == 'd')
+        bytecode = CHAR0D;
+    else if (chr == 'e')
+        bytecode = CHAR0E;
+    else if (chr == 'f')
+        bytecode = CHAR0F;
+    return (bytecode);
 }
 
 void	write_in_hex(int fd, char *hex_string)
@@ -160,9 +201,16 @@ void	write_in_hex(int fd, char *hex_string)
 
 	len = ft_strlen(hex_string) / 2;
 	bytecode = (unsigned char *)malloc(sizeof(unsigned char) * len);
-	ft_strset(bytecode, len, 0);
-	write_in_hex_part1(hex_string, bytecode, len);
-	write_in_hex_part2(hex_string, bytecode, len);
+	ft_strset((char *)bytecode, len, 0);
+    size_t	i;
+
+    i = 0;
+    while (i < len)
+    {
+        bytecode[i] = hex_part(hex_string[i * 2]) << 4;
+        bytecode[i] |= hex_part(hex_string[i * 2 + 1]);
+        i++;
+    }
 	write(fd, bytecode, len);
 	free(bytecode);
 }

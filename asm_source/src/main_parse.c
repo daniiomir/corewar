@@ -20,7 +20,7 @@ void	label_to_code_line(t_code *code_line, char **label)
 	{
 		for_struct = ft_strdup(*label);
 		code_line->label_name = for_struct;
-		free(label);
+		free(*label);
 		*label = NULL;
 	}
 }
@@ -31,11 +31,11 @@ int		op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
 	char	*op;
 
 	i = 0;
-	while (line[i] != ' ' && line[i] != '\0')
+	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
 		i++;
 	op = ft_strsub(line, 0, i);
 	if (!check_for_op_name(op))
-		error_exit_line(pasm, "wrong operation name.", code_line->line);
+		error_exit_line(pasm, code_line,"wrong operation name.", code_line->line);
 	code_line->operation = op;
 	return (i);
 }
@@ -46,20 +46,22 @@ static void	name_and_comment_to_pasm(t_pasm *pasm, char *line,
 	int		len;
 	char 	*text;
 
-	text = ft_strsub(line, i, ft_strlen(line) - 1);
+	text = ft_strsub(line, i + 1, len_of_cmd_names(pasm, line, value));
 	len = (int)ft_strlen(text);
 	if (value == 1)
 	{
 		if (len > PROG_NAME_LENGTH)
-			error_exit_line(pasm,
+			error_exit_line(pasm, NULL,
 				"length of champion name bigger than 128 symbols.", 1);
 		pasm->champion_name = text;
 	}
 	else if (value == 2)
+	{
 		if (len > COMMENT_LENGTH)
-			error_exit_line(pasm,
+			error_exit_line(pasm, NULL,
 				"length of comment bigger than 2048 symbols.", 2);
 		pasm->comment = text;
+	}
 }
 
 void		arg_one(t_pasm *pasm, t_code *code_line, char *arg1)
@@ -71,7 +73,7 @@ void		arg_one(t_pasm *pasm, t_code *code_line, char *arg1)
 	buffer = ft_strtrim(arg1);
 	arg_type = check_for_arg_type(buffer);
 	if (!arg_type)
-		error_exit_line(pasm, "wrong first argument.",
+		error_exit_line(pasm,code_line, "wrong first argument.",
 			code_line->line);
 	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
 		first_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
@@ -93,7 +95,7 @@ void		arg_two(t_pasm *pasm, t_code *code_line, char *arg2)
 	buffer = ft_strtrim(arg2);
 	arg_type = check_for_arg_type(buffer);
 	if (!arg_type)
-		error_exit_line(pasm, "wrong second argument.",
+		error_exit_line(pasm, code_line, "wrong second argument.",
 			code_line->line);
 	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
 		second_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
@@ -115,7 +117,7 @@ void		arg_three(t_pasm *pasm, t_code *code_line, char *arg3)
 	buffer = ft_strtrim(arg3);
 	arg_type = check_for_arg_type(buffer);
 	if (!arg_type)
-		error_exit_line(pasm, "wrong third argument.",
+		error_exit_line(pasm, code_line, "wrong third argument.",
 			code_line->line);
 	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
 		third_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
@@ -128,23 +130,50 @@ void		arg_three(t_pasm *pasm, t_code *code_line, char *arg3)
 	free(buffer);
 }
 
+char		*args_to_code_line_helper(char *args, int *start)
+{
+	int 	i;
+	int 	j;
+	char 	*tmp;
+
+	i = *start;
+	j = *start;
+	while (args[i] == ' ')
+	    i++;
+	while (args[i] != '\0' && args[i] != ' ' && args[i] != SEPARATOR_CHAR)
+		i++;
+	tmp = ft_strsub(args, j, i - j);
+	*start += i - *start + 1;
+	return (tmp);
+}
+
 void		args_to_code_line(t_pasm *pasm, t_code *code_line,
 	char *line, int i)
 {
+	int 	j;
+	char 	*tmp;
 	char 	*args;
-	char 	**splitted_args;
 
-	args = ft_strsub(line, i, ft_strlen(line));
-	splitted_args = ft_strsplit(args, SEPARATOR_CHAR);
-	if (splitted_args[3])
-		error_exit_line(pasm, "too much arguments.",
-			code_line->line);
-	if (splitted_args[0])
-		arg_one(pasm, code_line, splitted_args[0]);
-	if (splitted_args[1])
-		arg_two(pasm, code_line, splitted_args[1]);
-	if (splitted_args[2])
-		arg_three(pasm, code_line, splitted_args[2]);
+	j = 0;
+	tmp = ft_strsub(line, i, ft_strlen(line));
+	args = ft_strtrim(tmp);
+	free(tmp);
+	tmp = args_to_code_line_helper(args, &j);
+	arg_one(pasm, code_line, tmp);
+	free(tmp);
+	if (args[j - 1] != '\0')
+	{
+		tmp = args_to_code_line_helper(args, &j);
+		arg_two(pasm, code_line, tmp);
+		free(tmp);
+		if (args[j - 1] != '\0')
+		{
+			tmp = args_to_code_line_helper(args, &j);
+			arg_three(pasm, code_line, tmp);
+			free(tmp);
+		}
+	}
+	free(args);
 }
 
 static int	validate_cmd_string(char *cmd_string)
@@ -178,7 +207,7 @@ int		get_champion_name_and_comment(t_pasm *pasm,
 		else
 		{
 			free(cmd_string);
-			error_exit_line(pasm, "wrong cmd command (.name/.comment).", line_number);
+			error_exit_line(pasm, NULL, "wrong cmd command (.name/.comment).", line_number);
 		}
 		free(cmd_string);
 		return (1);
@@ -235,10 +264,8 @@ void	args_count_check(t_pasm *pasm, t_code *code_line)
 		if (ft_strequ(code_line->operation, op_tab[i].op_name))
 		{
 			if (op_tab[i].nbrarg != count)
-			{
-				free_code_lines(code_line);
-				error_exit_line(pasm, "wrong arguments.", line);
-			}
+				error_exit_line(pasm, code_line, "wrong arguments.", line);
+			return ;
 		}
 		i++;
 	}

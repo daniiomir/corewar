@@ -15,6 +15,7 @@
 int		switch_label(t_pasm *pasm, t_code *ptr, int arg)
 {
 	int		offset;
+	int		check;
 	char	*label;
 	t_code	*tmp;
 
@@ -30,25 +31,30 @@ int		switch_label(t_pasm *pasm, t_code *ptr, int arg)
 		tmp = ptr;
 		while (tmp)
 		{
-			offset += ptr->size;
-			if (ft_strequ(ptr->label_name, label))
+			if (ft_strequ(tmp->label_name, label))
 				return (offset);
+            offset += tmp->size;
 			tmp = tmp->next;
 		}
 	}
 	if (ptr->prev)
 	{
 		offset = 0;
+		check = 0;
 		tmp = ptr;
+//		offset -= tmp->size - check_for_code_arg_type(tmp); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		while (tmp)
 		{
-			offset -= ptr->size;
-			if (ft_strequ(ptr->label_name, label))
+			if (check)
+            	offset -= tmp->size;
+			if (!check)
+				check++;
+			if (ft_strequ(tmp->label_name, label))
 				return (offset);
 			tmp = tmp->prev;
 		}
 	}
-	error_exit_line(pasm, "wrong label in argument.", ptr->line);
+	error_exit_line(pasm, NULL, "wrong label in argument.", ptr->line);
 	return (0);
 }
 
