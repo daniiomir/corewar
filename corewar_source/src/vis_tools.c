@@ -33,7 +33,7 @@ void	check_window_size(t_vis *vis)
 	int		indent;
 	int		box_width;
 
-	if (vis->width < (COL_WIDTH * 4 + 5) || vis->height < HEIGHT)
+	if (vis->width < (COL_WIDTH * 4 + 5) || vis->height < MAP_HEIGHT + USAGE_HEIGHT + 2)
 	{
 		len = strlen("Make the window bigger");
 		box_width = vis->width / 2;

@@ -4,10 +4,10 @@
 # include <ncurses.h>
 # include "corewar.h"
 
-# define COL_WIDTH		64
-# define MAP_WIDTH		(COL_WIDTH * 3 + 3)
-# define HEIGHT			64
-
+# define COL_WIDTH		65
+# define MAP_WIDTH		(COL_WIDTH * 3)
+# define MAP_HEIGHT		66
+# define USAGE_HEIGHT	5
 
 /*
 **	MACROSES
@@ -40,7 +40,7 @@
 # define MAGENTA_CUR	16
 # define YELLOW_CUR		17
 
-static int g_colors[12] = {
+static int g_colors[COLORS_AMOUNT * 2] = {
 		COLOR_PAIR(GRAY),
 		COLOR_PAIR(GREEN),
 		COLOR_PAIR(RED),
@@ -61,7 +61,8 @@ static int g_colors[12] = {
 **	HOTKEYS
 */
 
-# define QUIT			27
+# define EXIT			27
+# define RUN			32
 
 typedef struct	s_cell
 {
@@ -85,8 +86,10 @@ typedef struct	s_vis
 
 t_vis	*init_vis();
 void	visualisation(t_gstate *gstate, t_arena *arena);
-void prepare_map(t_gstate *gstate);
+void	prepare_map(t_gstate *gstate);
 void	check_window_size(t_vis *vis);
 void	init_color_palette();
+void	draw_map(t_vis *vis, t_arena *arena);
+void	draw_usage(t_vis *vis);
 
 #endif

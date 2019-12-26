@@ -38,6 +38,7 @@ SRC_NAMES = main.c \
     		vis_prepare_map.c \
     		vis_tools.c \
     		vis_init.c \
+    		vis_draw.c \
     		op.c \
     		do_operations.c \
     		exactly_do.c \

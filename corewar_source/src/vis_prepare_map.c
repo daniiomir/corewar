@@ -46,7 +46,7 @@ void prepare_map(t_gstate *gstate)
 	init_color_palette();
 	check_window_size(gstate->vis);
 	init_vis_arena(gstate);
-	gstate->vis->w_map = newwin(HEIGHT + 2, MAP_WIDTH, 1, 2);
-	gstate->vis->w_info = newwin(HEIGHT, COL_WIDTH, 1, MAP_WIDTH + 3);
-	gstate->vis->w_usage = newwin(HEIGHT / 8, MAP_WIDTH, HEIGHT + 3, 2);
+	gstate->vis->w_map = newwin(MAP_HEIGHT, MAP_WIDTH, 1, 2);
+	gstate->vis->w_info = newwin(MAP_HEIGHT, COL_WIDTH, 1, MAP_WIDTH + 3);
+	gstate->vis->w_usage = newwin(USAGE_HEIGHT, MAP_WIDTH, MAP_HEIGHT + 1, 2);
 }
