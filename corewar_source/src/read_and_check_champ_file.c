@@ -52,7 +52,7 @@ unsigned int	miss_nulls(int fd)
 		print_error_and_exit("Cannot read file", 51);
 	if (size < 4)
 		print_error_and_exit("Wrong null symbol", 52);
-	null_symbol = byte_shift(buff, 4, 0);
+	null_symbol = byte_shift(buff, 4);
 	if (null_symbol != 0)
 		print_error_and_exit("Wrong null symbol", 52);
 	return (null_symbol);

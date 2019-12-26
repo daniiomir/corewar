@@ -1,56 +1,73 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   visualisation.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 20:22:53 by cnikia            #+#    #+#             */
-/*   Updated: 2019/12/11 20:26:44 by cnikia           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <corewar_vis.h>
 
-#include "corewar.h"
+int get_color(t_cell cell) {
+	int id;
 
-int			fill_color_cursor(t_cursor *cursors, int a)
-{
-	t_cursor	*cursor;
-
-	cursor = cursors;
-	while (cursor)
-	{
-		if (cursor->current_position == a)
-		{
-			if (cursor->reg[0] == -1)
-				printf("\033[1;31m");
-			if (cursor->reg[0] == -2)
-				printf("\033[1;32m");
-			if (cursor->reg[0] == -3)
-				printf("\033[1;34m");
-			if (cursor->reg[0] == -4)
-				printf("\033[1;35m");
-			return (1);
-		}
-		cursor = cursor->next;
-	}
-	return (0);
+	id = cell.playerId;
+	if (cell.is_cursor)
+		id = TO_CURSOR_COLOR(id);
+	return (g_colors[id]);
 }
 
-void		print_arena(t_arena *arena, t_cursor *cursor)
-{
-	int 	a;
-	int 	b;
+void draw_map(t_gstate *gstate, t_arena *arena) {
+	t_vis	*vis;
+	int 	color;
+	int 	row;
+	int 	i;
 
-	a = 0;
-	printf("\e[1;1H\e[2J");
-	while (a < MEM_SIZE)
+	vis = gstate->vis;
+	row = 1;
+	i = 0;
+	while (i < MEM_SIZE)
 	{
-		b = fill_color_cursor(cursor, a);
-		printf("%02x ", arena->map[a++]);
-		if (b)
-			printf("\033[0m");
-		if (a % 64 == 0)
-			printf("\n");
+		if (i % 64 == 0)
+			wmove(vis->w_map, row++, 2);
+		color = get_color(vis->map[i]);
+		wattron(vis->w_map, color);
+		wprintw(vis->w_map, "%02x", arena->map[i]);
+		wattroff(vis->w_map, color);
+		waddch(vis->w_map, ' ');
+		i++;
 	}
-//	sleep(1);
+	wattron(vis->w_map, COLOR_PAIR(GRAY));
+	box(gstate->vis->w_map, 0, 0);
+	wattroff(vis->w_map, COLOR_PAIR(GRAY));
 }
+
+void refresh_window(t_gstate *gstate, t_arena *arena) {
+	t_vis	*vis;
+
+	vis = gstate->vis;
+	werase(vis->w_map);
+	werase(vis->w_usage);
+	werase(vis->w_info);
+	draw_map(gstate, arena);
+	box(gstate->vis->w_info, 0, 0);
+	box(gstate->vis->w_usage, 0, 0);
+	wrefresh(gstate->vis->w_map);
+	wrefresh(gstate->vis->w_info);
+	wrefresh(gstate->vis->w_usage);
+}
+
+void visualisation(t_gstate *gstate, t_arena *arena)
+{
+	prepare_map(gstate);
+
+	while ((gstate->vis->btn = getch()) != QUIT)
+	{
+		if (gstate->vis->btn)
+			printw("%c ", gstate->vis->btn, gstate->vis->btn);
+//		handle_buttons(vm);
+//		if (vm->vs->button == PASS_ONE_CYCLE)
+//			exec_cycle_vs(vm);
+//		else if (vm->vs->is_running && (clock() >= calc_time_delay(vm)))
+//		{
+//			vm->vs->time = clock();
+//			exec_cycle_vs(vm);
+//		}
+		refresh_window(gstate, arena);
+	}
+
+    endwin();
+}
+

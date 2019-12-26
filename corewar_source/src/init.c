@@ -1,11 +1,13 @@
 #include "../includes/corewar.h"
+#include <corewar_vis.h>
 
 t_gstate	*init_global_state(void)
 {
 	t_gstate *gstate;
 
 	gstate = (t_gstate *)malloc(sizeof(t_gstate));
-	if (gstate == NULL)
+	gstate->vis = (t_vis *)malloc(sizeof(t_vis));
+	if (gstate == NULL || gstate->vis == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	gstate->players_num = 0;
 	ft_bzero(&gstate->all_players, MAX_PLAYERS * sizeof(t_champ*));
@@ -35,7 +37,7 @@ t_arena		*init_arena()
 	t_arena		*arena;
 
 	if (!(arena = (t_arena *)malloc(sizeof(t_arena))))
-		return (NULL);
+		print_error_and_exit("Memory does not allocated", 3);
 	ft_bzero(arena->map, MEM_SIZE);
 	arena->last_live = 0;
 	arena->all_cycles = 0;
@@ -51,7 +53,7 @@ t_cursor		*init_cursor(int id, int reg)
 	t_cursor	*cursor;
 
 	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
-		return (NULL);
+		print_error_and_exit("Memory does not allocated", 3);
 	cursor->carry = 0;
 	cursor->current_code = 0;
 	cursor->current_position = 0;

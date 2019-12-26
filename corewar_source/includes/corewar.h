@@ -13,12 +13,12 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "libft.h"
-# include "macroses.h"
-# include "op.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "libft.h"
+# include "macroses.h"
+# include "op.h"
 
 #define T_REG_SIZE 1
 #define T_IND_SIZE 2
@@ -57,11 +57,12 @@ typedef struct		s_champ
 
 typedef struct	s_gstate
 {
-	int			players_num;
-	t_champ		*all_players[MAX_PLAYERS];
-	char		f_dump:2;
-	int			f_dump_arg;
-	char		f_v:2;
+	int			    players_num;
+	t_champ		    *all_players[MAX_PLAYERS];
+	char		    f_dump:2;
+	int		    	f_dump_arg;
+	char		    f_v:2;
+	struct s_vis    *vis;
 }				t_gstate;
 
 /*
@@ -138,7 +139,7 @@ typedef struct	s_op
 	int				argument_code_type;
 	int				change_carry;
 	int 			t_dir_size;
-	void			(*func)(t_arena *, t_cursor *);
+//	void			(*func)(t_arena *, t_cursor *);
 }				t_op;
 
 t_op			op_tab[17];
@@ -196,7 +197,7 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 ** _________________________ Main algorythm __________________________________
 */
 
-void			main_alg(t_gstate *gstate);
+void			main_alg(t_gstate *gstate, t_arena *arena, t_cursor *cursors);
 void			cursor_operations_exec(t_arena *arena, t_cursor **cursors);
 
 /*
@@ -251,8 +252,9 @@ void			op_ld(t_arena *arena, t_cursor *cursor);
 **	56 - execution code is too big
 **	57 - wrong size of execution code
 **
-**  6  - error in get_next_line.
-**  7  - exit from -v flag.
+**	Visualisation
+**	90 - window is smaller than necessary
+**	91 - terminal does not support color
 */
 
 #endif

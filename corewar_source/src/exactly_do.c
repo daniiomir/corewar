@@ -18,7 +18,7 @@ void	exactly_do(t_cursor *wst, t_cursor **cursor, t_arena *arena) // TODO need t
 	t_op op_ptr;
 
 	op_ptr = op_tab[wst->current_code];
-	op_tab[wst->current_code].func(arena, wst);
+//	op_tab[wst->current_code].func(arena, wst);
 
 
 
@@ -37,7 +37,7 @@ int		get_arg(t_arena *arena, t_cursor *cursor, int current_position, int mod)
 
 	value = 0;
 	addr = 0;
-	op = &op_tab[INDEX(cursor->operation_code)];// переменная, где хранится значение команды, которая сейчас выполняется
+//	op = &op_tab[INDEX(cursor->operation_code)];// переменная, где хранится значение команды, которая сейчас выполняется
 	if (cursor->current_code & T_DIR)
 		value = byte_shift(cursor->current_code, op->t_dir_size);
 	if (cursor->current_code & T_REG)

@@ -1,4 +1,5 @@
 #include "../includes/corewar.h"
+#include <corewar_vis.h>
 
 int parse_flag_n(int *argc, char ***argv)
 {
@@ -19,6 +20,7 @@ int parse_flag_n(int *argc, char ***argv)
 
 void parse_flag_v(t_gstate *gstate, int *argc, char ***argv)
 {
+	gstate->vis = init_vis();
     gstate->f_v = 1;
     (*argv)++;
     (*argc)--;

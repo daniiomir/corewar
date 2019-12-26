@@ -15,7 +15,7 @@ LIBFT_PATH = lib/libft.a
 COREWAR = corewar
 
 HEADERS = -I includes/
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra
 
 SRC_FOLDER = src
 OBJ_FOLDER = obj
@@ -33,10 +33,14 @@ SRC_NAMES = main.c \
     		init_arena.c \
     		free_all.c \
     		cursor_operations.c \
+    		print_arena.c \
     		visualisation.c \
+    		vis_prepare_map.c \
+    		vis_tools.c \
+    		vis_init.c \
     		op.c \
     		do_operations.c \
-    		exactly_do.c
+    		exactly_do.c \
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 
@@ -54,7 +58,7 @@ $(LIBFT_PATH):
 	@echo "Library -> done"
 
 $(COREWAR): $(OBJ)
-	@gcc $(OBJ) $(HEADERS) -L. $(LIBFT_PATH) -o $(COREWAR)
+	@gcc $(OBJ) $(HEADERS) -L. $(LIBFT_PATH) -o $(COREWAR) -lncurses
 	@echo "Corewar binary -> done"
 
 clean:

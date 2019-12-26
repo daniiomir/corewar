@@ -1,4 +1,4 @@
-#include "../includes/corewar.h"
+#include "corewar.h"
 
 unsigned int	byte_shift(unsigned char *buff, int byte)
 {

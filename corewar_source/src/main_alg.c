@@ -48,7 +48,7 @@ void	end_of_battle()
 
 void	main_cycle(t_arena *arena, t_cursor **cursors)
 {
-	static unsigned int	prev_check;
+	static int	prev_check;
 
     while (*cursors)
     {
@@ -80,13 +80,13 @@ void	init_battle(t_gstate *gstate)
 //	sleep(1);
 }
 
-void	main_alg(t_gstate *gstate)
+void main_alg(t_gstate *gstate, t_arena *arena, t_cursor *cursors)
 {
-	t_arena		*arena;
-	t_cursor	*cursors;
+//	t_arena		*arena;
+//	t_cursor	*cursors;
 
-	arena = init_arena();
-	cursors = fill_arena_and_init_cursors(arena, gstate);
+//	arena = init_arena();
+//	cursors = fill_arena_and_init_cursors(arena, gstate);
 	init_battle(gstate);
 	print_arena(arena, cursors);
 	main_cycle(arena, &cursors);
