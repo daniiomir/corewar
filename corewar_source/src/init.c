@@ -53,7 +53,7 @@ t_cursor		*init_cursor(int id, int reg)
 	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
 		return (NULL);
 	cursor->carry = 0;
-	cursor->current_code = 0;
+	cursor->current_op = 0;
 	cursor->current_position = 0;
 	cursor->cycles_remaining = 0;
 	cursor->last_live_cycle = 0;

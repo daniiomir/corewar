@@ -58,7 +58,6 @@ int		check_args(t_cursor *wst, t_arena *arena, t_op operation)
 
 	arg_order = -1;
 	nbr_arg = 0;
-	wst->args[0] = 0;
 	while (++arg_order < operation.nbrarg)
 		if (check_one_arg(wst, arena, arg_order, operation))
 			nbr_arg++;
@@ -82,16 +81,14 @@ static int	argument_code_type_check(t_cursor *wst, t_arena *arena, t_op operatio
 		wst->args[i] = (args_type_code >> byte_shift) & 0x03u;
 		i++;
 	}
-	if (!args_type_code || (args_type_code & 0x03u))
-		return (0);
-	if (!check_args(wst, arena, operation))
+	if (!check_args(wst, arena, operation) || args_type_code & 0x03u)
 		return (1);
 	return (0);
 }
 
-static void	move_error_code(t_cursor *wst, t_arena *arena)
+static void	move_error_code(t_cursor *wst)
 {
-	wst->next_op_steps = next_operation_steps_calculation(wst, arena->map[wst->current_position + 1]);
+	wst->current_position += wst->next_op_steps;
 	wst->cycles_remaining = 0;
 }
 
@@ -99,14 +96,14 @@ void		do_operation(t_cursor *wst, t_arena *arena)
 {
 	t_op	curr_op;
 
-	curr_op = op_tab[(int)wst->current_code];
-	if (wst->current_code >= 0x01 && wst->current_code <= 0x10)
+	curr_op = op_tab[(int)wst->current_op];
+	if (wst->current_op >= 0x01 && wst->current_op <= 0x10)
 	{
 		wst->next_op_steps++;
 		if (curr_op.argument_code_type)
-			if (!(argument_code_type_check(wst, arena, curr_op)))
-				move_error_code(wst, arena);
-//		op_tab[wst->current_code].func(arena, wst);
+			if (argument_code_type_check(wst, arena, curr_op))
+				move_error_code(wst);
+		op_tab[wst->current_op].func(arena, wst);
 	}
 	else
 		wst->current_position += 1;

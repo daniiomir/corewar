@@ -12,30 +12,48 @@
 
 #include "corewar.h"
 
-int		get_arg(t_arena *arena, t_cursor *cursor, int current_position, int mod)
+int 	get_value(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
 {
-	int 	value;
-	int		addr;
-	t_op	*op;
+	int 			value;
+	int				addr;
+	int				current_position;
+	t_op			*op;
+	unsigned char	*arr;
 
 	value = 0;
 	addr = 0;
-	op = &op_tab[INDEX(cursor->current_code)];
-	if (cursor->current_code & T_DIR)
+	current_position = cursor->current_position;
+	op = &op_tab[cursor->current_op];
+	if (arg == T_DIR)
 	{
-		value = byte_shift(&cursor->current_code, op->t_dir_size);
-		cursor->next_op_steps += op->t_dir_size;
+		arr = get_new_arr(arena, cursor->next_op_steps, op->t_dir_size);
+		value = byte_to_int(&arena->map[cursor->current_position], op->t_dir_size);
+		cursor->current_position = get_map_ind(current_position, op->t_dir_size);
 	}
-	if (cursor->current_code & T_REG)
+	if (arg == T_REG)
 	{
-		value = cursor->reg[INDEX(current_position)];
-		cursor->next_op_steps += T_REG_SIZE;
+		value = cursor->reg[current_position];
+		cursor->current_position = get_map_ind(current_position, T_REG_SIZE);
 	}
-	if (cursor->current_code & T_IND)
+	0b 68 01 00 05
+	if (arg == T_IND)
 	{
-		addr = byte_shift(&cursor->current_code, IND_SIZE);
-		value = byte_shift(&arena->map[current_position + (mod ? (addr % IDX_MOD) : addr)], DIR_SIZE);
-		cursor->next_op_steps += T_IND_SIZE;
+		arr = get_new_arr(arena, cursor->next_op_steps, IND_SIZE);		//	get_new_arr вернет массив из unsigned char-ов
+		addr = byte_to_int(arr, IND_SIZE);								//  здесь достается значение аргумента t_ind
+		arr = get_new_arr(arena, current_position + (mod ? (addr % IDX_MOD) : addr), DIR_SIZE);	//	здесь кладется в массив значение на карте через addr байт
+		value = byte_to_int(arr, DIR_SIZE);
+		cursor->current_position = get_map_ind(current_position, T_IND_SIZE);
 	}
 	return (value);
+}
+
+int get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
+{
+	int		current_position;
+	t_op	*op;
+
+	current_position = cursor->current_position;
+	op = &op_tab[cursor->current_op];
+
+	return (get_value(arena, cursor, arg, mod));
 }

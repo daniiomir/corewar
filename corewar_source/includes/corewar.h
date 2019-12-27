@@ -92,7 +92,7 @@ typedef struct		s_arena
 **
 **	num	                 - unique cursor number.
 **  carry                - a flag that some operations may change.
-**  current_code         - code of the operation in which the cursor are.
+**  current_op         - code of the operation in which the cursor are.
 **  last_live_cycle      - last cycle in which the last operation "live" was completed.
 **  cycles_remaining     - number of cycles needed to do the remaining operation.
 **  current_position     - current cursor position.
@@ -104,7 +104,7 @@ typedef struct		s_cursor
 {
 	int 			id;
 	int 			carry;
-	unsigned char	current_code;
+	unsigned char	current_op;
 	int 			last_live_cycle;
 	int 			cycles_remaining;
 	int 			current_position;
@@ -117,14 +117,6 @@ typedef struct		s_cursor
 /*
 ** _______________________________ Structure Definition _______________________________
 **
-**	op	                 - unique cursor number.
-**  carry                - a flag that some operations may change.
-**  current_code         - code of the operation in which the cursor are.
-**  last_live_cycle      - last cycle in which the last operation "live" was completed.
-**  cycles_remaining     - number of cycles needed to do the remaining operation.
-**  current_position     - current cursor position.
-**  next_op_steps - amount of bytes needed to skip to be on the next operation.
-**  reg                  - registers.
 */
 
 typedef struct	s_op
@@ -138,7 +130,7 @@ typedef struct	s_op
 	int				argument_code_type;
 	int				change_carry;
 	int 			t_dir_size;
-//	void			(*func)(t_arena *, t_cursor *);
+	void			(*func)(t_arena *, t_cursor *);
 }				t_op;
 
 t_op			op_tab[17];
@@ -149,7 +141,8 @@ t_op			op_tab[17];
 
 void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
-int byte_shift(unsigned char *buff, int byte);
+int				byte_to_int(unsigned char *code, int byte_len);
+int				get_map_ind(int current_position, int shift);
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -216,13 +209,12 @@ void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 */
 
 void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
-int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
 void 			do_operation(t_cursor *wst, t_arena *arena);
 
 /*
 ** ______________________________ Operations ___________________________________
 */
-int				get_arg(t_arena *arena, t_cursor *cursor, int current_position, int mod);
+int get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 void			op_ld(t_arena *arena, t_cursor *cursor);
 
 /*

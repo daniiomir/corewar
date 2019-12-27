@@ -23,7 +23,7 @@ void			check_header(int fd)
 		print_error_and_exit("Cannot read file", 51);
 	if (size < 4)
 		print_error_and_exit("Wrong magic header", 52);
-	magic_header = byte_shift(buff, 4);
+	magic_header = byte_to_int(buff, 4);
 	if (magic_header != COREWAR_EXEC_MAGIC)
 		print_error_and_exit("Wrong magic header", 52);
 }
@@ -52,7 +52,7 @@ unsigned int	miss_nulls(int fd)
 		print_error_and_exit("Cannot read file", 51);
 	if (size < 4)
 		print_error_and_exit("Wrong null symbol", 52);
-	null_symbol = byte_shift(buff, 4);
+	null_symbol = byte_to_int(buff, 4);
 	if (null_symbol != 0)
 		print_error_and_exit("Wrong null symbol", 52);
 	return (null_symbol);
