@@ -40,12 +40,6 @@ static void check_cursor_is_alive(t_arena *arena, t_cursor **cursors)
 	}
 }
 
-void	end_of_battle()
-{
-	printf("\e[1;1H\e[2J");
-	printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
-}
-
 void	main_cycle(t_arena *arena, t_cursor **cursors)
 {
 	static int	prev_check;
@@ -78,6 +72,12 @@ void	init_battle(t_gstate *gstate)
 		a++;
 	}
 //	sleep(1);
+}
+
+void	end_of_battle()
+{
+    printf("\e[1;1H\e[2J");
+    printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
 void	main_alg(t_gstate *gstate)
