@@ -55,10 +55,16 @@ void	draw_info(t_gstate *gstate, t_arena *arena)
 	wprintw(vis->w_info, "Cycle : %d", arena->all_cycles);
 	wmove(vis->w_info, row += 2, col);
 	wprintw(vis->w_info, "Processes : no information");
-
 	wmove(vis->w_info, row += 2, col);
-	draw_players(gstate, vis, &row, col);
-
+    draw_players(gstate, vis, &row, col);
+    wmove(vis->w_info, row += 1, col);
+    wprintw(vis->w_info, "Cycles to die : %10d", arena->cycles_to_die);
+    wmove(vis->w_info, row += 2, col);
+    wprintw(vis->w_info, "Cycle delta : %10d", CYCLE_DELTA);
+    wmove(vis->w_info, row += 2, col);
+    wprintw(vis->w_info, "Max checks : %10d/10", arena->checks);
+    wmove(vis->w_info, row += 2, col);
+    wprintw(vis->w_info, "Nbr of lives : %8d/21", arena->lives_nbr);
 	wattroff(vis->w_info, A_BOLD);
 }
 

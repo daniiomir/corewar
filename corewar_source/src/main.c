@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 }
 
 /*
-cd /Users/agottlie/projects/corewar/corewar/corewar_source; make corewar; ./corewar -v ../examples/champs/Car.cor
+    make corewar; ./corewar -v ../examples/champs/Car.cor -n 3 ../examples/champs/ex.cor ../examples/champs/Gagnant.cor ../examples/champs/Car.cor
 */
 
 //	------------ BASIC FUNCTIONS ------------
