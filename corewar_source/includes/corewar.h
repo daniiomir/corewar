@@ -42,7 +42,7 @@ t_arena			*init_arena();
 t_cursor		*init_cursor(int id, int reg);
 
 /*
-** ____________________________ Arguments Parsing _______________________________
+** ___________________________ Arguments Parsing _______________________________
 */
 
 void			parse_arguments(t_gstate *gstate, int argc, char **argv);
@@ -62,48 +62,49 @@ unsigned int    miss_nulls(int fd);
 void            check_header(int fd);
 
 /*
-** _________________________ Players Order _____________________________
+** _____________________________ Players Order _________________________________
 */
 
 void	        order_of_champs(t_gstate *gstate);
 
 /*
-** _________________________ Arena initiation __________________________________
+** ____________________________ Arena initiation _______________________________
 */
 
 t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 
 /*
-** _________________________ Main algorythm __________________________________
+** _____________________________ Main algorithm ________________________________
 */
 
 void			main_alg(t_gstate *gstate);
 void			cursor_operations_exec(t_arena *arena, t_cursor **cursors);
 
 /*
-** _________________________ Graphic ______________________________
+** ________________________________ Graphic ____________________________________
 */
 
 void			print_arena(t_arena *arena, t_cursor *cursor);
 
 /*
-** _________________________ Memory erase ______________________________
+** ______________________________ Memory erase _________________________________
 */
 
 void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 /*
-** _________________________ Cursor operations ______________________________
+** ____________________________ Cursor operations ______________________________
 */
 
 void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 void 			do_operation(t_cursor *wst, t_arena *arena);
+int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 
 /*
-** ______________________________ Operations ___________________________________
+** _______________________________ Operations __________________________________
 */
-int get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 void			op_ld(t_arena *arena, t_cursor *cursor);
+
 
 /*
 ** ______________________________ Error Number _________________________________
