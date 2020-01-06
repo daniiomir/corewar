@@ -17,9 +17,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "op.h"
 # include "structures.h"
 # include "macroses.h"
-# include "op.h"
 
 t_op			op_tab[17];
 

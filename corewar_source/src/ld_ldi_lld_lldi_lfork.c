@@ -11,7 +11,7 @@ void	op_ld(t_arena *arena, t_cursor *cursor)
 	arg1 = get_arg(arena, cursor, cursor->args[0], 1);
 	arg2 = get_arg(arena, cursor, cursor->args[1], 0);
 	cursor->reg[arg2] = arg1;
-	cursor->carry = (arg1 != 0) ? 1 : 0;
+	cursor->f_carry = (arg1 != 0) ? 1 : 0;
 }
 
 void	op_ldi(t_arena *arena, t_cursor *cursor)

@@ -1,10 +1,8 @@
 #ifndef COREWAR_SOURCE_STRUCTURES_H
 # define COREWAR_SOURCE_STRUCTURES_H
 
-# include "op.h"
-
 /*
-** _________________________________ LEGEND ____________________________________
+** ________________________________ LEGEND _____________________________________
 **
 **  f_*         - flag
 */
@@ -35,9 +33,10 @@ typedef struct		s_champ
 **
 **	players_num	- number of players.
 **	all_players	- array of all players in game.
-**  f_dump      - flag dump (stops execution on a specific loop).
-**  f_dump_arg  - dump flag argument.
-**  f_v         - flag v (visualisation).
+**  f_dump		- flag dump (stops execution on a specific loop).
+**  f_dump_arg	- dump flag argument.
+**  f_v			- flag v (visualisation).
+**  f_aff		- flag a (aff). Displays register value.
 */
 
 typedef struct	s_gstate
@@ -47,17 +46,18 @@ typedef struct	s_gstate
     char		f_dump:2;
     int			f_dump_arg;
     char		f_v:2;
+    char		f_a:2;
 }				t_gstate;
 
 /*
 ** ______________________ Arena Structure Definition ___________________________
 **
-**	map	        - arena of map, array of bytes.
-**  last_live       - last player to say that he is alive.
-**  all_cycles      - number of cycles that have passed since the beginning of the game.
-**  lives_nbr     	- number of live operations made by start of the last cycles_to_die.
-**  cycles_to_die   - duration before the next check.
-**  checks          - current number of checks performed.
+**	map				- arena.
+**  last_live       - the last player who said he was alive.
+**  all_cycles      - number of cycles that have passed since beginning of game.
+**  lives_nbr     	- number of live ops made by start of last cycles_to_die.
+**  cycles_to_die   - number of cycles until next "check".
+**  checks          - number of checks performed.
 **	next_cursor_num - number that will be given to the next created cursor
 */
 
@@ -75,20 +75,22 @@ typedef struct		s_arena
 /*
 ** ______________________ Cursor Structure Definition __________________________
 **
-**	num	                 - unique cursor number.
-**  carry                - a flag that some operations may change.
-**  current_op         - code of the operation in which the cursor are.
-**  last_live_cycle      - last cycle in which the last operation "live" was completed.
-**  cycles_remaining     - number of cycles needed to do the remaining operation.
-**  current_position     - current cursor position.
-**  next_op_steps - amount of bytes needed to skip to be on the next operation.
-**  reg                  - registers.
+**	id					- unique identifier.
+**  f_carry				- flag that some operations may change.
+**  current_op			- operation code on which the cursor stands
+**  last_live_cycle		- the loop on which the "live" operation was performed.
+**  cycles_remaining	- number of cycles before operation execution.
+**  current_position	- cursor position on map.
+**  next_op_steps		- number of bytes before next operation.
+**  reg					- registers.
+**  args				- types of arguments operation takes.
+**  next				- pointer to next cursor.
 */
 
 typedef struct		s_cursor
 {
     int 			id;
-    int 			carry;
+    int 			f_carry;
     unsigned char	current_op;
     int 			last_live_cycle;
     int 			cycles_remaining;
@@ -102,18 +104,28 @@ typedef struct		s_cursor
 /*
 ** _____________________ Operation Structure Definition ________________________
 **
+**	op_code			- operation code.
+**	op_name			- operation name.
+**	description		- operation description.
+**	nbrarg			- number of arguments the operation accepts.
+**	arg_types		- types of arguments the operation accepts.
+**	need_cycles		- number of cycles to be executed.
+**	arg_code_type	- arguments code type.
+**	f_change_carry	- does the operation change the "carry" flag.
+**	t_dir_size		- size of t_dir argument.
+**	func			- function that performs the operation.
 */
 
 typedef struct	s_op
 {
     int				op_code;
     char			*op_name;
-    int				nbrarg;
-    unsigned char	arg[3]; // TODO: unsigned char
-    int				need_cycles;
     char			*description;
-    int				argument_code_type;
-    int				change_carry;
+    int				nbrarg;
+    unsigned char	arg_types[3];
+    int				need_cycles;
+    int				arg_code_type;
+    int				f_change_carry;
     int 			t_dir_size;
     void			(*func)(t_arena *, t_cursor *);
 }				t_op;

@@ -34,7 +34,7 @@ int 	check_one_arg(t_cursor *wst, t_arena *arena, int arg_order, t_op operation)
 
 	current_pos = wst->current_position + wst->next_op_steps;
 	arg = wst->args[arg_order];
-	if (!(arg & operation.arg[arg_order]))
+	if (!(arg & operation.arg_types[arg_order]))
 		return (0);
 	if (arg == REG_CODE)
 	{			// МЫ ОСТАНОВИЛИСЬ ЗДЕСЬ
@@ -100,7 +100,7 @@ void		do_operation(t_cursor *wst, t_arena *arena)
 	if (wst->current_op >= 0x01 && wst->current_op <= 0x10)
 	{
 		wst->next_op_steps++;
-		if (curr_op.argument_code_type)
+		if (curr_op.arg_code_type)
 			if (argument_code_type_check(wst, arena, curr_op))
 				move_error_code(wst);
 		op_tab[wst->current_op].func(arena, wst);
