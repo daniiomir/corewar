@@ -6,7 +6,7 @@ void	op_and(t_arena *arena, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->cur_pos = get_map_ind(cursor->cur_pos, 2);
+	cursor->next_op_steps += 2;
 	arg1 = get_arg(arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(arena, cursor);
@@ -20,7 +20,7 @@ void	op_or(t_arena *arena, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->cur_pos = get_map_ind(cursor->cur_pos, 2);
+	cursor->next_op_steps += 2;
 	arg1 = get_arg(arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(arena, cursor);
@@ -34,7 +34,7 @@ void	op_xor(t_arena *arena, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->cur_pos = get_map_ind(cursor->cur_pos, 2);
+	cursor->next_op_steps += 2;
 	arg1 = get_arg(arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(arena, cursor);

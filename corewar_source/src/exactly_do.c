@@ -19,23 +19,23 @@ int	get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
 	t_op			*op;
 
 	value = 0;
-	addr = 0;
 	op = &op_tab[cursor->current_op];
 	if (arg == T_DIR)
 	{
 		value = get_map_int(arena, cursor->cur_pos + cursor->next_op_steps, op->t_dir_size);
-		cursor->next_op_steps = get_map_ind(cursor->next_op_steps, op->t_dir_size);
+		cursor->next_op_steps += op->t_dir_size;
 	}
 	if (arg == T_REG)
 	{
-		value = cursor->reg[INDEX(arena->map[cursor->cur_pos])];
-		cursor->next_op_steps = get_map_ind(cursor->next_op_steps, T_REG_SIZE);
+		addr = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
+		value = cursor->reg[INDEX(arena->map[addr])];
+		cursor->next_op_steps += T_REG_SIZE;
 	}
 	if (arg + 1 == T_IND)
 	{
 		addr = get_map_int(arena, cursor->cur_pos + cursor->next_op_steps, IND_SIZE);
 		value = get_map_int(arena, cursor->cur_pos + (mod ? (addr % IDX_MOD) : addr), DIR_SIZE);
-		cursor->next_op_steps = get_map_ind(cursor->next_op_steps, T_IND_SIZE);
+		cursor->next_op_steps += T_IND_SIZE;
 	}
 	return (value);
 }

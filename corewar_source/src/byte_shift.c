@@ -51,6 +51,6 @@ int	get_cur_pos_byte(t_arena *arena, t_cursor *cursor)
 	int reg_ind;
 
 	reg_ind = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
-	cursor->next_op_steps = get_map_ind(cursor->next_op_steps, 1);
+	cursor->next_op_steps += 1;
 	return (arena->map[reg_ind]);
 }

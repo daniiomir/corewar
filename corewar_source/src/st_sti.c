@@ -20,12 +20,12 @@ void	op_st(t_arena *arena, t_cursor *cursor)
 	int arg2;
 	int addr;
 
-	cursor->next_op_steps = get_map_ind(cursor->cur_pos, 2);
+	cursor->next_op_steps += 2;
 	reg = get_arg(arena, cursor, cursor->args[0], 0);
 	if (cursor->args[1] == T_REG)
 	{
 		arg2 = get_cur_pos_byte(arena, cursor);
-		cursor->reg[INDEX(arg2)] = cursor->reg[INDEX(reg)];
+		cursor->reg[INDEX(arg2)] = reg;
 	}
 	else
 	{
@@ -43,7 +43,7 @@ void	op_sti(t_arena *arena, t_cursor *cursor)
 	int arg3;
 	int addr;
 
-	cursor->next_op_steps = get_map_ind(cursor->cur_pos, 2);
+	cursor->next_op_steps += 2;
 	reg = get_arg(arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(arena, cursor, cursor->args[1], 1);
 	arg3 = get_arg(arena, cursor, cursor->args[2], 1);

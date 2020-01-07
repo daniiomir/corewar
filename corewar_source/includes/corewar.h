@@ -82,7 +82,7 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 */
 
 void			main_alg(t_gstate *gstate);
-void			cursor_operations_exec(t_arena *arena, t_cursor **cursors);
+void			cursor_operations_exec(t_arena *arena, t_cursor *cursor);
 
 /*
 ** ________________________________ Graphic ____________________________________
@@ -100,7 +100,7 @@ void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 ** ____________________________ Cursor operations ______________________________
 */
 
-void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
+void 			kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor);
 void 			do_operation(t_cursor *wst, t_arena *arena);
 int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 

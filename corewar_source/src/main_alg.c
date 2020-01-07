@@ -25,35 +25,38 @@ static void update_arena_state(t_arena *arena)
 		arena->checks++;
 }
 
-static void check_cursor_is_alive(t_arena *arena, t_cursor **cursors)
+static void check_cursor_is_alive(t_arena *arena, t_cursor *cursor)
 {
 	t_cursor			*current;
 
-	current = (*cursors);
+	current = cursor;
 	while (current)
 	{
 		if (arena->all_cycles - current->last_live_cycle >= arena->cycles_to_die)
-			kill_cursor(&current, cursors);
+			kill_cursor(&current, cursor);
 		if (!current)
 			continue ;
 		current = current->next;
 	}
 }
 
-void	main_cycle(t_arena *arena, t_cursor **cursors)
+void main_cycle(t_arena *arena)
 {
+	t_cursor	*first_cursor;
 	static int	prev_check;
 
-    while (*cursors)
+	first_cursor = arena->first_cursor;
+    while (first_cursor)						//	TODO: тут спорный момент, возможно нужно поменять условие
     {
-		cursor_operations_exec(arena, cursors);
+		cursor_operations_exec(arena, first_cursor);
         if (arena->all_cycles - prev_check == arena->cycles_to_die || arena->cycles_to_die <= 0) //событие "проверка"
         {
-			check_cursor_is_alive(arena, cursors);
+			check_cursor_is_alive(arena, first_cursor);
 			update_arena_state(arena);
             prev_check = arena->all_cycles;
         }
         arena->all_cycles++;
+        first_cursor = arena->first_cursor;
     }
 }
 
@@ -86,12 +89,11 @@ void	main_alg(t_gstate *gstate)
 	t_cursor	*cursors;
 
 	arena = init_arena();
-	cursors = fill_arena_and_init_cursors(arena, gstate);
-	arena->first_cursor = cursors;
 	arena->f_a = gstate->f_a;
+	fill_arena_and_init_cursors(arena, gstate);
 	init_battle(gstate);
-	print_arena(arena, cursors);
-	main_cycle(arena, &cursors);
+	print_arena(arena, arena->first_cursor);
+	main_cycle(arena);
 	end_of_battle();
-	free_all(arena, cursors, gstate);
+	free_all(arena, arena->first_cursor, gstate);
 }

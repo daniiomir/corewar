@@ -72,7 +72,7 @@ static int	argument_code_type_check(t_cursor *wst, t_arena *arena, t_op operatio
 	unsigned char byte_shift;
 	int	i;
 
-	args_type_code = arena->map[wst->cur_pos + 1];
+	args_type_code = arena->map[get_map_ind(wst->cur_pos, 1)];
 	wst->next_op_steps++;
 	i = 0;
 	while (i < operation.nbrarg)
@@ -92,19 +92,32 @@ static void	move_error_code(t_cursor *wst)
 	wst->cycles_remaining = 0;
 }
 
+void move_cursor(t_arena *arena, t_cursor *cursor)	// возможно понадобится gstate для визуализации
+{
+	cursor->cur_pos = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
+	cursor->next_op_steps = 0;
+	ft_bzero(cursor->args, sizeof(unsigned char) * 3);
+}
+
 void		do_operation(t_cursor *wst, t_arena *arena)
 {
 	t_op	curr_op;
+	int 	do_op;
 
 	curr_op = op_tab[(int)wst->current_op];
+	do_op = 0;
 	if (wst->current_op >= 0x01 && wst->current_op <= 0x10)
 	{
 		wst->next_op_steps++;
 		if (curr_op.arg_code_type)
-			if (argument_code_type_check(wst, arena, curr_op))
+			if ((do_op = argument_code_type_check(wst, arena, curr_op)) != 0)
 				move_error_code(wst);
-		wst->next_op_steps = 0;
-		op_tab[wst->current_op].func(arena, wst);
+		if (do_op == 0)
+		{
+			wst->next_op_steps = 0;
+			op_tab[wst->current_op].func(arena, wst);
+			move_cursor(arena, wst);
+		}
 	}
 	else
 		wst->cur_pos += 1;

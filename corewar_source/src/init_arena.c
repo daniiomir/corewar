@@ -24,6 +24,7 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 	step = MEM_SIZE / gstate->players_num;
 	first_pos = 0;
 	i = 0;
+	first_cursor = NULL;
 	while (i < gstate->players_num)
 	{
 		ft_memcpy(arena->map + first_pos, gstate->all_players[i]->code, gstate->all_players[i]->size);
@@ -34,5 +35,5 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 		first_pos += step;
 		i++;
 	}
-	return (first_cursor);
+	arena->first_cursor = first_cursor;
 }
