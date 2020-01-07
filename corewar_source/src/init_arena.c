@@ -28,7 +28,7 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 	{
 		ft_memcpy(arena->map + first_pos, gstate->all_players[i]->code, gstate->all_players[i]->size);
 		current = init_cursor(i + 1, i + 1);
-		current->current_position = first_pos;
+		current->cur_pos = first_pos;
 		current->next = first_cursor;
 		first_cursor = current;
 		first_pos += step;

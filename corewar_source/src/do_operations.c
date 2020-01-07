@@ -32,7 +32,7 @@ int 	check_one_arg(t_cursor *wst, t_arena *arena, int arg_order, t_op operation)
 	int current_pos;
 	unsigned char arg;
 
-	current_pos = wst->current_position + wst->next_op_steps;
+	current_pos = wst->cur_pos + wst->next_op_steps;
 	arg = wst->args[arg_order];
 	if (!(arg & operation.arg_types[arg_order]))
 		return (0);
@@ -72,7 +72,7 @@ static int	argument_code_type_check(t_cursor *wst, t_arena *arena, t_op operatio
 	unsigned char byte_shift;
 	int	i;
 
-	args_type_code = arena->map[wst->current_position + 1];
+	args_type_code = arena->map[wst->cur_pos + 1];
 	wst->next_op_steps++;
 	i = 0;
 	while (i < operation.nbrarg)
@@ -88,7 +88,7 @@ static int	argument_code_type_check(t_cursor *wst, t_arena *arena, t_op operatio
 
 static void	move_error_code(t_cursor *wst)
 {
-	wst->current_position += wst->next_op_steps;
+	wst->cur_pos += wst->next_op_steps;
 	wst->cycles_remaining = 0;
 }
 
@@ -103,8 +103,9 @@ void		do_operation(t_cursor *wst, t_arena *arena)
 		if (curr_op.arg_code_type)
 			if (argument_code_type_check(wst, arena, curr_op))
 				move_error_code(wst);
+		wst->next_op_steps = 0;
 		op_tab[wst->current_op].func(arena, wst);
 	}
 	else
-		wst->current_position += 1;
+		wst->cur_pos += 1;
 }

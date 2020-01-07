@@ -80,7 +80,7 @@ typedef struct		s_arena
 **  current_op			- operation code on which the cursor stands
 **  last_live_cycle		- the loop on which the "live" operation was performed.
 **  cycles_remaining	- number of cycles before operation execution.
-**  current_position	- cursor position on map.
+**  cur_pos	- cursor position on map.
 **  next_op_steps		- number of bytes before next operation.
 **  reg					- registers.
 **  args				- types of arguments operation takes.
@@ -94,7 +94,7 @@ typedef struct		s_cursor
     unsigned char	current_op;
     int 			last_live_cycle;
     int 			cycles_remaining;
-    int 			current_position;
+    int 			cur_pos;
     int 			next_op_steps;
     int 			reg[REG_NUMBER];
     unsigned char	args[3];
@@ -118,16 +118,16 @@ typedef struct		s_cursor
 
 typedef struct	s_op
 {
-    int				op_code;
-    char			*op_name;
-    char			*description;
-    int				nbrarg;
-    unsigned char	arg_types[3];
-    int				need_cycles;
-    int				arg_code_type;
-    int				f_change_carry;
-    int 			t_dir_size;
-    void			(*func)(t_arena *, t_cursor *);
+	int				op_code;
+	char			*op_name;
+	int				nbrarg;
+	unsigned char	arg_types[3];
+	int				need_cycles;
+	char			*description;
+	int				arg_code_type;
+	int				f_change_carry;
+	int 			t_dir_size;
+	void			(*func)(t_arena *, t_cursor *);
 }				t_op;
 
 #endif

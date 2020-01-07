@@ -21,7 +21,7 @@ void		cursor_operations_exec(t_arena *arena, t_cursor **cursors)
 	{
 		if (wst->cycles_remaining == 0)
 		{
-			wst->current_op = arena->map[wst->current_position];
+			wst->current_op = arena->map[wst->cur_pos];
 			if (wst->current_op >= 0x01 && wst->current_op <= 0x10)
 				wst->cycles_remaining = op_tab[(int)wst->current_op].need_cycles;
 		}

@@ -31,6 +31,10 @@ void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
 int				byte_to_int(unsigned char *code, int byte_len);
 int				get_map_ind(int current_position, int shift);
+int				get_map_int(t_arena *arena, int first_pos, int size);
+unsigned char	*get_map_arr(t_arena *arena, int first_pos, int size);
+int				get_cur_pos_byte(t_arena *arena, t_cursor *cursor);
+
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -104,6 +108,26 @@ int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 ** _______________________________ Operations __________________________________
 */
 void			op_ld(t_arena *arena, t_cursor *cursor);
+void			op_ldi(t_arena *arena, t_cursor *cursor);
+void			op_lld(t_arena *arena, t_cursor *cursor);
+void			op_lldi(t_arena *arena, t_cursor *cursor);
+
+void			op_st(t_arena *arena, t_cursor *cursor);
+void			op_sti(t_arena *arena, t_cursor *cursor);
+
+void			op_add(t_arena *arena, t_cursor *cursor);
+void			op_sub(t_arena *arena, t_cursor *cursor);
+
+void			op_and(t_arena *arena, t_cursor *cursor);
+void			op_or(t_arena *arena, t_cursor *cursor);
+void			op_xor(t_arena *arena, t_cursor *cursor);
+
+void			op_fork(t_arena *arena, t_cursor *cursor);
+void			op_lfork(t_arena *arena, t_cursor *cursor);
+
+void			op_zjmp(t_arena *arena, t_cursor *cursor);
+
+void			op_aff(t_arena *arena, t_cursor *cursor);
 
 
 /*

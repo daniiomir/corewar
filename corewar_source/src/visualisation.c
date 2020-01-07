@@ -19,7 +19,7 @@ int			fill_color_cursor(t_cursor *cursors, int a)
 	cursor = cursors;
 	while (cursor)
 	{
-		if (cursor->current_position == a)
+		if (cursor->cur_pos == a)
 		{
 			if (cursor->reg[0] == -1)
 				printf("\033[1;31m");
