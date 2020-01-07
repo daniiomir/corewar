@@ -35,7 +35,7 @@ int	get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
 	{
 		addr = get_map_int(arena, cursor->cur_pos + cursor->next_op_steps, IND_SIZE);
 		value = get_map_int(arena, cursor->cur_pos + (mod ? (addr % IDX_MOD) : addr), DIR_SIZE);
-		cursor->cur_pos = get_map_ind(cursor->cur_pos, T_IND_SIZE);
+		cursor->next_op_steps = get_map_ind(cursor->next_op_steps, T_IND_SIZE);
 	}
 	return (value);
 }

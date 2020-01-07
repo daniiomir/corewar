@@ -32,22 +32,6 @@ int	get_map_ind(int current_position, int shift)
 	return (sum % MEM_SIZE);
 }
 
-unsigned char	*get_map_arr(t_arena *arena, int first_pos, int size)
-{
-	unsigned char new_arr[size];
-	unsigned char *arr_ptr;
-	int i;
-
-	i = 0;
-	while (i < size)
-	{
-		new_arr[i] = arena->map[get_map_ind(first_pos, i)];
-		i++;
-	}
-	arr_ptr = new_arr;
-	return (arr_ptr);
-}
-
 int	get_map_int(t_arena *arena, int first_pos, int size)
 {
 	unsigned char new_arr[size];

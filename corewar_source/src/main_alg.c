@@ -87,6 +87,8 @@ void	main_alg(t_gstate *gstate)
 
 	arena = init_arena();
 	cursors = fill_arena_and_init_cursors(arena, gstate);
+	arena->first_cursor = cursors;
+	arena->f_a = gstate->f_a;
 	init_battle(gstate);
 	print_arena(arena, cursors);
 	main_cycle(arena, &cursors);

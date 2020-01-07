@@ -36,7 +36,7 @@ typedef struct		s_champ
 **  f_dump		- flag dump (stops execution on a specific loop).
 **  f_dump_arg	- dump flag argument.
 **  f_v			- flag v (visualisation).
-**  f_aff		- flag a (aff). Displays register value.
+**  f_a			- flag a (aff). Displays register value.
 */
 
 typedef struct	s_gstate
@@ -48,29 +48,6 @@ typedef struct	s_gstate
     char		f_v:2;
     char		f_a:2;
 }				t_gstate;
-
-/*
-** ______________________ Arena Structure Definition ___________________________
-**
-**	map				- arena.
-**  last_live       - the last player who said he was alive.
-**  all_cycles      - number of cycles that have passed since beginning of game.
-**  lives_nbr     	- number of live ops made by start of last cycles_to_die.
-**  cycles_to_die   - number of cycles until next "check".
-**  checks          - number of checks performed.
-**	next_cursor_num - number that will be given to the next created cursor
-*/
-
-typedef struct		s_arena
-{
-    unsigned char 	map[MEM_SIZE];
-    int 			last_live;
-    int 			all_cycles;
-    int 			lives_nbr;
-    int 			cycles_to_die;
-    int 			checks;
-    int 			next_cursor_num;
-}					t_arena;
 
 /*
 ** ______________________ Cursor Structure Definition __________________________
@@ -89,17 +66,44 @@ typedef struct		s_arena
 
 typedef struct		s_cursor
 {
-    int 			id;
-    int 			f_carry;
-    unsigned char	current_op;
-    int 			last_live_cycle;
-    int 			cycles_remaining;
-    int 			cur_pos;
-    int 			next_op_steps;
-    int 			reg[REG_NUMBER];
-    unsigned char	args[3];
-    struct s_cursor *next;
+	int 			id;
+	int 			f_carry;
+	unsigned char	current_op;
+	int 			last_live_cycle;
+	int 			cycles_remaining;
+	int 			cur_pos;
+	int 			next_op_steps;
+	int 			reg[REG_NUMBER];
+	unsigned char	args[3];
+	struct s_cursor *next;
 }					t_cursor;
+
+/*
+** ______________________ Arena Structure Definition ___________________________
+**
+**	map				- arena.
+**  last_live       - the last player who said he was alive.
+**  all_cycles      - number of cycles that have passed since beginning of game.
+**  lives_nbr     	- number of live ops made by start of last cycles_to_die.
+**  cycles_to_die   - number of cycles until next "check".
+**  checks          - number of checks performed.
+**  first_cursor    - pointer to the first cursor.
+**	next_cursor_num - number that will be given to the next created cursor
+**  f_a				- flag a (aff). Displays register value.
+*/
+
+typedef struct		s_arena
+{
+    unsigned char 	map[MEM_SIZE];
+    int 			last_live;
+    int 			all_cycles;
+    int 			lives_nbr;
+    int 			cycles_to_die;
+    int 			checks;
+    t_cursor		*first_cursor;
+	char			f_a:2;
+    int 			next_cursor_num;
+}					t_arena;
 
 /*
 ** _____________________ Operation Structure Definition ________________________
