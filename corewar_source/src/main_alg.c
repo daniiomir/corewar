@@ -28,6 +28,12 @@ static void check_cursor_is_alive(t_arena *arena, t_cursor *cursor)
 	}
 }
 
+void one_cycle(t_gstate *gstate)
+{
+	gstate->arena->all_cycles++;				// это в отдельную функцию (для визуализации)
+	cursor_operations_exec(gstate);		// это в отдельную функцию (для визуализации)
+}
+
 void main_cycle(t_gstate *gstate)
 {
 	t_arena		*arena;
@@ -38,14 +44,13 @@ void main_cycle(t_gstate *gstate)
 	first_cursor = gstate->first_cursor;
     while (first_cursor)						//	TODO: тут спорный момент, возможно нужно поменять условие
     {
-		cursor_operations_exec(gstate);
+    	one_cycle(gstate);
         if (arena->all_cycles - prev_check == arena->cycles_to_die || arena->cycles_to_die <= 0) //событие "проверка"
         {
 			check_cursor_is_alive(arena, first_cursor);
 			update_arena_state(arena);
             prev_check = arena->all_cycles;
         }
-        arena->all_cycles++;
         first_cursor = gstate->first_cursor;
     }
 }
@@ -75,9 +80,9 @@ void	end_of_battle()
 
 void main_alg(t_gstate *gstate)
 {
-	init_battle(gstate);
-//	print_arena(arena, arena->first_cursor);
+//	init_battle(gstate);					// нужно будет перенести в main
+//	print_arena(arena, arena->first_cursor);					// нужно будет перенести в main
 	main_cycle(gstate);
-	end_of_battle();
-//	free_all(arena, arena->first_cursor, gstate);
+//	end_of_battle();					// нужно будет перенести в main
+//	free_all(arena, arena->first_cursor, gstate);					// нужно будет перенести в main
 }

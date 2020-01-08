@@ -68,6 +68,7 @@ void			fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 */
 
 void			main_alg(t_gstate *gstate);
+void			one_cycle(t_gstate *gstate);
 
 /*
 ** ________________________________ Graphic ____________________________________

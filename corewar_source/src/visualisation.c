@@ -85,8 +85,8 @@ void refresh_window(t_gstate *gstate, t_arena *arena)
 	wrefresh(vis->w_usage);
 }
 
-void btn_handler(struct s_vis *vis)
-		{
+void btn_handler(t_vis *vis)
+{
 	if (vis->btn == RUN)
 		vis->is_running = !vis->is_running;
 }
@@ -98,14 +98,12 @@ void visualisation(t_gstate *gstate, t_arena *arena)
 	while ((gstate->vis->btn = getch()) != EXIT)
 	{
 		btn_handler(gstate->vis);
-//		printw("%d ", gstate->vis->is_running);
-		//		if (vm->vs->button == PASS_ONE_CYCLE)
-//			exec_cycle_vs(vm);
-//		else if (vm->vs->is_running && (clock() >= calc_time_delay(vm)))
-//		{
-//			vm->vs->time = clock();
-//			exec_cycle_vs(vm);
-//		}
+		if (gstate->vis->btn == ONE_CYCLE)
+			one_cycle(gstate);
+		else if (gstate->vis->is_running)
+		{
+			one_cycle(gstate);
+		}
 		refresh_window(gstate, arena);
 	}
 

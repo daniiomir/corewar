@@ -22,9 +22,10 @@ OBJ_FOLDER = obj
 
 SRC_NAMES = main.c \
 			init.c \
-			parse_arguments.c \
     		parse_flags.c \
     		parse_champion_file.c \
+    		parse_prog_args.c \
+    		parse_op.c \
 			read_and_check_champ_file.c \
     		put_players_in_order.c \
     		byte_shift.c \
@@ -41,7 +42,15 @@ SRC_NAMES = main.c \
     		vis_draw.c \
     		op.c \
     		do_operations.c \
+    		op_args_validation.c \
     		exactly_do.c \
+    		add_sub.c \
+    		aff.c \
+    		and_or_xor.c \
+    		fork_lfork.c \
+    		ld_ldi_lld_lldi.c \
+    		st_sti.c \
+    		zjmp.c \
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

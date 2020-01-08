@@ -63,6 +63,7 @@ static int g_colors[COLORS_AMOUNT * 2] = {
 
 # define EXIT			27
 # define RUN			32
+# define ONE_CYCLE		's'
 
 typedef struct	s_cell
 {
