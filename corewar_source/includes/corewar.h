@@ -17,130 +17,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "libft.h"
-# include "macroses.h"
 # include "op.h"
-
-#define T_REG_SIZE 1
-#define T_IND_SIZE 2
-
-/*
-** _____________________ Champion Structure Definition _____________________
-**
-**	id			- unique identifier.
-**  name      	- champion name.
-**  comment		- champion comment.
-**  size        - size of executable code in bytes.
-**  code        - executable code.
-*/
-
-typedef struct		s_champ
-{
-	int				id;
-	int 			f_n_arg;
-	char			*name;
-	char			*comment;
-	int				size;
-	unsigned char	*code;
-}					t_champ;
-
-/*
-** _____________________ Global State Structure Definition _____________________
-**
-**  f_*         - flag
-**
-**	players_num	- number of players.
-**	all_players	- array of all players in game.
-**  f_dump      - flag dump (stops execution on a specific loop).
-**  f_dump_arg  - dump flag argument.
-**  f_v         - flag v (visualisation).
-*/
-
-typedef struct	s_gstate
-{
-	int			    players_num;
-	t_champ		    *all_players[MAX_PLAYERS];
-	char		    f_dump:2;
-	int		    	f_dump_arg;
-	char		    f_v:2;
-	struct s_vis    *vis;
-}				t_gstate;
-
-/*
-** _______________________________ Structure Definition _______________________________
-**
-**	map	        - arena of map, array of bytes.
-**  last_live       - last player to say that he is alive.
-**  all_cycles      - number of cycles that have passed since the beginning of the game.
-**  lives_nbr     	- number of live operations made by start of the last cycles_to_die.
-**  cycles_to_die   - duration before the next check.
-**  checks          - current number of checks performed.
-**	next_cursor_num - number that will be given to the next created cursor
-*/
-
-typedef struct		s_arena
-{
-	unsigned char 	map[MEM_SIZE];
-	int 			last_live;
-	int 			all_cycles;
-	int 			lives_nbr;
-	int 			cycles_to_die;
-	int 			checks;
-	int 			next_cursor_num;
-}					t_arena;
-
-/*
-** _______________________________ Structure Definition _______________________________
-**
-**	num	                 - unique cursor number.
-**  carry                - a flag that some operations may change.
-**  current_code         - code of the operation in which the cursor are.
-**  last_live_cycle      - last cycle in which the last operation "live" was completed.
-**  cycles_remaining     - number of cycles needed to do the remaining operation.
-**  current_position     - current cursor position.
-**  next_operation_steps - amount of bytes needed to skip to be on the next operation.
-**  reg                  - registers.
-**	dont_move            - flag that says that cursor don't need to move
-*/
-
-typedef struct		s_cursor
-{
-	int 			id;
-	int 			carry;
-	unsigned char	current_code;
-	int 			last_live_cycle;
-	int 			cycles_remaining;
-	int 			current_position;
-	int 			next_operation_steps;
-	int 			reg[REG_NUMBER];
-	struct s_cursor *next;
-}					t_cursor;
-
-/*
-** _______________________________ Structure Definition _______________________________
-**
-**	op	                 - unique cursor number.
-**  carry                - a flag that some operations may change.
-**  current_code         - code of the operation in which the cursor are.
-**  last_live_cycle      - last cycle in which the last operation "live" was completed.
-**  cycles_remaining     - number of cycles needed to do the remaining operation.
-**  current_position     - current cursor position.
-**  next_operation_steps - amount of bytes needed to skip to be on the next operation.
-**  reg                  - registers.
-*/
-
-typedef struct	s_op
-{
-	int				op_code;
-	char			*op_name;
-	int				nbrarg;
-	unsigned char	arg[3]; // TODO: unsigned char
-	int				need_cycles;
-	char			*description;
-	int				argument_code_type;
-	int				change_carry;
-	int 			t_dir_size;
-//	void			(*func)(t_arena *, t_cursor *);
-}				t_op;
+# include "structures.h"
+# include "macroses.h"
 
 t_op			op_tab[17];
 
@@ -150,7 +29,12 @@ t_op			op_tab[17];
 
 void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
-unsigned int	byte_shift(unsigned char *buff, int byte);
+int				byte_to_int(unsigned char *code, int byte_len);
+int				get_map_ind(int current_position, int shift);
+int				get_map_int(t_arena *arena, int first_pos, int size);
+unsigned char	*get_map_arr(t_arena *arena, int first_pos, int size);
+int				get_cur_pos_byte(t_arena *arena, t_cursor *cursor);
+
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -162,7 +46,7 @@ t_arena			*init_arena();
 t_cursor		*init_cursor(int id, int reg);
 
 /*
-** ____________________________ Arguments Parsing _______________________________
+** ___________________________ Arguments Parsing _______________________________
 */
 
 void			parse_arguments(t_gstate *gstate, int argc, char **argv);
@@ -182,50 +66,69 @@ unsigned int    miss_nulls(int fd);
 void            check_header(int fd);
 
 /*
-** _________________________ Players Order _____________________________
+** _____________________________ Players Order _________________________________
 */
 
 void	        order_of_champs(t_gstate *gstate);
 
 /*
-** _________________________ Arena initiation __________________________________
+** ____________________________ Arena initiation _______________________________
 */
 
 t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 
 /*
-** _________________________ Main algorythm __________________________________
+** _____________________________ Main algorithm ________________________________
 */
 
-void			main_alg(t_gstate *gstate, t_arena *arena, t_cursor *cursors);
-void			cursor_operations_exec(t_arena *arena, t_cursor **cursors);
+void			main_alg(t_gstate *gstate);
+void			cursor_operations_exec(t_arena *arena, t_cursor *cursor);
 
 /*
-** _________________________ Graphic ______________________________
+** ________________________________ Graphic ____________________________________
 */
 
 void			print_arena(t_arena *arena, t_cursor *cursor);
 
 /*
-** _________________________ Memory erase ______________________________
+** ______________________________ Memory erase _________________________________
 */
 
 void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 /*
-** _________________________ Cursor operations ______________________________
+** ____________________________ Cursor operations ______________________________
 */
 
-void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
-int 			next_operation_steps_calculation(t_cursor *next, unsigned char arg_type);
-void			do_operations(t_cursor *wst, t_arena *arena, t_cursor **cursors);
-void			exactly_do(t_cursor *wst, t_cursor **cursor, t_arena *arena);
+void 			kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor);
+void 			do_operation(t_cursor *wst, t_arena *arena);
+int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 
 /*
-** ______________________________ Operations ___________________________________
+** _______________________________ Operations __________________________________
 */
-int				get_arg(t_arena *arena, t_cursor *cursor, int current_position, int mod);
 void			op_ld(t_arena *arena, t_cursor *cursor);
+void			op_ldi(t_arena *arena, t_cursor *cursor);
+void			op_lld(t_arena *arena, t_cursor *cursor);
+void			op_lldi(t_arena *arena, t_cursor *cursor);
+
+void			op_st(t_arena *arena, t_cursor *cursor);
+void			op_sti(t_arena *arena, t_cursor *cursor);
+
+void			op_add(t_arena *arena, t_cursor *cursor);
+void			op_sub(t_arena *arena, t_cursor *cursor);
+
+void			op_and(t_arena *arena, t_cursor *cursor);
+void			op_or(t_arena *arena, t_cursor *cursor);
+void			op_xor(t_arena *arena, t_cursor *cursor);
+
+void			op_fork(t_arena *arena, t_cursor *cursor);
+void			op_lfork(t_arena *arena, t_cursor *cursor);
+
+void			op_zjmp(t_arena *arena, t_cursor *cursor);
+
+void			op_aff(t_arena *arena, t_cursor *cursor);
+
 
 /*
 ** ______________________________ Error Number _________________________________
@@ -251,6 +154,9 @@ void			op_ld(t_arena *arena, t_cursor *cursor);
 **	55 - wrong size of execution code.
 **	56 - execution code is too big
 **	57 - wrong size of execution code
+**
+**  6  - error in get_next_line.
+**  7  - exit from -v flag.
 **
 **	Visualisation
 **	90 - window is smaller than necessary

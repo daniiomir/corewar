@@ -54,15 +54,16 @@ t_cursor		*init_cursor(int id, int reg)
 
 	if (!(cursor = (t_cursor *)malloc(sizeof(t_cursor))))
 		print_error_and_exit("Memory does not allocated", 3);
-	cursor->carry = 0;
-	cursor->current_code = 0;
-	cursor->current_position = 0;
+	cursor->f_carry = 0;
+	cursor->current_op = 0;
+	cursor->cur_pos = 0;
 	cursor->cycles_remaining = 0;
 	cursor->last_live_cycle = 0;
 	cursor->next = NULL;
-	cursor->next_operation_steps = 0;
+	cursor->next_op_steps = 0;
 	cursor->id = id;
-	ft_bzero(cursor->reg, 16);
+	ft_bzero(cursor->args, 3);
+	ft_bzero(cursor->reg, sizeof(int) * 16);
 	cursor->reg[0] = -1 * reg;
 	return (cursor);
 }

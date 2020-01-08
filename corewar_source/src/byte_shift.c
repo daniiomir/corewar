@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-unsigned int	byte_shift(unsigned char *buff, int byte)
+int byte_to_int(unsigned char *code, int byte_len)
 {
 	int				sign;
 	unsigned int	i;
@@ -8,22 +8,49 @@ unsigned int	byte_shift(unsigned char *buff, int byte)
 
 	i = 0;
 	j = 0;
-	sign = (buff[0] >> 7) & 0x1;
-	while (byte > 0)
+	sign = (code[0] >> 7) & 0x1;
+	while (byte_len > 0)
 	{
 		if (sign)
-			i += ((buff[--byte] ^ 0xff) << (j++ * 8));
+			i += ((code[--byte_len] ^ 0xff) << (j * 8));
 		else
-			i += (buff[--byte] << (j++ * 8));
+			i += (code[--byte_len] << (j * 8));
+		j++;
 	}
 	if (sign)
 		i = ~(i);
 	return (i);
-/*    if (sign)
-        i = ((buff[0] ^ 0xff) << 24) | ((buff[1] ^ 0xff) << 16) | ((buff[2] ^ 0xff) << 8) | (buff[3] ^ 0xff);
-    else
-        i = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);*/
 }
 
-// TODO: сделать функцию на нахождение отрицательных чисел х2
-// доделать функцию
+int	get_map_ind(int current_position, int shift)
+{
+	int sum;
+
+	sum = current_position + shift;
+	if (sum < 0)
+		return (MEM_SIZE + sum);
+	return (sum % MEM_SIZE);
+}
+
+int	get_map_int(t_arena *arena, int first_pos, int size)
+{
+	unsigned char new_arr[size];
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		new_arr[i] = arena->map[get_map_ind(first_pos, i)];
+		i++;
+	}
+	return (byte_to_int(new_arr, size));
+}
+
+int	get_cur_pos_byte(t_arena *arena, t_cursor *cursor)
+{
+	int reg_ind;
+
+	reg_ind = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
+	cursor->next_op_steps += 1;
+	return (arena->map[reg_ind]);
+}

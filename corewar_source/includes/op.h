@@ -19,6 +19,8 @@
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
 
+#define T_REG_SIZE              1
+#define T_IND_SIZE              2
 
 # define REG_CODE				1
 # define DIR_CODE				2

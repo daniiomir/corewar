@@ -111,4 +111,3 @@ void visualisation(t_gstate *gstate, t_arena *arena)
 
     endwin();
 }
-
