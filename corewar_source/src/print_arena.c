@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   visualisation.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 20:22:53 by cnikia            #+#    #+#             */
-/*   Updated: 2019/12/11 20:26:44 by cnikia           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "corewar.h"
 
 int			fill_color_cursor(t_cursor *cursors, int a)
@@ -19,7 +7,7 @@ int			fill_color_cursor(t_cursor *cursors, int a)
 	cursor = cursors;
 	while (cursor)
 	{
-		if (cursor->current_position == a)
+		if (cursor->cur_pos == a)
 		{
 			if (cursor->reg[0] == -1)
 				printf("\033[1;31m");

@@ -6,14 +6,14 @@ t_gstate	*init_global_state(void)
 	t_gstate *gstate;
 
 	gstate = (t_gstate *)malloc(sizeof(t_gstate));
-	gstate->vis = (t_vis *)malloc(sizeof(t_vis));
-	if (gstate == NULL || gstate->vis == NULL)
+	if (gstate == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	gstate->players_num = 0;
 	ft_bzero(&gstate->all_players, MAX_PLAYERS * sizeof(t_champ*));
 	gstate->f_dump = 0;
 	gstate->f_dump_arg = 0;
 	gstate->f_v = 0;
+	gstate->f_a = 0;
 	return (gstate);
 }
 
@@ -32,11 +32,12 @@ t_champ		*init_champion(int n_arg, int id)
 	return (player);
 }
 
-t_arena		*init_arena()
+t_arena *init_arena()
 {
 	t_arena		*arena;
 
-	if (!(arena = (t_arena *)malloc(sizeof(t_arena))))
+	arena = (t_arena *)malloc(sizeof(t_arena));
+	if (arena == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	ft_bzero(arena->map, MEM_SIZE);
 	arena->last_live = 0;

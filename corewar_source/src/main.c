@@ -16,18 +16,16 @@
 int	main(int argc, char **argv)
 {
 	t_gstate	*gstate;
-	t_arena		*arena;
-	t_cursor	*cursors;
 
 	gstate = init_global_state();
 	parse_arguments(gstate, argc - 1, argv + 1);
 	order_of_champs(gstate);
-	arena = init_arena();
-	cursors = fill_arena_and_init_cursors(arena, gstate);
+	gstate->arena = init_arena();
+	fill_arena_and_init_cursors(gstate->arena, gstate);
 	if (gstate->f_v)
-		visualisation(gstate, arena);
+		visualisation(gstate, gstate->arena);
 	else
-		main_alg(gstate, arena, cursors);
+		main_alg(gstate);
 }
 
 /*

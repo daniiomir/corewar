@@ -1,29 +1,17 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_arena.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 17:12:27 by cnikia            #+#    #+#             */
-/*   Updated: 2019/12/09 17:12:30 by cnikia           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "corewar.h"
 #include <stdio.h>
 
-t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
+void fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 {
+	int 		i;
 	int 		step;
 	int 		first_pos;
-	int 		i;
 	t_cursor	*current;
 	t_cursor	*first_cursor;
 
+	i = 0;
 	step = MEM_SIZE / gstate->players_num;
 	first_pos = 0;
-	i = 0;
 	first_cursor = NULL;
 	while (i < gstate->players_num)
 	{
@@ -35,5 +23,5 @@ t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 		first_pos += step;
 		i++;
 	}
-	arena->first_cursor = first_cursor;
+	gstate->first_cursor = first_cursor;
 }

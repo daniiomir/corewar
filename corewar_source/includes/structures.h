@@ -29,27 +29,6 @@ typedef struct		s_champ
 }					t_champ;
 
 /*
-** ___________________ Global State Structure Definition _______________________
-**
-**	players_num	- number of players.
-**	all_players	- array of all players in game.
-**  f_dump		- flag dump (stops execution on a specific loop).
-**  f_dump_arg	- dump flag argument.
-**  f_v			- flag v (visualisation).
-**  f_a			- flag a (aff). Displays register value.
-*/
-
-typedef struct	s_gstate
-{
-    int			players_num;
-    t_champ		*all_players[MAX_PLAYERS];
-    char		f_dump:2;
-    int			f_dump_arg;
-    char		f_v:2;
-    char		f_a:2;
-}				t_gstate;
-
-/*
 ** ______________________ Cursor Structure Definition __________________________
 **
 **	id					- unique identifier.
@@ -94,16 +73,38 @@ typedef struct		s_cursor
 
 typedef struct		s_arena
 {
-    unsigned char 	map[MEM_SIZE];
-    int 			last_live;
-    int 			all_cycles;
-    int 			lives_nbr;
-    int 			cycles_to_die;
-    int 			checks;
-    t_cursor		*first_cursor;
-	char			f_a:2;
-    int 			next_cursor_num;
+	unsigned char 	map[MEM_SIZE];
+	int 			last_live;
+	int 			all_cycles;
+	int 			lives_nbr;
+	int 			cycles_to_die;
+	int 			checks;
+	int 			next_cursor_num;
 }					t_arena;
+
+/*
+** ___________________ Global State Structure Definition _______________________
+**
+**	players_num	- number of players.
+**	all_players	- array of all players in game.
+**  f_dump		- flag dump (stops execution on a specific loop).
+**  f_dump_arg	- dump flag argument.
+**  f_v			- flag v (visualisation).
+**  f_a			- flag a (aff). Displays register value.
+*/
+
+typedef struct	s_gstate
+{
+    int				players_num;
+    t_champ			*all_players[MAX_PLAYERS];
+    char			f_dump:2;
+    int				f_dump_arg;
+    char			f_v:2;
+    char			f_a:2;
+	t_cursor		*first_cursor;
+	struct s_vis	*vis;
+	t_arena			*arena;
+}				t_gstate;
 
 /*
 ** _____________________ Operation Structure Definition ________________________
@@ -131,7 +132,7 @@ typedef struct	s_op
 	int				arg_code_type;
 	int				f_change_carry;
 	int 			t_dir_size;
-	void			(*func)(t_arena *, t_cursor *);
+	void			(*func)(t_gstate *, t_cursor *);
 }				t_op;
 
 #endif

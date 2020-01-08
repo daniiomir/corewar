@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rrika <rrika@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 15:56:31 by swarner           #+#    #+#             */
-/*   Updated: 2019/12/09 18:24:59 by rrika            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef COREWAR_H
 # define COREWAR_H
 
@@ -32,9 +20,7 @@ void			print_usage();
 int				byte_to_int(unsigned char *code, int byte_len);
 int				get_map_ind(int current_position, int shift);
 int				get_map_int(t_arena *arena, int first_pos, int size);
-unsigned char	*get_map_arr(t_arena *arena, int first_pos, int size);
 int				get_cur_pos_byte(t_arena *arena, t_cursor *cursor);
-
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -75,14 +61,13 @@ void	        order_of_champs(t_gstate *gstate);
 ** ____________________________ Arena initiation _______________________________
 */
 
-t_cursor		*fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
+void			fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 
 /*
 ** _____________________________ Main algorithm ________________________________
 */
 
 void			main_alg(t_gstate *gstate);
-void			cursor_operations_exec(t_arena *arena, t_cursor *cursor);
 
 /*
 ** ________________________________ Graphic ____________________________________
@@ -97,37 +82,44 @@ void			print_arena(t_arena *arena, t_cursor *cursor);
 void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
 
 /*
+** __________________________ Operation Validation _____________________________
+*/
+
+int				argument_code_type_check(t_cursor *cursor, t_arena *arena, t_op operation);
+
+/*
 ** ____________________________ Cursor operations ______________________________
 */
 
+void			cursor_operations_exec(t_gstate *gstate);
 void 			kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor);
-void 			do_operation(t_cursor *wst, t_arena *arena);
+void			do_operation(t_gstate *gstate, t_cursor *cursor);
 int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 
 /*
 ** _______________________________ Operations __________________________________
 */
-void			op_ld(t_arena *arena, t_cursor *cursor);
-void			op_ldi(t_arena *arena, t_cursor *cursor);
-void			op_lld(t_arena *arena, t_cursor *cursor);
-void			op_lldi(t_arena *arena, t_cursor *cursor);
+void			op_ld(t_gstate *gstate, t_cursor *cursor);
+void			op_ldi(t_gstate *gstate, t_cursor *cursor);
+void			op_lld(t_gstate *gstate, t_cursor *cursor);
+void			op_lldi(t_gstate *gstate, t_cursor *cursor);
 
-void			op_st(t_arena *arena, t_cursor *cursor);
-void			op_sti(t_arena *arena, t_cursor *cursor);
+void			op_st(t_gstate *gstate, t_cursor *cursor);
+void			op_sti(t_gstate *gstate, t_cursor *cursor);
 
-void			op_add(t_arena *arena, t_cursor *cursor);
-void			op_sub(t_arena *arena, t_cursor *cursor);
+void			op_add(t_gstate *gstate, t_cursor *cursor);
+void			op_sub(t_gstate *gstate, t_cursor *cursor);
 
-void			op_and(t_arena *arena, t_cursor *cursor);
-void			op_or(t_arena *arena, t_cursor *cursor);
-void			op_xor(t_arena *arena, t_cursor *cursor);
+void			op_and(t_gstate *gstate, t_cursor *cursor);
+void			op_or(t_gstate *gstate, t_cursor *cursor);
+void			op_xor(t_gstate *gstate, t_cursor *cursor);
 
-void			op_fork(t_arena *arena, t_cursor *cursor);
-void			op_lfork(t_arena *arena, t_cursor *cursor);
+void			op_fork(t_gstate *gstate, t_cursor *cursor);
+void			op_lfork(t_gstate *gstate, t_cursor *cursor);
 
-void			op_zjmp(t_arena *arena, t_cursor *cursor);
+void			op_zjmp(t_gstate *gstate, t_cursor *cursor);
 
-void			op_aff(t_arena *arena, t_cursor *cursor);
+void			op_aff(t_gstate *gstate, t_cursor *cursor);
 
 
 /*

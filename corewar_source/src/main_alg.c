@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main_alg.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/09 16:53:16 by cnikia            #+#    #+#             */
-/*   Updated: 2019/12/09 16:53:18 by cnikia           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "corewar.h"
 #include <stdio.h>
 
@@ -40,15 +28,17 @@ static void check_cursor_is_alive(t_arena *arena, t_cursor *cursor)
 	}
 }
 
-void main_cycle(t_arena *arena)
+void main_cycle(t_gstate *gstate)
 {
+	t_arena		*arena;
 	t_cursor	*first_cursor;
 	static int	prev_check;
 
-	first_cursor = arena->first_cursor;
+	arena = gstate->arena;
+	first_cursor = gstate->first_cursor;
     while (first_cursor)						//	TODO: тут спорный момент, возможно нужно поменять условие
     {
-		cursor_operations_exec(arena, first_cursor);
+		cursor_operations_exec(gstate);
         if (arena->all_cycles - prev_check == arena->cycles_to_die || arena->cycles_to_die <= 0) //событие "проверка"
         {
 			check_cursor_is_alive(arena, first_cursor);
@@ -56,7 +46,7 @@ void main_cycle(t_arena *arena)
             prev_check = arena->all_cycles;
         }
         arena->all_cycles++;
-        first_cursor = arena->first_cursor;
+        first_cursor = gstate->first_cursor;
     }
 }
 
@@ -83,17 +73,11 @@ void	end_of_battle()
     printf("pobedil STEPAN!"); // почти закончен вывод, только чуток дописать
 }
 
-void	main_alg(t_gstate *gstate)
+void main_alg(t_gstate *gstate)
 {
-	t_arena		*arena;
-	t_cursor	*cursors;
-
-	arena = init_arena();
-	arena->f_a = gstate->f_a;
-	fill_arena_and_init_cursors(arena, gstate);
 	init_battle(gstate);
-	print_arena(arena, arena->first_cursor);
-	main_cycle(arena);
+//	print_arena(arena, arena->first_cursor);
+	main_cycle(gstate);
 	end_of_battle();
-	free_all(arena, arena->first_cursor, gstate);
+//	free_all(arena, arena->first_cursor, gstate);
 }
