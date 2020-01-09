@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   visualisation.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 12:56:03 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 12:57:34 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <corewar_vis.h>
 
-void refresh_window(t_gstate *gstate, t_arena *arena)
+void	refresh_window(t_gstate *gstate, t_arena *arena)
 {
 	t_vis	*vis;
 
@@ -17,20 +29,19 @@ void refresh_window(t_gstate *gstate, t_arena *arena)
 	wrefresh(vis->w_usage);
 }
 
-void btn_handler(t_vis *vis)
+void	btn_handler(t_vis *vis)
 {
 	if (vis->btn == RUN)
 		vis->is_running = !vis->is_running;
 }
 
-void visualisation(t_gstate *gstate, t_arena *arena)
+void	visualisation(t_gstate *gstate, t_arena *arena)
 {
 	prepare_map(gstate);
-
 	while ((gstate->vis->btn = getch()) != EXIT)
 	{
 		btn_handler(gstate->vis);
-		if (gstate->processes_num == 0)			// конец игры
+		if (gstate->processes_num == 0)
 		{
 			gstate->vis->is_running = 0;
 		}
@@ -42,6 +53,5 @@ void visualisation(t_gstate *gstate, t_arena *arena)
 		}
 		refresh_window(gstate, arena);
 	}
-
-    endwin();
+	endwin();
 }

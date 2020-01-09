@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vis_prepare_map.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 12:57:39 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 12:57:40 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar_vis.h"
 
-void fill_vis_arena(t_vis *vis, t_champ *champ, int first_pos) {
+void	fill_vis_arena(t_vis *vis, t_champ *champ, int first_pos)
+{
 	int	size;
 	int i;
 
@@ -14,11 +27,11 @@ void fill_vis_arena(t_vis *vis, t_champ *champ, int first_pos) {
 	}
 }
 
-void init_vis_arena(t_gstate *gstate)
+void	init_vis_arena(t_gstate *gstate)
 {
 	int		step;
-	int 	first_pos;
-	int 	i;
+	int		first_pos;
+	int		i;
 
 	step = MEM_SIZE / gstate->players_num;
 	first_pos = 0;
@@ -31,10 +44,10 @@ void init_vis_arena(t_gstate *gstate)
 	}
 }
 
-void prepare_map(t_gstate *gstate)
+void	prepare_map(t_gstate *gstate)
 {
 	initscr();
-    nodelay(stdscr, 1);
+	nodelay(stdscr, 1);
 	keypad(stdscr, 1);
 	curs_set(0);
 	noecho();
@@ -44,7 +57,7 @@ void prepare_map(t_gstate *gstate)
 	refresh();
 	getmaxyx(stdscr, gstate->vis->height, gstate->vis->width);
 	init_color_palette();
-//	check_window_size(gstate->vis);
+	// check_window_size(gstate->vis);
 	init_vis_arena(gstate);
 	gstate->vis->w_map = newwin(MAP_HEIGHT, MAP_WIDTH, 1, 2);
 	gstate->vis->w_info = newwin(MAP_HEIGHT, COL_WIDTH, 1, MAP_WIDTH + 3);
