@@ -40,6 +40,7 @@ SRC_NAMES = main.c \
     		vis_tools.c \
     		vis_init.c \
     		vis_draw.c \
+    		vis_draw_info.c \
     		op.c \
     		do_operations.c \
     		op_args_validation.c \

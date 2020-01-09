@@ -63,12 +63,10 @@ typedef struct		s_cursor
 **	map				- arena.
 **  last_live       - the last player who said he was alive.
 **  all_cycles      - number of cycles that have passed since beginning of game.
-**  lives_nbr     	- number of live ops made by start of last cycles_to_die.
-**  cycles_to_die   - number of cycles until next "check".
+**  lives_nbr     	- number of live ops made by start of last cycle_to_die.
+**  cycle_to_die	- cycle on which the check will occur.
 **  checks          - number of checks performed.
-**  first_cursor    - pointer to the first cursor.
 **	next_cursor_num - number that will be given to the next created cursor
-**  f_a				- flag a (aff). Displays register value.
 */
 
 typedef struct		s_arena
@@ -77,7 +75,8 @@ typedef struct		s_arena
 	int 			last_live;
 	int 			all_cycles;
 	int 			lives_nbr;
-	int 			cycles_to_die;
+	int 			cycle_to_die;
+//	int 			cycles_to_check;		// todo: поменять название на более понятное. Переменная уменьшается до того момента, когда нужно произвести check
 	int 			checks;
 	int 			next_cursor_num;
 }					t_arena;
@@ -85,12 +84,14 @@ typedef struct		s_arena
 /*
 ** ___________________ Global State Structure Definition _______________________
 **
-**	players_num	- number of players.
-**	all_players	- array of all players in game.
-**  f_dump		- flag dump (stops execution on a specific loop).
-**  f_dump_arg	- dump flag argument.
-**  f_v			- flag v (visualisation).
-**  f_a			- flag a (aff). Displays register value.
+**	players_num		- number of players.
+**	all_players		- array of all players in game.
+**  f_dump			- flag dump (stops execution on a specific loop).
+**  f_dump_arg		- dump flag argument.
+**  f_v				- flag v (visualisation).
+**  f_a				- flag a (aff). Displays register value.
+**	processes_num	- number of active cursors.
+**  first_cursor	- pointer to the first cursor.
 */
 
 typedef struct	s_gstate
@@ -101,6 +102,7 @@ typedef struct	s_gstate
     int				f_dump_arg;
     char			f_v:2;
     char			f_a:2;
+    int 			processes_num;
 	t_cursor		*first_cursor;
 	struct s_vis	*vis;
 	t_arena			*arena;

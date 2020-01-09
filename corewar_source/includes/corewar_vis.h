@@ -92,5 +92,6 @@ void	check_window_size(t_vis *vis);
 void	init_color_palette();
 void	draw_map(t_vis *vis, t_arena *arena);
 void	draw_usage(t_vis *vis);
+void	draw_info(t_gstate *gstate, t_arena *arena);
 
 #endif

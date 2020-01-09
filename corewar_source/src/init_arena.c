@@ -21,6 +21,7 @@ void fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 		current->next = first_cursor;
 		first_cursor = current;
 		first_pos += step;
+		gstate->processes_num++;
 		i++;
 	}
 	gstate->first_cursor = first_cursor;

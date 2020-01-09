@@ -44,6 +44,8 @@ void draw_usage(t_vis *vis) {
 	!vis->is_running ? wattron(vis->w_usage, A_BOLD) : 0;
 	wprintw(vis->w_usage, "stop");
 	!vis->is_running ? wattroff(vis->w_usage, A_BOLD) : 0;
+	wmove(vis->w_usage, 2, 44);
+	wprintw(vis->w_usage, "s - one step");
 	wattron(vis->w_usage, COLOR_PAIR(GRAY));
 	box(vis->w_usage, 0, 0);
 	wattroff(vis->w_usage, COLOR_PAIR(GRAY));

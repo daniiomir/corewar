@@ -14,6 +14,7 @@ t_gstate	*init_global_state(void)
 	gstate->f_dump_arg = 0;
 	gstate->f_v = 0;
 	gstate->f_a = 0;
+	gstate->processes_num = 0;
 	return (gstate);
 }
 
@@ -43,8 +44,8 @@ t_arena *init_arena()
 	arena->last_live = 0;
 	arena->all_cycles = 0;
 	arena->lives_nbr = 0;
-	arena->cycles_to_die = CYCLE_TO_DIE;
-	arena->checks = 0;
+	arena->cycle_to_die = CYCLE_TO_DIE;
+	arena->checks = 1;
 	arena->next_cursor_num = 0;
 	return (arena);
 }
