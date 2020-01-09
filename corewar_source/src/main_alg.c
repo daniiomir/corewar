@@ -82,9 +82,9 @@ void	end_of_battle()
 
 void main_alg(t_gstate *gstate)
 {
-//	init_battle(gstate);					// нужно будет перенести в main
-//	print_arena(arena, arena->first_cursor);					// нужно будет перенести в main
+	init_battle(gstate);
+	print_arena(gstate->arena, gstate->first_cursor);
 	main_cycle(gstate);
-//	end_of_battle();					// нужно будет перенести в main
-//	free_all(arena, arena->first_cursor, gstate);					// нужно будет перенести в main
+	end_of_battle();
+	free_all(gstate->arena, gstate->first_cursor, gstate);
 }

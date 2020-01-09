@@ -1,4 +1,3 @@
-#include "../includes/corewar.h"
 #include <corewar_vis.h>
 
 t_gstate	*init_global_state(void)
@@ -30,6 +29,8 @@ t_champ		*init_champion(int n_arg, int id)
 	player->comment = NULL;
 	player->size = 0;
 	player->code = NULL;
+	player->lives_in_cur_period = 0;
+	player->last_live_cycle = 0;
 	return (player);
 }
 

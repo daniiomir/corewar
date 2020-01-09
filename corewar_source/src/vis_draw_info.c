@@ -30,9 +30,9 @@ static void draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 		ft_strlen(player->name) > 45 ? waddstr(vis->w_info, "...") : 0;
 		wattroff(vis->w_info, color);
 		wmove(vis->w_info, (*row) += 1, col + 5);
-		wprintw(vis->w_info, "Last live : %30s", "no information");
+		wprintw(vis->w_info, "Last live : %30d", player->last_live_cycle);
 		wmove(vis->w_info, (*row) += 1, col + 5);
-		wprintw(vis->w_info, "Lives in current period : %16s", "no information");
+		wprintw(vis->w_info, "Lives in current period : %16d", player->lives_in_cur_period);
 
 		wmove(vis->w_info, (*row) += 2, col);
 		i++;
@@ -66,4 +66,5 @@ void	draw_info(t_gstate *gstate, t_arena *arena)
 	wmove(vis->w_info, row += 2, col);
 	wprintw(vis->w_info, "Nbr of lives : %8d/21", arena->lives_nbr);
 	wattroff(vis->w_info, A_BOLD);
+	box(vis->w_info, 0, 0);
 }

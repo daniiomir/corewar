@@ -26,6 +26,8 @@ typedef struct		s_champ
     char			*comment;
     int				size;
     unsigned char	*code;
+    int 			last_live_cycle;
+    int 			lives_in_cur_period;
 }					t_champ;
 
 /*
@@ -36,7 +38,7 @@ typedef struct		s_champ
 **  current_op			- operation code on which the cursor stands
 **  last_live_cycle		- the loop on which the "live" operation was performed.
 **  cycles_remaining	- number of cycles before operation execution.
-**  cur_pos	- cursor position on map.
+**  cur_pos				- cursor position on map.
 **  next_op_steps		- number of bytes before next operation.
 **  reg					- registers.
 **  args				- types of arguments operation takes.

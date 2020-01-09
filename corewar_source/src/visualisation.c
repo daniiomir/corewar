@@ -11,7 +11,6 @@ void refresh_window(t_gstate *gstate, t_arena *arena)
 	draw_map(vis, arena);
 	draw_usage(vis);
 	draw_info(gstate, arena);
-	box(vis->w_info, 0, 0);
 	wrefresh(vis->w_map);
 	wrefresh(vis->w_info);
 	wrefresh(vis->w_usage);

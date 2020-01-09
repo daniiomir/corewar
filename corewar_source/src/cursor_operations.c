@@ -1,6 +1,6 @@
 #include "corewar.h"
 
-void cursor_operations_exec(t_gstate *gstate)		// exec-op
+void cursor_operations_exec(t_gstate *gstate)
 {
 	t_cursor *cursor;
 
