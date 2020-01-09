@@ -21,6 +21,8 @@ int				byte_to_int(unsigned char *code, int byte_len);
 int				get_map_ind(int current_position, int shift);
 int				get_map_int(t_arena *arena, int first_pos, int size);
 int				get_cur_pos_byte(t_arena *arena, t_cursor *cursor);
+void			init_battle(t_gstate *gstate);
+void			end_of_battle(t_gstate *gstate);
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -67,7 +69,7 @@ void			fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate);
 ** _____________________________ Main algorithm ________________________________
 */
 
-void			main_alg(t_gstate *gstate);
+void			main_cycle(t_gstate *gstate);
 void			one_cycle(t_gstate *gstate);
 
 /*

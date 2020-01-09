@@ -25,7 +25,11 @@ int	main(int argc, char **argv)
 	if (gstate->f_v)
 		visualisation(gstate, gstate->arena);
 	else
-		main_alg(gstate);
+	{
+		init_battle(gstate);
+		main_cycle(gstate);
+		end_of_battle(gstate);
+	}
 }
 
 /*

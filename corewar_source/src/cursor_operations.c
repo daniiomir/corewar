@@ -33,7 +33,7 @@ void	cursor_operations_exec(t_gstate *gstate)		// exec-op
 	}
 }
 
-void	kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor)		// TODO: проверить правильно ли работает
+void	kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor)
 {
 	t_cursor *prev_cursor;
 

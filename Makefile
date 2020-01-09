@@ -19,11 +19,11 @@ all: $(ASM) $(COREWAR)
 
 $(ASM):
 	@make -C $(ASM_SRC)
-	@cp $(ASM_SRC)/$(ASM) $(ASM)
+	@mv $(ASM_SRC)/$(ASM) $(ASM)
 
 $(COREWAR):
 	@make -C $(COREWAR_SRC)
-	@cp $(COREWAR_SRC)/$(COREWAR) $(COREWAR)
+	@mv $(COREWAR_SRC)/$(COREWAR) $(COREWAR)
 
 clean:
 	@make clean -C $(ASM_SRC)

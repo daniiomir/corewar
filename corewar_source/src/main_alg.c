@@ -69,35 +69,3 @@ void			main_cycle(t_gstate *gstate)
 		one_cycle(gstate);
 	}
 }
-
-void			init_battle(t_gstate *gstate)
-{
-	int	a;
-
-	a = 0;
-	printf("\e[1;1H\e[2J");
-	printf("Introducing contestants...\n");
-	while (a < gstate->players_num)
-	{
-		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", (a + 1),
-				gstate->all_players[a]->size, gstate->all_players[a]->name,
-				gstate->all_players[a]->comment);
-		a++;
-	}
-//	sleep(1);
-}
-
-void			end_of_battle(void)
-{
-	printf("\e[1;1H\e[2J");
-	printf("pobedil STEPAN!");
-}
-
-void			main_alg(t_gstate *gstate)
-{
-//	init_battle(gstate);					// нужно будет перенести в main
-//	print_arena(arena, arena->first_cursor);					// нужно будет перенести в main
-	main_cycle(gstate);
-//	end_of_battle();					// нужно будет перенести в main
-//	free_all(arena, arena->first_cursor, gstate);					// нужно будет перенести в main
-}
