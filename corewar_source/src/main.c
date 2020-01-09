@@ -94,4 +94,3 @@ int	main(int argc, char **argv)
 //								A_BOLD			- makes font bold
 //								A_UNDERLINE		- underline
 //								COLOR_PAIR(ID)	-
-

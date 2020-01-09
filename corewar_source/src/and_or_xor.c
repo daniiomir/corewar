@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   and_or_xor.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 14:06:17 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 14:06:18 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	op_and(t_gstate *gstate, t_cursor *cursor)
@@ -14,7 +26,7 @@ void	op_and(t_gstate *gstate, t_cursor *cursor)
 	cursor->f_carry = (cursor->reg[INDEX(reg)] == 0) ? 1 : 0;
 }
 
-void op_or(t_gstate *gstate, t_cursor *cursor)
+void	op_or(t_gstate *gstate, t_cursor *cursor)
 {
 	int arg1;
 	int arg2;
@@ -28,7 +40,7 @@ void op_or(t_gstate *gstate, t_cursor *cursor)
 	cursor->f_carry = (cursor->reg[INDEX(reg)] == 0) ? 1 : 0;
 }
 
-void op_xor(t_gstate *gstate, t_cursor *cursor)
+void	op_xor(t_gstate *gstate, t_cursor *cursor)
 {
 	int arg1;
 	int arg2;

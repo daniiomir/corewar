@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_sub.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:41:24 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:41:26 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	op_add(t_gstate *gstate, t_cursor *cursor)
@@ -14,7 +26,7 @@ void	op_add(t_gstate *gstate, t_cursor *cursor)
 	cursor->f_carry = (cursor->reg[INDEX(reg3)] == 0) ? 1 : 0;
 }
 
-void op_sub(t_gstate *gstate, t_cursor *cursor)
+void	op_sub(t_gstate *gstate, t_cursor *cursor)
 {
 	int reg1;
 	int reg2;

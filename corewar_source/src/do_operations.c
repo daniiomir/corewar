@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   do_operations.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 14:05:50 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 14:05:50 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <corewar_vis.h>
 #include "corewar.h"
 
@@ -7,7 +19,7 @@ static void	move_error_code(t_cursor *cursor)
 	cursor->cycles_remaining = 0;
 }
 
-void move_cursor(t_gstate *gstate, t_cursor *cursor)    // понадобится gstate для визуализации
+void		move_cursor(t_gstate *gstate, t_cursor *cursor)    // понадобится gstate для визуализации
 {
 	if (gstate->f_v)
 		gstate->vis->map[cursor->cur_pos].is_cursor = 0;
@@ -18,7 +30,7 @@ void move_cursor(t_gstate *gstate, t_cursor *cursor)    // понадобитс�
 	ft_bzero(cursor->args, sizeof(unsigned char) * 3);
 }
 
-void do_operation(t_gstate *gstate, t_cursor *cursor)
+void		do_operation(t_gstate *gstate, t_cursor *cursor)
 {
 	t_op	curr_op;
 

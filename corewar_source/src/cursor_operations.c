@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_operations.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:42:14 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:42:14 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-void cursor_operations_exec(t_gstate *gstate)		// exec-op
+void	cursor_operations_exec(t_gstate *gstate)		// exec-op
 {
 	t_cursor *cursor;
 
@@ -21,7 +33,7 @@ void cursor_operations_exec(t_gstate *gstate)		// exec-op
 	}
 }
 
-void		kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor)		// TODO: проверить правильно ли работает
+void	kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor)		// TODO: проверить правильно ли работает
 {
 	t_cursor *prev_cursor;
 

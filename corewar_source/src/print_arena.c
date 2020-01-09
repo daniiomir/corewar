@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_arena.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:16:14 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:16:15 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 int			fill_color_cursor(t_cursor *cursors, int a)
@@ -26,8 +38,8 @@ int			fill_color_cursor(t_cursor *cursors, int a)
 
 void		print_arena(t_arena *arena, t_cursor *cursor)
 {
-	int 	a;
-	int 	b;
+	int		a;
+	int		b;
 
 	a = 0;
 	printf("\e[1;1H\e[2J");
