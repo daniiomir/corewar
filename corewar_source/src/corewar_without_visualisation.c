@@ -24,9 +24,9 @@ void			end_of_battle(t_gstate *gstate)
 		a++;
 	}
 	if (gstate->all_players[a])
-		printf("WINNER WINNER, CHICHEN DINNER!!! CONGRAT %s\n", gstate->all_players[a]->name);
+		ft_printf("WINNER WINNER, CHICHEN DINNER!!! CONGRAT %s\n", gstate->all_players[a]->name);
 	else
-		printf("There is no winners out of here...\n");
+		ft_printf("There is no winners out of here...\n");
 }
 
 void			init_battle(t_gstate *gstate)
@@ -34,10 +34,10 @@ void			init_battle(t_gstate *gstate)
 	int	a;
 
 	a = 0;
-	printf("Introducing contestants...\n");
+	ft_printf("Introducing contestants...\n");
 	while (a < gstate->players_num)
 	{
-		printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", (a + 1),
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", (a + 1),
 			   gstate->all_players[a]->size, gstate->all_players[a]->name,
 			   gstate->all_players[a]->comment);
 		a++;

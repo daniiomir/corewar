@@ -15,6 +15,7 @@ t_op			op_tab[17];
 ** ___________________________ General Functions _______________________________
 */
 
+int				ft_printf(const char *format, ...);
 void			print_error_and_exit(char *errstr, int errno);
 void			print_usage();
 int				byte_to_int(unsigned char *code, int byte_len);
