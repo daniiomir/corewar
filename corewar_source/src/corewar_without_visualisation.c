@@ -14,7 +14,17 @@
 
 void			end_of_battle(t_gstate *gstate)
 {
+	int 	a;
+
+	a = 0;
 	printf("\e[1;1H\e[2J");
+	while (gstate->all_players[a])
+	{
+		if (a == gstate->arena->last_live)
+			break ;
+	}
+	if (gstate->all_players[a])
+		printf("WINNER WINNER, CHICHEN DINNER!!! CONGRAT %s", gstate->all_players[a]->name);
 }
 
 void			init_battle(t_gstate *gstate)
