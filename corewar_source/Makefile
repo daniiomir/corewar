@@ -51,6 +51,7 @@ SRC_NAMES = main.c \
     		ld_ldi_lld_lldi.c \
     		st_sti.c \
     		zjmp.c \
+    		live.c \
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

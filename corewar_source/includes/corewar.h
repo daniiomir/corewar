@@ -120,6 +120,8 @@ void			op_lfork(t_gstate *gstate, t_cursor *cursor);
 
 void			op_zjmp(t_gstate *gstate, t_cursor *cursor);
 
+void			op_live(t_gstate *gstate, t_cursor *cursor);
+
 void			op_aff(t_gstate *gstate, t_cursor *cursor);
 
 

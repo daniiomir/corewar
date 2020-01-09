@@ -46,8 +46,10 @@ int	argument_code_type_check(t_cursor *cursor, t_arena *arena, t_op operation)
 	int	i;
 
 	args_type_code = arena->map[get_map_ind(cursor->cur_pos, 1)];
-	cursor->next_op_steps++;
+	cursor->next_op_steps += 2;
 	i = 0;
+	if (!operation.arg_code_type)
+		return (0);
 	while (i < operation.nbrarg)
 	{
 		byte_shift = 6u - i * 2;

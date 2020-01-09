@@ -49,5 +49,4 @@ void	op_sti(t_gstate *gstate, t_cursor *cursor)
 	arg3 = get_arg(gstate->arena, cursor, cursor->args[2], 1);
 	addr = cursor->cur_pos + ((arg2 + arg3) % IDX_MOD);
 	write_to_map(gstate->arena, reg, addr, DIR_SIZE);
-	cursor->next_op_steps += IND_SIZE;
 }

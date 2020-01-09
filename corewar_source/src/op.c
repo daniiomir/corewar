@@ -15,7 +15,7 @@
 t_op    op_tab[17] =
 {
 		{0, 0, 0, {0}, 0, 0, 0, 0, 0, NULL},
-		{1, "live", 1, {T_DIR}, 10, "alive", 0, 0, 4, &op_ld},
+		{1, "live", 1, {T_DIR}, 10, "alive", 0, 0, 4, &op_live},
 		{2, "ld", 2, {T_DIR | T_IND, T_REG}, 5, "load", 1, 1, 4, &op_ld},
 		{3, "st", 2, {T_REG, T_IND | T_REG}, 5, "store", 1, 0, 4, &op_st},
 		{4, "add", 3, {T_REG, T_REG, T_REG}, 10, "addition", 1, 1, 4, &op_add},
