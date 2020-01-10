@@ -71,6 +71,6 @@ void main_alg(t_gstate *gstate)
 	print_arena(gstate->arena, gstate->first_cursor);
 	while (gstate->processes_num)
 		one_cycle(gstate);
-	end_of_battle();
+	end_of_battle(gstate);
 //	free_all(gstate->arena, gstate->first_cursor, gstate);
 }

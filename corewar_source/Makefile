@@ -30,6 +30,7 @@ SRC_NAMES = main.c \
     		put_players_in_order.c \
     		byte_shift.c \
     		print_error.c \
+    		print_info.c \
     		main_alg.c \
     		init_arena.c \
     		free_all.c \
@@ -53,7 +54,6 @@ SRC_NAMES = main.c \
     		st_sti.c \
     		zjmp.c \
     		live.c \
-    		corewar_without_visualisation.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

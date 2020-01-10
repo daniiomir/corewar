@@ -10,16 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <corewar_vis.h>
+#include "corewar_vis.h"
 #include "corewar.h"
 
-static void	move_error_code(t_cursor *cursor)
-{
-	cursor->cur_pos += cursor->next_op_steps;
-	cursor->cycles_remaining = 0;
-}
-
-void		move_cursor(t_gstate *gstate, t_cursor *cursor)    // понадобится gstate для визуализации
+void		move_cursor(t_gstate *gstate, t_cursor *cursor)
 {
 	if (gstate->f_v)
 		gstate->vis->map[cursor->cur_pos].is_cursor = 0;

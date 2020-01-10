@@ -17,10 +17,3 @@ void	print_error_and_exit(char *errstr, int errno)
 	ft_printf("%s\n", errstr);
 	exit(errno);
 }
-
-void	print_usage(void)
-{
-	ft_printf("Usage: ./corewar [-v][-d <num> ");
-	ft_printf("| -n <num> ] <champion1.cor> <...>\n");
-	exit(1);
-}

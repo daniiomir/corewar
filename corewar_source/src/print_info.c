@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar_without_visualisation.c                    :+:      :+:    :+:   */
+/*   print_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,19 +14,12 @@
 
 void			end_of_battle(t_gstate *gstate)
 {
-	int 	a;
+	t_champ *winner;
 
-	a = 0;
-	while (gstate->all_players[a])
-	{
-		if (a == gstate->arena->last_live)
-			break ;
-		a++;
-	}
-	if (gstate->all_players[a])
-		ft_printf("WINNER WINNER, CHICHEN DINNER!!! CONGRAT %s\n", gstate->all_players[a]->name);
-	else
-		ft_printf("There is no winners out of here...\n");
+	winner = gstate->all_players[INDEX(ft_abs(gstate->arena->last_live))];
+
+	ft_printf("Contestant %d, \"%s\", has won !\n", winner->id,
+			winner->name);
 }
 
 void			init_battle(t_gstate *gstate)
@@ -42,4 +35,11 @@ void			init_battle(t_gstate *gstate)
 			   gstate->all_players[a]->comment);
 		a++;
 	}
+}
+
+void	print_usage(void)
+{
+	ft_printf("Usage: ./corewar [-v][-d <num> ");
+	ft_printf("| -n <num> ] <champion1.cor> <...>\n");
+	exit(1);
 }
