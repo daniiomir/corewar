@@ -38,11 +38,10 @@ static void		check_cursors_is_alive(t_gstate *gstate)
 		{
 			if (gstate->f_v)
 				gstate->vis->map[current->cur_pos].is_cursor = 0;
-			kill_cursor(&current, gstate->first_cursor);
+			kill_cursor(&current, &gstate->first_cursor);
 			gstate->processes_num--;
+			continue ;
 		}
-		if (!current)
-			break ;
 		current = current->next;
 	}
 }

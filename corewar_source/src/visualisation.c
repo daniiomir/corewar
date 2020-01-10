@@ -57,8 +57,9 @@ void	visualisation(t_gstate *gstate, t_arena *arena)
 
 void visualisation_debug(t_gstate *gstate, t_arena *arena)
 {
-//	init_vis_arena(gstate);
+	init_vis_arena(gstate);
 
+	gstate->vis->is_running = 1;
 	while (gstate->vis->is_running)
 	{
 		if (gstate->processes_num == 0)			// конец игры

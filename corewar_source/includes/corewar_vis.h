@@ -87,6 +87,8 @@ typedef struct	s_vis
 
 t_vis	*init_vis();
 void	visualisation(t_gstate *gstate, t_arena *arena);
+void	visualisation_debug(t_gstate *gstate, t_arena *arena);
+void	init_vis_arena(t_gstate *gstate);				// удалить вместе с visualisation_debug
 void	prepare_map(t_gstate *gstate);
 void	check_window_size(t_vis *vis);
 void	init_color_palette();

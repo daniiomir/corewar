@@ -33,16 +33,16 @@ void	cursor_operations_exec(t_gstate *gstate)
 	}
 }
 
-void	kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor)
+void	kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor)
 {
 	t_cursor *prev_cursor;
 
-	prev_cursor = first_cursor;
+	prev_cursor = (*first_cursor);
 	if (prev_cursor == *(search_cursor))
 	{
-		first_cursor = first_cursor->next;
+		(*first_cursor) = (*first_cursor)->next;
 		free((*search_cursor));
-		(*search_cursor) = first_cursor;
+		(*search_cursor) = (*first_cursor);
 		return ;
 	}
 	while (prev_cursor->next != (*search_cursor) && prev_cursor != NULL)

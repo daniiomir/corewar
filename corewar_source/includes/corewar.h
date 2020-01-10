@@ -101,7 +101,7 @@ int				argument_code_type_check(t_cursor *cursor, t_arena *arena, t_op operation
 */
 
 void			cursor_operations_exec(t_gstate *gstate);
-void 			kill_cursor(t_cursor **search_cursor, t_cursor *first_cursor);
+void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 void			do_operation(t_gstate *gstate, t_cursor *cursor);
 int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
 
