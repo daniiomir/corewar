@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdarg.h>
 
 typedef struct		s_list
 {
@@ -33,6 +34,7 @@ typedef struct		s_double_linked_list
 	struct s_double_linked_list	*prev;
 }					t_dlist;
 
+int					ft_printf(const char *format, ...);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
 ssize_t				ft_atoi(const char *str);
@@ -115,5 +117,35 @@ char				*ft_strjoin_free_all(char *s1, char *s2);
 int					ft_search_helper(const char *string, char search);
 void				ft_strset(char *string, size_t len, char c);
 size_t				ft_count_words(const char *s, char c);
+
+typedef struct		s_pf
+{
+	char			flag;
+	int				wide;
+	int				prec;
+	char			mode;
+	char			type;
+	char			sign;
+	char			*arg;
+	char			proc;
+	int				dot;
+	int				b;
+	int				len;
+	int				malloc;
+	int				wst;
+}					t_pf;
+
+void				ft_putstr_printf(char const *s, t_pf **pf);
+void				flag_digit(va_list ap, t_pf **pf);
+void				flag_str(va_list ap, t_pf **pf);
+void				flag_percent(t_pf **pf);
+void				flag_double(va_list ap, t_pf **pf);
+void				add_flag(t_pf **pf, const char *str);
+void				add_wide(va_list ap, t_pf **pf, const char *str, int *a);
+int					add_prec(va_list ap, t_pf **pf, const char *str, int *a);
+void				add_mode(t_pf **pf, const char *str, int *a);
+void				final_print(t_pf **pf);
+void				final_print_c(t_pf **pf);
+t_pf				*pf_new();
 
 #endif

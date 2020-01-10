@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   op_args_validation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:25:12 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:25:13 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-static int 	check_one_arg(t_cursor *cursor, t_arena *arena, int arg_order, t_op operation)
+static int		check_one_arg(t_cursor *cursor, t_arena *arena,
+		int arg_order, t_op operation)
 {
-	int current_pos;
-	unsigned char arg;
+	int				current_pos;
+	unsigned char	arg;
 
 	current_pos = cursor->cur_pos + cursor->next_op_steps;
 	arg = cursor->args[arg_order];
@@ -39,11 +52,12 @@ static int		check_args(t_cursor *cursor, t_arena *arena, t_op operation)
 	return (1);
 }
 
-int	argument_code_type_check(t_cursor *cursor, t_arena *arena, t_op operation)
+int				argument_code_type_check(t_cursor *cursor,
+		t_arena *arena, t_op operation)
 {
-	unsigned char args_type_code;
-	unsigned char byte_shift;
-	int	i;
+	unsigned char	args_type_code;
+	unsigned char	byte_shift;
+	int				i;
 
 	args_type_code = arena->map[get_map_ind(cursor->cur_pos, 1)];
 	cursor->next_op_steps += 2;

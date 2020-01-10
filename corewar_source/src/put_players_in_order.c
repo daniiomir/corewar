@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   put_players_in_order.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:10:15 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:10:16 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/corewar.h"
 
-static void    champs_with_n(t_gstate *gstate, t_champ **result)
+static void		champs_with_n(t_gstate *gstate, t_champ **result)
 {
 	int i;
 	int n_arg;
@@ -25,7 +37,7 @@ static void    champs_with_n(t_gstate *gstate, t_champ **result)
 	}
 }
 
-static void    remaining_champs(t_gstate *gstate, t_champ **result)
+static void		remaining_champs(t_gstate *gstate, t_champ **result)
 {
 	int i;
 	int j;
@@ -51,12 +63,13 @@ static void    remaining_champs(t_gstate *gstate, t_champ **result)
 	}
 }
 
-void	order_of_champs(t_gstate *gstate)
+void			order_of_champs(t_gstate *gstate)
 {
 	t_champ	*result[gstate->players_num];
 
 	ft_bzero(&result, gstate->players_num * sizeof(t_champ*));
 	champs_with_n(gstate, &(*result));
 	remaining_champs(gstate, &(*result));
-	ft_memcpy(gstate->all_players, result, gstate->players_num * sizeof(t_champ*));
+	ft_memcpy(gstate->all_players, result,
+			gstate->players_num * sizeof(t_champ*));
 }

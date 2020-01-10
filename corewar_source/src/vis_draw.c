@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vis_draw.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:05:57 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:06:04 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <corewar_vis.h>
 
-static int get_color(t_cell cell) {
+static int	get_color(t_cell cell)
+{
 	int id;
 
 	id = cell.player_id;
@@ -9,10 +22,11 @@ static int get_color(t_cell cell) {
 	return (g_colors[id]);
 }
 
-void draw_map(t_vis *vis, t_arena *arena) {
-	int 	color;
-	int 	row;
-	int 	i;
+void		draw_map(t_vis *vis, t_arena *arena)
+{
+	int		color;
+	int		row;
+	int		i;
 
 	row = 1;
 	i = 0;
@@ -32,7 +46,8 @@ void draw_map(t_vis *vis, t_arena *arena) {
 	wattroff(vis->w_map, COLOR_PAIR(GRAY));
 }
 
-void draw_usage(t_vis *vis) {
+void		draw_usage(t_vis *vis)
+{
 	wmove(vis->w_usage, 2, 2);
 	wprintw(vis->w_usage, "ESC - exit", vis->is_running);
 	wmove(vis->w_usage, 2, 20);

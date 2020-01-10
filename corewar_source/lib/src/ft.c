@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aff.c                                              :+:      :+:    :+:   */
+/*   ft.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cnikia <cnikia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 13:41:59 by cnikia            #+#    #+#             */
-/*   Updated: 2020/01/09 13:42:00 by cnikia           ###   ########.fr       */
+/*   Created: 2019/05/14 19:15:45 by cnikia            #+#    #+#             */
+/*   Updated: 2019/07/08 20:48:21 by cnikia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "libft.h"
 
-void	op_aff(t_gstate *gstate, t_cursor *cursor)
+void	ft_putstr_printf(char const *s, t_pf **pf)
 {
-	int	reg;
-	int	value;
-
-	cursor->next_op_steps += 2;
-	reg = get_arg(gstate->arena, cursor, T_DIR, 0);
-	value = (char)reg;
-	if (gstate->f_a)
-		ft_printf("Aff: %c\n", (char)value);
+	if (!s)
+		return ;
+	while (*s)
+	{
+		ft_putchar(*s);
+		((*pf)->b)++;
+		s++;
+	}
 }

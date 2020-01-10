@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_alg.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:27:44 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:27:46 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar_vis.h"
 #include <stdio.h>
 
-static void update_arena_state(t_arena *arena)
+static void		update_arena_state(t_arena *arena)
 {
 	if (arena->lives_nbr >= NBR_LIVE || arena->checks >= MAX_CHECKS)
 	{
@@ -13,7 +25,7 @@ static void update_arena_state(t_arena *arena)
 		arena->checks++;
 }
 
-static void check_cursors_is_alive(t_gstate *gstate)
+static void		check_cursors_is_alive(t_gstate *gstate)
 {
 	t_arena		*arena;
 	t_cursor	*current;
@@ -35,7 +47,7 @@ static void check_cursors_is_alive(t_gstate *gstate)
 	}
 }
 
-void one_cycle(t_gstate *gstate)
+void			one_cycle(t_gstate *gstate)
 {
 	t_arena		*arena;
 	static int	prev_check;
@@ -43,7 +55,8 @@ void one_cycle(t_gstate *gstate)
 	arena = gstate->arena;
 	gstate->arena->all_cycles++;
 	cursor_operations_exec(gstate);
-	if (arena->all_cycles - prev_check == arena->cycle_to_die || arena->cycle_to_die <= 0) //событие "проверка"
+	if (arena->all_cycles - prev_check == arena->cycle_to_die
+		|| arena->cycle_to_die <= 0)
 	{
 		check_cursors_is_alive(gstate);
 		update_arena_state(arena);
@@ -51,28 +64,6 @@ void one_cycle(t_gstate *gstate)
 	}
 }
 
-void	init_battle(t_gstate *gstate)
-{
-	int 		a;
-
-	a = 0;
-	printf("\e[1;1H\e[2J");
-	printf("Introducing contestants...\n");
-	while (a < gstate->players_num)
-	{
-			   printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
-			   (a + 1), gstate->all_players[a]->size, gstate->all_players[a]->name,
-			   gstate->all_players[a]->comment);
-		a++;
-	}
-//	sleep(1);
-}
-
-void	end_of_battle()
-{
-    printf("\e[1;1H\e[2J");
-    printf("pobedil STEPAN!");
-}
 
 void main_alg(t_gstate *gstate)
 {

@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   st_sti.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:07:50 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 13:07:51 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "corewar.h"
 #include "corewar_vis.h"
 
-void write_to_map(t_gstate *gstate, int what, int where, int size) {
-	int 	i;
-	int 	j;
-	int 	index;
+void	write_to_map(t_gstate *gstate, int what, int where, int size) {
+	int		i;
+	int		j;
+	int		index;
 
 	i = 0;
 	j = 0;
@@ -45,7 +58,8 @@ void	op_st(t_gstate *gstate, t_cursor *cursor)
 	}
 	else
 	{
-		arg2 = get_map_int(gstate->arena, cursor->cur_pos + cursor->next_op_steps, T_IND_SIZE);
+		arg2 = get_map_int(gstate->arena,
+				cursor->cur_pos + cursor->next_op_steps, T_IND_SIZE);
 		addr = cursor->cur_pos + (arg2 % IDX_MOD);
 		write_to_map(gstate, reg, addr, DIR_SIZE);
 		if (gstate->f_v)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 14:07:30 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 14:07:30 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <corewar_vis.h>
 
 t_gstate	*init_global_state(void)
@@ -34,7 +46,7 @@ t_champ		*init_champion(int n_arg, int id)
 	return (player);
 }
 
-t_arena *init_arena()
+t_arena		*init_arena()
 {
 	t_arena		*arena;
 

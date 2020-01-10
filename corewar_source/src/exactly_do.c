@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exactly_do.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 14:07:49 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 14:07:50 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-int	get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
+int		get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
 {
-	int 			value;
+	int				value;
 	int				addr;
 	t_op			*op;
 

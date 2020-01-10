@@ -68,7 +68,8 @@ int				get_exec_code_size(int fd)
 		print_error_and_exit("Cannot read file", 51);
 	if (size < 4)
 		print_error_and_exit("Wrong size of execution code", 55);
-	exec_code_size = (buff[0] << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);
+	exec_code_size = (buff[0] << 24) |
+			(buff[1] << 16) | (buff[2] << 8) | (buff[3]);
 	if (exec_code_size > CHAMP_MAX_SIZE || exec_code_size < 0)
 		print_error_and_exit("Execution code is too big", 56);
 	return (exec_code_size);

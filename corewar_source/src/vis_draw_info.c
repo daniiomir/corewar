@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vis_draw_info.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 12:52:13 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 12:52:14 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar_vis.h"
 
 static void	draw_is_running(t_vis *vis, int *row)
 {
 	int		color;
-	char 	*status;
+	char	*status;
 
 	color = vis->is_running ? GREEN : RED;
 	status = vis->is_running ? "RUNNING" : "STOPPED";
@@ -13,7 +25,7 @@ static void	draw_is_running(t_vis *vis, int *row)
 	(*row) += 3;
 }
 
-static void draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
+static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 {
 	int		i;
 	int		color;
@@ -32,14 +44,15 @@ static void draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 		wmove(vis->w_info, (*row) += 1, col + 5);
 		wprintw(vis->w_info, "Last live : %30d", player->last_live_cycle);
 		wmove(vis->w_info, (*row) += 1, col + 5);
-		wprintw(vis->w_info, "Lives in current period : %16d", player->lives_in_cur_period);
+		wprintw(vis->w_info, "Lives in current period : %16d",
+				player->lives_in_cur_period);
 
 		wmove(vis->w_info, (*row) += 2, col);
 		i++;
 	}
 }
 
-void draw_winner(t_gstate *gstate)
+void		draw_winner(t_gstate *gstate)
 {
 	t_champ *winner;
 
@@ -50,11 +63,11 @@ void draw_winner(t_gstate *gstate)
 	wattroff(gstate->vis->w_info, COLOR_PAIR(GREEN));
 }
 
-void	draw_info(t_gstate *gstate, t_arena *arena)
+void		draw_info(t_gstate *gstate, t_arena *arena)
 {
 	t_vis	*vis;
-	int 	row;
-	int 	col;
+	int		row;
+	int		col;
 
 	row = 1;
 	col = 3;

@@ -53,6 +53,7 @@ SRC_NAMES = main.c \
     		st_sti.c \
     		zjmp.c \
     		live.c \
+    		corewar_without_visualisation.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 

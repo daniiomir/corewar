@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   byte_shift.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 14:04:31 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/09 14:04:32 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-int byte_to_int(unsigned char *code, int byte_len)
+int		byte_to_int(unsigned char *code, int byte_len)
 {
 	int				sign;
 	unsigned int	i;
@@ -22,7 +34,7 @@ int byte_to_int(unsigned char *code, int byte_len)
 	return (i);
 }
 
-int	get_map_ind(int current_position, int shift)
+int		get_map_ind(int current_position, int shift)
 {
 	int sum;
 
@@ -32,10 +44,10 @@ int	get_map_ind(int current_position, int shift)
 	return (sum % MEM_SIZE);
 }
 
-int	get_map_int(t_arena *arena, int first_pos, int size)
+int		get_map_int(t_arena *arena, int first_pos, int size)
 {
-	unsigned char new_arr[size];
-	int i;
+	unsigned char	new_arr[size];
+	int				i;
 
 	i = 0;
 	while (i < size)
@@ -46,7 +58,7 @@ int	get_map_int(t_arena *arena, int first_pos, int size)
 	return (byte_to_int(new_arr, size));
 }
 
-int	get_cur_pos_byte(t_arena *arena, t_cursor *cursor)
+int		get_cur_pos_byte(t_arena *arena, t_cursor *cursor)
 {
 	int reg_ind;
 

@@ -88,7 +88,16 @@ SRCS = 	src/ft_strlen.c \
 		src/ft_strjoin_free2.c \
 		src/ft_strjoin_free_all.c \
 		src/ft_search_helper.c \
-		src/ft_strset.c
+		src/ft_strset.c \
+		src/add.c \
+		src/final_print.c \
+		src/final_print_c.c \
+		src/flag_digit.c \
+		src/flag_double.c \
+		src/flag_str.c \
+		src/ft.c \
+		src/ft_printf.c \
+		src/pf_struct.c
 
 FLAGS = -Wall -Wextra -Werror -c
 HEADERS = ./includes
