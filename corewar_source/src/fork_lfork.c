@@ -15,7 +15,8 @@ void op_fork(t_gstate *gstate, t_cursor *cursor)
 	int arg;
 
 	cursor->next_op_steps += 1;
-	cursor_copy = copy_cursor(init_cursor(0, cursor->reg[0]), cursor);
+	cursor_copy = copy_cursor(init_cursor(cursor->player_id, cursor->reg[0]), cursor);
+	gstate->processes_num++;
 	arg = get_arg(gstate->arena, cursor, T_DIR, 0);
 	cursor_copy->cur_pos = get_map_ind(cursor->cur_pos, arg % IDX_MOD);
 	tmp = gstate->first_cursor;
@@ -30,7 +31,8 @@ void op_lfork(t_gstate *gstate, t_cursor *cursor)
 	int arg;
 
 	cursor->next_op_steps += 1;
-	cursor_copy = copy_cursor(init_cursor(0, cursor->reg[0]), cursor);
+	cursor_copy = copy_cursor(init_cursor(cursor->player_id, cursor->reg[0]), cursor);
+	gstate->processes_num++;
 	arg = get_arg(gstate->arena, cursor, T_DIR, 0);
 	cursor_copy->current_op = get_map_ind(cursor->cur_pos, arg);
 	tmp = gstate->first_cursor;

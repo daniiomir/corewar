@@ -39,6 +39,17 @@ static void draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 	}
 }
 
+void draw_winner(t_gstate *gstate)
+{
+	t_champ *winner;
+
+	winner = gstate->all_players[INDEX(ft_abs(gstate->arena->last_live))];
+	wprintw(gstate->vis->w_info, "WINNER : ");
+	wattron(gstate->vis->w_info, COLOR_PAIR(GREEN));
+	wprintw(gstate->vis->w_info, "%s", winner->name);
+	wattroff(gstate->vis->w_info, COLOR_PAIR(GREEN));
+}
+
 void	draw_info(t_gstate *gstate, t_arena *arena)
 {
 	t_vis	*vis;
@@ -65,6 +76,9 @@ void	draw_info(t_gstate *gstate, t_arena *arena)
 	wprintw(vis->w_info, "Max checks : %10d/10", arena->checks);
 	wmove(vis->w_info, row += 2, col);
 	wprintw(vis->w_info, "Nbr of lives : %8d/21", arena->lives_nbr);
+	wmove(vis->w_info, row += 3, col);
+	if (gstate->processes_num == 0)
+		draw_winner(gstate);
 	wattroff(vis->w_info, A_BOLD);
 	box(vis->w_info, 0, 0);
 }

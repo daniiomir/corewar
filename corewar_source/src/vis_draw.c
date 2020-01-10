@@ -3,7 +3,7 @@
 static int get_color(t_cell cell) {
 	int id;
 
-	id = cell.playerId;
+	id = cell.player_id;
 	if (cell.is_cursor)
 		id = TO_CURSOR_COLOR(id);
 	return (g_colors[id]);

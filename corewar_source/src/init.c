@@ -42,7 +42,7 @@ t_arena *init_arena()
 	if (arena == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	ft_bzero(arena->map, MEM_SIZE);
-	arena->last_live = 0;
+	arena->last_live = 1;
 	arena->all_cycles = 0;
 	arena->lives_nbr = 0;
 	arena->cycle_to_die = CYCLE_TO_DIE;
@@ -64,7 +64,7 @@ t_cursor		*init_cursor(int id, int reg)
 	cursor->last_live_cycle = 0;
 	cursor->next = NULL;
 	cursor->next_op_steps = 0;
-	cursor->id = id;
+	cursor->player_id = id;
 	ft_bzero(cursor->args, 3);
 	ft_bzero(cursor->reg, sizeof(int) * 16);
 	cursor->reg[0] = -1 * reg;

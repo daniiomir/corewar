@@ -33,7 +33,7 @@ typedef struct		s_champ
 /*
 ** ______________________ Cursor Structure Definition __________________________
 **
-**	id					- unique identifier.
+**	player_id					- unique identifier.
 **  f_carry				- flag that some operations may change.
 **  current_op			- operation code on which the cursor stands
 **  last_live_cycle		- the loop on which the "live" operation was performed.
@@ -47,7 +47,7 @@ typedef struct		s_champ
 
 typedef struct		s_cursor
 {
-	int 			id;
+	int 			player_id;
 	int 			f_carry;
 	unsigned char	current_op;
 	int 			last_live_cycle;

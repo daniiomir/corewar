@@ -9,7 +9,7 @@ void fill_vis_arena(t_vis *vis, t_champ *champ, int first_pos) {
 	i = first_pos;
 	while (i < first_pos + size)
 	{
-		vis->map[i].playerId = champ->id;
+		vis->map[i].player_id = champ->id;
 		i++;
 	}
 }

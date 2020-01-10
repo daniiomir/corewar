@@ -67,7 +67,7 @@ static int g_colors[COLORS_AMOUNT * 2] = {
 
 typedef struct	s_cell
 {
-	int 		playerId;
+	int 		player_id;
 	char 		is_cursor:2;
 }				t_cell;
 

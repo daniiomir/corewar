@@ -1,4 +1,4 @@
-#include "corewar.h"
+#include "corewar_vis.h"
 #include <stdio.h>
 
 static void update_arena_state(t_arena *arena)
@@ -25,6 +25,8 @@ static void check_cursors_is_alive(t_gstate *gstate)
 		if (arena->all_cycles - current->last_live_cycle >= arena->cycle_to_die)
 		{
 			kill_cursor(&current, gstate->first_cursor);
+			if (gstate->f_v)
+				gstate->vis->map[current->cur_pos].is_cursor = 0;
 			gstate->processes_num--;
 		}
 		if (!current)
@@ -47,14 +49,6 @@ void one_cycle(t_gstate *gstate)
 		update_arena_state(arena);
 		prev_check = arena->all_cycles;
 	}
-}
-
-void main_cycle(t_gstate *gstate)
-{
-    while (gstate->processes_num)
-    {
-    	one_cycle(gstate);
-    }
 }
 
 void	init_battle(t_gstate *gstate)
@@ -84,7 +78,8 @@ void main_alg(t_gstate *gstate)
 {
 	init_battle(gstate);
 	print_arena(gstate->arena, gstate->first_cursor);
-	main_cycle(gstate);
+	while (gstate->processes_num)
+		one_cycle(gstate);
 	end_of_battle();
-	free_all(gstate->arena, gstate->first_cursor, gstate);
+//	free_all(gstate->arena, gstate->first_cursor, gstate);
 }

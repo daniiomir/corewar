@@ -1,15 +1,31 @@
-#include "corewar.h"
+#include "corewar_vis.h"
 
-void write_to_map(t_arena *arena, int what, int where, int size) {
+void write_to_map(t_gstate *gstate, int what, int where, int size) {
 	int 	i;
 	int 	j;
+	int 	index;
 
 	i = 0;
 	j = 0;
 	while (i < size)
 	{
-		arena->map[get_map_ind(where, size - i - 1)] = (what >> j) & 0xFF;
+		index = get_map_ind(where, size - i - 1);
+		gstate->arena->map[index] = (what >> j) & 0xFF;
 		j += 8;
+		i++;
+	}
+}
+
+void vis_write_to_map(t_gstate *gstate, t_cursor *cursor, int where, int size)
+{
+	int 	i;
+	int 	index;
+
+	i = 0;
+	while (i < size)
+	{
+		index = get_map_ind(where, size - i - 1);
+		gstate->vis->map[index].player_id = cursor->player_id;
 		i++;
 	}
 }
@@ -31,7 +47,9 @@ void	op_st(t_gstate *gstate, t_cursor *cursor)
 	{
 		arg2 = get_map_int(gstate->arena, cursor->cur_pos + cursor->next_op_steps, T_IND_SIZE);
 		addr = cursor->cur_pos + (arg2 % IDX_MOD);
-		write_to_map(gstate->arena, reg, addr, DIR_SIZE);
+		write_to_map(gstate, reg, addr, DIR_SIZE);
+		if (gstate->f_v)
+			vis_write_to_map(gstate, cursor, addr, DIR_SIZE);
 		cursor->next_op_steps += IND_SIZE;
 	}
 }
@@ -48,5 +66,7 @@ void	op_sti(t_gstate *gstate, t_cursor *cursor)
 	arg2 = get_arg(gstate->arena, cursor, cursor->args[1], 1);
 	arg3 = get_arg(gstate->arena, cursor, cursor->args[2], 1);
 	addr = cursor->cur_pos + ((arg2 + arg3) % IDX_MOD);
-	write_to_map(gstate->arena, reg, addr, DIR_SIZE);
+	write_to_map(gstate, reg, addr, DIR_SIZE);
+	if (gstate->f_v)
+		vis_write_to_map(gstate, cursor, addr, DIR_SIZE);
 }
