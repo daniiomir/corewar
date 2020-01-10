@@ -44,3 +44,18 @@ void visualisation(t_gstate *gstate, t_arena *arena)
 
     endwin();
 }
+
+void visualisation_debug(t_gstate *gstate, t_arena *arena)
+{
+//	init_vis_arena(gstate);
+
+	while (gstate->vis->is_running)
+	{
+		if (gstate->processes_num == 0)			// конец игры
+		{
+			gstate->vis->is_running = 0;
+			break;
+		}
+		one_cycle(gstate);
+	}
+}

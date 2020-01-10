@@ -24,9 +24,9 @@ static void check_cursors_is_alive(t_gstate *gstate)
 	{
 		if (arena->all_cycles - current->last_live_cycle >= arena->cycle_to_die)
 		{
-			kill_cursor(&current, gstate->first_cursor);
 			if (gstate->f_v)
 				gstate->vis->map[current->cur_pos].is_cursor = 0;
+			kill_cursor(&current, gstate->first_cursor);
 			gstate->processes_num--;
 		}
 		if (!current)
