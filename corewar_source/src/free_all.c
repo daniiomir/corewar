@@ -22,6 +22,9 @@ void		free_arena(t_arena *arena)
 
 void		free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate)
 {
+	int 	a;
+
+	a = 0;
 	if (arena)
 		free_arena(arena);
 	while (cursor)
@@ -30,5 +33,25 @@ void		free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate)
 		cursor = cursor->next;
 	}
 	if (gstate)
+	{
+		if (gstate->all_players)
+		{
+			while (gstate->all_players[a])
+			{
+				if (gstate->all_players[a])
+				{
+					if (gstate->all_players[a]->code)
+						free(gstate->all_players[a]->code);
+					if (gstate->all_players[a]->name)
+						free(gstate->all_players[a]->name);
+					if (gstate->all_players[a]->comment)
+						free(gstate->all_players[a]->comment);
+					free(gstate->all_players[a]);
+				}
+				gstate->all_players[a] = NULL;
+				a++;
+			}
+		}
 		free(gstate);
+	}
 }
