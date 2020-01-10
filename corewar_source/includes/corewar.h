@@ -4,7 +4,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "libft.h"
+# include "../lib/includes/libft.h"
 # include "op.h"
 # include "structures.h"
 # include "macroses.h"
