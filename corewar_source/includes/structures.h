@@ -78,7 +78,6 @@ typedef struct		s_arena
 	int 			all_cycles;
 	int 			lives_nbr;
 	int 			cycle_to_die;
-//	int 			cycles_to_check;		// todo: поменять название на более понятное. Переменная уменьшается до того момента, когда нужно произвести check
 	int 			checks;
 	int 			next_cursor_num;
 }					t_arena;
