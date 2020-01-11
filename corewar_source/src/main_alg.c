@@ -15,14 +15,14 @@
 
 static void		update_arena_state(t_arena *arena)
 {
+	arena->checks++;
 	if (arena->lives_nbr >= NBR_LIVE || arena->checks >= MAX_CHECKS)
 	{
 		arena->cycle_to_die -= CYCLE_DELTA;
-		arena->checks = 1;
-		arena->lives_nbr = 0;
+		arena->checks = 0;
+		// TODO: обновлять данные игроков каждый cycle_to_die
 	}
-	else
-		arena->checks++;
+	arena->lives_nbr = 0;
 }
 
 static void		check_cursors_is_alive(t_gstate *gstate)

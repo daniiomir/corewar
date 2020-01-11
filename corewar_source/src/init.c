@@ -58,7 +58,7 @@ t_arena		*init_arena()
 	arena->all_cycles = 0;
 	arena->lives_nbr = 0;
 	arena->cycle_to_die = CYCLE_TO_DIE;
-	arena->checks = 1;
+	arena->checks = 0;
 	arena->next_cursor_num = 0;
 	return (arena);
 }
