@@ -39,6 +39,7 @@ void vis_write_to_map(t_gstate *gstate, t_cursor *cursor, int where, int size)
 	{
 		index = get_map_ind(where, size - i - 1);
 		gstate->vis->map[index].player_id = cursor->player_id;
+		gstate->vis->map[index].is_cursor = 0;
 		i++;
 	}
 }

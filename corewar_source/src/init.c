@@ -46,7 +46,7 @@ t_champ		*init_champion(int n_arg, int id)
 	return (player);
 }
 
-t_arena		*init_arena()
+t_arena *init_arena(t_gstate *gstate)
 {
 	t_arena		*arena;
 
@@ -54,7 +54,7 @@ t_arena		*init_arena()
 	if (arena == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	ft_bzero(arena->map, MEM_SIZE);
-	arena->last_live = 1;
+	arena->last_live = gstate->players_num;
 	arena->all_cycles = 0;
 	arena->lives_nbr = 0;
 	arena->cycle_to_die = CYCLE_TO_DIE;

@@ -18,10 +18,8 @@ static int		check_one_arg(t_cursor *cursor, t_arena *arena,
 	int				current_pos;
 	unsigned char	arg;
 
-	current_pos = cursor->cur_pos + cursor->next_op_steps;
+	current_pos = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
 	arg = cursor->args[arg_order];
-	if (!(arg & operation.arg_types[arg_order]))
-		return (0);
 	if (arg == REG_CODE)
 	{
 		cursor->next_op_steps++;
@@ -31,7 +29,7 @@ static int		check_one_arg(t_cursor *cursor, t_arena *arena,
 	else if (arg == DIR_CODE)
 		cursor->next_op_steps += operation.t_dir_size;
 	else if (arg == IND_CODE)
-		cursor->next_op_steps += 2;
+		cursor->next_op_steps += T_IND_SIZE;
 	else
 		return (0);
 	return (1);

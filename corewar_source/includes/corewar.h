@@ -36,7 +36,7 @@ void			end_of_battle(t_gstate *gstate);
 
 t_gstate		*init_global_state(void);
 t_champ         *init_champion(int n_arg, int id);
-t_arena			*init_arena();
+t_arena			*init_arena(t_gstate *gstate);
 t_cursor		*init_cursor(int id, int reg);
 
 /*

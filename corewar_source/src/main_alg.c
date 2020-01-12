@@ -11,16 +11,30 @@
 /* ************************************************************************** */
 
 #include "corewar_vis.h"
-#include <stdio.h>
 
-static void		update_arena_state(t_arena *arena)
+static void		update_players_state(t_gstate *gstate)
 {
+	int i;
+
+	i = 0;
+	while (i < gstate->players_num)
+	{
+		gstate->all_players[i]->lives_in_cur_period = 0;
+		i++;
+	}
+}
+
+static void		update_arena_state(t_gstate *gstate)
+{
+	t_arena *arena;
+
+	arena = gstate->arena;
 	arena->checks++;
 	if (arena->lives_nbr >= NBR_LIVE || arena->checks >= MAX_CHECKS)
 	{
 		arena->cycle_to_die -= CYCLE_DELTA;
 		arena->checks = 0;
-		// TODO: обновлять данные игроков каждый cycle_to_die
+		update_players_state(gstate);
 	}
 	arena->lives_nbr = 0;
 }
@@ -58,7 +72,7 @@ void			one_cycle(t_gstate *gstate)
 		|| arena->cycle_to_die <= 0)
 	{
 		check_cursors_is_alive(gstate);
-		update_arena_state(arena);
+		update_arena_state(gstate);
 		prev_check = arena->all_cycles;
 	}
 }

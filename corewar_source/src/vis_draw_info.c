@@ -55,12 +55,14 @@ static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 void		draw_winner(t_gstate *gstate)
 {
 	t_champ *winner;
+	int 	color;
 
-	winner = gstate->all_players[INDEX(ft_abs(gstate->arena->last_live))];
+	winner = gstate->all_players[INDEX(gstate->arena->last_live)];
+	color = g_colors[winner->id];
 	wprintw(gstate->vis->w_info, "WINNER : ");
-	wattron(gstate->vis->w_info, COLOR_PAIR(GREEN));
+	wattron(gstate->vis->w_info, color);
 	wprintw(gstate->vis->w_info, "%s", winner->name);
-	wattroff(gstate->vis->w_info, COLOR_PAIR(GREEN));
+	wattroff(gstate->vis->w_info, color);
 }
 
 void		draw_info(t_gstate *gstate, t_arena *arena)
