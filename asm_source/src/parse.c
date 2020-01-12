@@ -77,6 +77,7 @@ void	parse_file(int fd, t_pasm *pasm)
 	int 	line_number;
 	char	*line;
 	char 	*label;
+	char 	*check_line;
 
 	line_number = 1;
 	label = NULL;
@@ -97,14 +98,17 @@ void	parse_file(int fd, t_pasm *pasm)
 				continue ;
 			}
 		}
-		if (ft_strlen(line) == 0)
+		check_line = ft_strtrim(line);
+		if (ft_strlen(check_line) == 0)
 		{
+			free(check_line);
 			free(line);
 			line_number++;
 			continue ;
 		}
 		line_parse(pasm, line, line_number, &label);
 		free(line);
+		free(check_line);
 		line_number++;
 	}
 }

@@ -63,14 +63,20 @@ void	get_hex_champ_comment(t_pasm *pasm)
 	char	*hex_champ_comm;
 
 	i = 0;
+//	if (!pasm->comment)
+//		error_exit(pasm, "no champion comment.");
 	hex_champ_comm = ft_strnew(0);
-	while (pasm->comment[i])
+	if (pasm->comment)
 	{
-		hex_champ_comm = ft_strjoin_free_all(hex_champ_comm,
-			ft_strlower(ft_itoa_base(pasm->comment[i], 16)));
-		i++;
+		while (pasm->comment[i]) {
+			hex_champ_comm = ft_strjoin_free_all(hex_champ_comm,
+												 ft_strlower(ft_itoa_base(pasm->comment[i], 16)));
+			i++;
+		}
+		len = (int) ft_strlen(hex_champ_comm);
 	}
-	len = (int)ft_strlen(hex_champ_comm);
+	else
+		len = 0;
 	if (len < 2048 * 2)
 	{
 		null_len = 2048 * 2 - len;
@@ -87,6 +93,8 @@ void	get_hex_champ_name(t_pasm *pasm)
 	char	*hex_champ_name;
 
 	i = 0;
+	if (!pasm->champion_name)
+		error_exit(pasm, "no champion name.");
 	hex_champ_name = ft_strnew(0);
 	while (pasm->champion_name[i])
 	{

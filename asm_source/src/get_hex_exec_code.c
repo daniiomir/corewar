@@ -93,6 +93,8 @@ char 	*code_get_hex_arg_positive(t_pasm *pasm, t_code *code_line, char *arg, int
 		final_arg = ft_strjoin_free_all(get_nulls(4 - len), final_arg);
 	else if (len < dir_size && arg_type == DIR_CODE)
 		final_arg = ft_strjoin_free_all(get_nulls(dir_size - len), final_arg);
+	else if (len == dir_size)
+		return (final_arg);
 	else
 		error_exit_line(pasm, code_line, "arguments too big.", code_line->line);
 	return (final_arg);

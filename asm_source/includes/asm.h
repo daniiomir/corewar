@@ -79,6 +79,7 @@ void			free_code_lines(t_code *code_lines);
 int 			position_of_comm(char *line, char comm, char alt_comm);
 char			*check_comm(char *line);
 int				check_legal_chars(const char *check, const char *legal_chars);
+int				check_for_cmd_string(char *line);
 char 			*label_check(t_pasm *pasm, char *line, int line_number);
 int				check_is_label(char *arg);
 int				check_for_arg_type(char *arg);
