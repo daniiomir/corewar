@@ -20,7 +20,10 @@ FLAGS = -Wall -Wextra -Werror
 SRC_FOLDER = src
 OBJ_FOLDER = obj
 
-SRC_NAMES = main.c
+SRC_NAMES = main.c parse.c error_exit.c \
+			structs.c main_parse.c op.c \
+			write_hex.c tools.c switch_labels.c \
+			tools2.c get_hex_exec_code.c char_struct_to_hex.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 
@@ -31,11 +34,11 @@ all: $(LIBFT_PATH) $(ASM)
 $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c
 	@mkdir -p $(OBJ_FOLDER)
 	@gcc $(FLAGS) $(HEADERS) -c $< -o $@
-	@echo "Obj -> done"
+	@echo "$< -> done"
 
 $(LIBFT_PATH):
 	@make -C $(LIBFT)
-	@echo "Library -> done"
+	@echo "$(LIBFT_PATH) -> done"
 
 $(ASM): $(OBJ)
 	@gcc $(OBJ) $(HEADERS) -L. $(LIBFT_PATH) -o $(ASM)
@@ -43,12 +46,12 @@ $(ASM): $(OBJ)
 
 clean:
 	@make clean -C $(LIBFT)
-	@/bin/rm -rf $(OBJ_FOLDER)
-	@echo "Obj removed"
+	/bin/rm -rf $(OBJ_FOLDER)
+# 	@echo "Obj removed"
 
 fclean: clean
 	@make fclean -C $(LIBFT)
-	@/bin/rm -f $(ASM)
-	@echo "Binaries removed"
+	/bin/rm -f $(ASM)
+# 	@echo "Binaries removed"
 
 re: fclean all

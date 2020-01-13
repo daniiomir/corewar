@@ -32,6 +32,8 @@
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 #define COMMENT_CHAR			'#'
+#define ALT_COMMENT_CHAR		';'
+
 #define LABEL_CHAR				':'
 #define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
@@ -48,20 +50,12 @@
 #define NBR_LIVE				21
 #define MAX_CHECKS				10
 
-/*
-**
-*/
-
 typedef char	t_arg_type;
 
 #define T_REG					1
 #define T_DIR					2
 #define T_IND					4
 #define T_LAB					8
-
-/*
-**
-*/
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
