@@ -15,7 +15,7 @@ LIBFT_PATH = lib/libft.a
 COREWAR = corewar
 
 HEADERS = -I includes/
-FLAGS = -Wall -Wextra
+FLAGS = -Wall -Wextra -Werror
 
 SRC_FOLDER = src
 OBJ_FOLDER = obj
