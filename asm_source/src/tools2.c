@@ -12,34 +12,6 @@
 
 #include "asm.h"
 
-char 	*get_new_line_after_label(char **line)
-{
-	int 	end_label;
-	char 	*new_line;
-
-	end_label = ft_strchr_i(*line, LABEL_CHAR);
-	new_line = ft_strsub(*line, end_label + 1, ft_strlen(*line));
-	free(*line);
-	return (new_line);
-}
-
-int 	len_of_cmd_names(t_pasm *pasm, char *line, int value)
-{
-	int 	first_pos;
-	int 	len;
-
-	first_pos = ft_strchr_i(line, '"') + 1;
-	len = 0;
-	while (line[first_pos] != '"')
-	{
-		len++;
-		first_pos++;
-		if (line[first_pos] == '\0')
-			error_exit_line(pasm, NULL, "no second quote mark.", value);
-	}
-	return (len);
-}
-
 char	*get_nulls(int len)
 {
 	int		i;
@@ -70,9 +42,9 @@ int		check_for_op_name(char *op)
 	int		i;
 
 	i = 0;
-	while (op_tab[i].op_name)
+	while (g_op_tab[i].op_name)
 	{
-		if (ft_strequ(op, op_tab[i].op_name))
+		if (ft_strequ(op, g_op_tab[i].op_name))
 			return (1);
 		i++;
 	}

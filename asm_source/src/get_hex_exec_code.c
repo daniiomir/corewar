@@ -12,75 +12,32 @@
 
 #include "asm.h"
 
-unsigned char	setbit(const unsigned char value, const int position)
-{
-    return (value | (1 << position));
-}
-
-char 	*code_get_hex_op(char *op_code)
+char			*code_get_hex_op(char *op_code)
 {
 	int		i;
-	char    *hex_op;
+	char	*hex_op;
 
 	i = 0;
-	while (op_tab[i].op_name)
+	while (g_op_tab[i].op_name)
 	{
-		if (ft_strequ(op_code, op_tab[i].op_name))
-        {
-		    hex_op = ft_strlower(ft_itoa_base(op_tab[i].op_code, 16));
-		    if (ft_strlen(hex_op) == 1)
-		        hex_op = ft_strjoin_free2("0", hex_op);
+		if (ft_strequ(op_code, g_op_tab[i].op_name))
+		{
+			hex_op = ft_strlower(ft_itoa_base(g_op_tab[i].op_code, 16));
+			if (ft_strlen(hex_op) == 1)
+				hex_op = ft_strjoin_free2("0", hex_op);
 			return (hex_op);
-        }
+		}
 		i++;
 	}
 	return (NULL);
 }
 
-char 	*code_get_hex_addcode(t_code *code_line)
-{
-    unsigned char	addcode;
-
-    if (!check_for_code_arg_type(code_line))
-        return (ft_strnew(0));
-    addcode = 0;
-    if (code_line->arg1_type == REG_CODE)
-        addcode = setbit(addcode, 6);
-    else if (code_line->arg1_type == DIR_CODE)
-        addcode = setbit(addcode, 7);
-    else if (code_line->arg1_type == IND_CODE)
-    {
-        addcode = setbit(addcode, 6);
-        addcode = setbit(addcode, 7);
-    }
-
-    if (code_line->arg2_type == REG_CODE)
-        addcode = setbit(addcode, 4);
-    else if (code_line->arg2_type == DIR_CODE)
-        addcode = setbit(addcode, 5);
-    else if (code_line->arg2_type == IND_CODE)
-    {
-        addcode = setbit(addcode, 4);
-        addcode = setbit(addcode, 5);
-    }
-
-    if (code_line->arg3_type == REG_CODE)
-        addcode = setbit(addcode, 2);
-    else if (code_line->arg3_type == DIR_CODE)
-        addcode = setbit(addcode, 3);
-    else if (code_line->arg3_type == IND_CODE)
-    {
-        addcode = setbit(addcode, 2);
-        addcode = setbit(addcode, 3);
-    }
-    return (ft_strlower(ft_itoa_base((int)addcode, 16)));
-}
-
-char 	*code_get_hex_arg_positive(t_pasm *pasm, t_code *code_line, char *arg, int arg_type)
+char			*code_get_hex_arg_positive(t_pasm *pasm,
+	t_code *code_line, char *arg, int arg_type)
 {
 	int		len;
 	int		dir_size;
-	char 	*final_arg;
+	char	*final_arg;
 
 	final_arg = ft_strlower(ft_itoa_base(ft_atoi(arg), 16));
 	len = (int)ft_strlen(final_arg);
@@ -100,33 +57,13 @@ char 	*code_get_hex_arg_positive(t_pasm *pasm, t_code *code_line, char *arg, int
 	return (final_arg);
 }
 
-// char	*code_get_hex_arg_negative_reg(int arg)
-// {
-// 	char			*final;
-// 	unsigned char	reg;
-
-// 	reg = (unsigned char)arg;
-// 	reg = ~reg + 1;
-// 	final = ft_itoa_base((int)reg, 16);
-// 	return (final);
-// }
-
-// char	*code_get_hex_arg_negative_dir_ind(int arg)
-// {
-// 	char			*final;
-// 	int				dir_ind;
-
-// 	dir_ind = ~arg + 1;
-// 	final = ft_itoa_base(dir_ind, 16);
-// 	return (final);
-// }
-
-char 	*code_get_hex_arg_negative(t_code *code_line, char *argument, int arg_type)
+char			*code_get_hex_arg_negative(t_code *code_line,
+	char *argument, int arg_type)
 {
-	int		arg_value;
+	int					arg_value;
 	unsigned int		by;
-	char 	*final_arg;
-	int		dir_size;
+	char				*final_arg;
+	int					dir_size;
 
 	arg_value = ft_atoi(argument);
 	by = -arg_value;
@@ -147,22 +84,25 @@ char 	*code_get_hex_arg_negative(t_code *code_line, char *argument, int arg_type
 	return (final_arg);
 }
 
-char 	*code_get_hex_arg(t_pasm *pasm, t_code *code_line, char *argument, int arg_type)
+char			*code_get_hex_arg(t_pasm *pasm,
+	t_code *code_line, char *argument, int arg_type)
 {
 	int		arg;
-	char 	*final_arg;
+	char	*final_arg;
 
 	if (!argument || !arg_type)
 		return (NULL);
 	arg = ft_atoi(argument);
 	if (arg > 0)
-		final_arg = code_get_hex_arg_positive(pasm, code_line, argument, arg_type);
+		final_arg = code_get_hex_arg_positive(pasm,
+			code_line, argument, arg_type);
 	else
-		final_arg = code_get_hex_arg_negative(code_line, argument, arg_type);
+		final_arg = code_get_hex_arg_negative(code_line,
+			argument, arg_type);
 	return (final_arg);
 }
 
-void	code_to_hex(t_pasm *pasm)
+void			code_to_hex(t_pasm *pasm)
 {
 	t_code	*code_line;
 	char	*hex_code_line;
@@ -171,7 +111,7 @@ void	code_to_hex(t_pasm *pasm)
 	while (code_line)
 	{
 		hex_code_line = ft_strjoin_free_all(
-			code_get_hex_op(code_line->operation), 
+			code_get_hex_op(code_line->operation),
 			code_get_hex_addcode(code_line));
 		hex_code_line = ft_strjoin_free_all(hex_code_line,
 			code_get_hex_arg(pasm, code_line,

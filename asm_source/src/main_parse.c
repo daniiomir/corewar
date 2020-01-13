@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void	label_to_code_line(t_code *code_line, char **label)
+void			label_to_code_line(t_code *code_line, char **label)
 {
 	char	*for_struct;
 
@@ -25,7 +25,7 @@ void	label_to_code_line(t_code *code_line, char **label)
 	}
 }
 
-int		op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
+int				op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
 {
 	int		i;
 	char	*op;
@@ -35,16 +35,17 @@ int		op_to_code_line(t_pasm *pasm, t_code *code_line, char *line)
 		i++;
 	op = ft_strsub(line, 0, i);
 	if (!check_for_op_name(op))
-		error_exit_line(pasm, code_line,"wrong operation name.", code_line->line);
+		error_exit_line(pasm, code_line,
+			"wrong operation name.", code_line->line);
 	code_line->operation = op;
 	return (i);
 }
 
-static void	name_and_comment_to_pasm(t_pasm *pasm, char *line,
+static void		name_and_comment_to_pasm(t_pasm *pasm, char *line,
 	int i, int value)
 {
 	int		len;
-	char 	*text;
+	char	*text;
 
 	text = ft_strsub(line, i + 1, len_of_cmd_names(pasm, line, value));
 	len = (int)ft_strlen(text);
@@ -64,169 +65,16 @@ static void	name_and_comment_to_pasm(t_pasm *pasm, char *line,
 	}
 }
 
-void		arg_one(t_pasm *pasm, t_code *code_line, char *arg1)
-{
-	int		arg_type;
-	char 	*buffer;
-	char 	*first_arg;
-
-	buffer = ft_strtrim(arg1);
-	arg_type = check_for_arg_type(buffer);
-	if (!arg_type)
-		error_exit_line(pasm,code_line, "wrong first argument.",
-			code_line->line);
-	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
-		first_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
-	else if (arg_type == REG_CODE || arg_type == DIR_CODE || buffer[0] == LABEL_CHAR)
-		first_arg = ft_strsub(buffer, 1, ft_strlen(buffer));
-	else
-		first_arg = ft_strdup(buffer);
-	code_line->arg1 = first_arg;
-	code_line->arg1_type = arg_type;
-	free(buffer);
-}
-
-void		arg_two(t_pasm *pasm, t_code *code_line, char *arg2)
-{
-	int		arg_type;
-	char 	*buffer;
-	char 	*second_arg;
-
-	buffer = ft_strtrim(arg2);
-	arg_type = check_for_arg_type(buffer);
-	if (!arg_type)
-		error_exit_line(pasm, code_line, "wrong second argument.",
-			code_line->line);
-	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
-		second_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
-	else if (arg_type == REG_CODE || arg_type == DIR_CODE || buffer[0] == LABEL_CHAR)
-		second_arg = ft_strsub(buffer, 1, ft_strlen(buffer));
-	else
-		second_arg = ft_strdup(buffer);
-	code_line->arg2 = second_arg;
-	code_line->arg2_type = arg_type;
-	free(buffer);
-}
-
-void		arg_three(t_pasm *pasm, t_code *code_line, char *arg3)
-{
-	int		arg_type;
-	char 	*buffer;
-	char 	*third_arg;
-
-	buffer = ft_strtrim(arg3);
-	arg_type = check_for_arg_type(buffer);
-	if (!arg_type)
-		error_exit_line(pasm, code_line, "wrong third argument.",
-			code_line->line);
-	if (arg_type == DIR_CODE && buffer[1] == LABEL_CHAR)
-		third_arg = ft_strsub(buffer, 2, ft_strlen(buffer));	
-	else if (arg_type == REG_CODE || arg_type == DIR_CODE || buffer[0] == LABEL_CHAR)
-		third_arg = ft_strsub(buffer, 1, ft_strlen(buffer));
-	else
-		third_arg = ft_strdup(buffer);
-	code_line->arg3 = third_arg;
-	code_line->arg3_type = arg_type;
-	free(buffer);
-}
-
-char		*args_to_code_line_helper(char *args, int *start)
-{
-	int 	i;
-	int 	j;
-	char 	*tmp;
-
-	i = *start;
-	j = *start;
-	if (args[j] == SEPARATOR_CHAR)
-	{
-		j++;
-		i++;
-	}
-	while (args[i] == ' ')
-	    i++;
-	while (args[i] != '\0' && args[i] != ' ' && args[i] != SEPARATOR_CHAR)
-		i++;
-	tmp = ft_strsub(args, j, i - j);
-	*start += i - *start + 1;
-	return (tmp);
-}
-
-void		args_to_code_line(t_pasm *pasm, t_code *code_line,
-	char *line, int i)
-{
-	int 	j;
-	char 	*tmp;
-	char 	*args;
-
-	j = 0;
-	tmp = ft_strsub(line, i, ft_strlen(line));
-	args = ft_strtrim(tmp);
-	free(tmp);
-	tmp = args_to_code_line_helper(args, &j);
-	arg_one(pasm, code_line, tmp);
-	free(tmp);
-	if (args[j - 1] != '\0')
-	{
-		tmp = args_to_code_line_helper(args, &j);
-		arg_two(pasm, code_line, tmp);
-		free(tmp);
-		if (args[j - 1] != '\0')
-		{
-			tmp = args_to_code_line_helper(args, &j);
-			arg_three(pasm, code_line, tmp);
-			free(tmp);
-		}
-	}
-	free(args);
-}
-
-static int	validate_cmd_string(char *cmd_string)
-{
-	if (ft_strequ(cmd_string, NAME_CMD_STRING))
-		return (1);
-	if (ft_strequ(cmd_string, COMMENT_CMD_STRING))
-		return (2);
-	return (0);
-}
-
-int			check_for_cmd_string(char *line)
-{
-	int 	i;
-	char 	*cmd_str;
-
-	if (ft_strlen(line) > 5 && line[0] != '\0'
-	&& line[0] != '\n' && line[0] != '\t')
-	{
-		if (line[0] == '.')
-		{
-			i = 1;
-			while (ft_isalpha(line[i]))
-				i++;
-			cmd_str = ft_strsub(line, 0, i);
-			if (validate_cmd_string(cmd_str))
-			{
-				free(cmd_str);
-				return (1);
-			}
-			free(cmd_str);
-		}
-	}
-	return (0);
-}
-
-int		get_champion_name_and_comment(t_pasm *pasm,
+int				get_champion_name_and_comment(t_pasm *pasm,
 	char *line, int line_number)
 {
 	int		i;
-	char 	*raw_cmd_string;
-	char 	*cmd_string;
+	char	*raw_cmd_string;
+	char	*cmd_string;
 
 	if (check_for_cmd_string(line))
 	{
-		i = 0;
-		while (line[i] != '"' && line[i] != '\0')
-			i++;
+		i = get_champion_name_and_comment_helper(line);
 		raw_cmd_string = ft_strsub(line, 0, i);
 		cmd_string = ft_strtrim(raw_cmd_string);
 		free(raw_cmd_string);
@@ -237,7 +85,8 @@ int		get_champion_name_and_comment(t_pasm *pasm,
 		else
 		{
 			free(cmd_string);
-			error_exit_line(pasm, NULL, "wrong cmd command (.name/.comment).", line_number);
+			error_exit_line(pasm, NULL,
+				"wrong cmd command (.name/.comment).", line_number);
 		}
 		free(cmd_string);
 		return (1);
@@ -245,7 +94,7 @@ int		get_champion_name_and_comment(t_pasm *pasm,
 	return (0);
 }
 
-void	size_to_code_line(t_code *code_line)
+void			size_to_code_line(t_code *code_line)
 {
 	int		size;
 
@@ -272,52 +121,4 @@ void	size_to_code_line(t_code *code_line)
 	else if (code_line->arg3_type == DIR_CODE)
 		size += check_dir_size(code_line);
 	code_line->size = size;
-}
-
-void	args_count_check(t_pasm *pasm, t_code *code_line)
-{
-	int		i;
-	int		count;
-	int		line;
-
-	i = 0;
-	count = 0;
-	line = code_line->line; 
-	if (code_line->arg1)
-		count++;
-	if (code_line->arg2)
-		count++;
-	if (code_line->arg3)
-		count++;
-	while (op_tab[i].op_name)
-	{
-		if (ft_strequ(code_line->operation, op_tab[i].op_name))
-		{
-			if (op_tab[i].nbrarg != count)
-				error_exit_line(pasm, code_line, "wrong arguments.", line);
-			return ;
-		}
-		i++;
-	}
-}
-
-void	line_parse(t_pasm *pasm, char *line,
-	int line_number, char **label)
-{
-	int		i;
-	char 	*normalised_line;
-	t_code	*code_line;
-
-	if (get_champion_name_and_comment(pasm, line, line_number))
-		return ;
-	code_line = create_code_line();
-	normalised_line = ft_strtrim(line);
-	code_line->line = line_number;
-	i = op_to_code_line(pasm, code_line, normalised_line);
-	args_to_code_line(pasm, code_line, normalised_line, i);
-	label_to_code_line(code_line, label);
-	args_count_check(pasm, code_line);
-	size_to_code_line(code_line);
-	add_code_line(pasm, code_line);
-	free(normalised_line);
 }

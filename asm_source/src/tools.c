@@ -41,9 +41,9 @@ int		check_legal_chars(const char *check, const char *legal_chars)
 	return (1);
 }
 
-int 	ft_strchr_i(const char *s, int c)
+int		ft_strchr_i(const char *s, int c)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (s[i])
@@ -60,7 +60,7 @@ int		check_is_label(char *arg)
 	int		i;
 
 	if (!arg)
-	    return (0);
+		return (0);
 	i = 0;
 	while (arg[i])
 	{
@@ -71,15 +71,15 @@ int		check_is_label(char *arg)
 	return (0);
 }
 
-int 	position_of_comm(char *line, char comm, char alt_comm)
+int		position_of_comm(char *line, char comm, char alt_comm)
 {
-	int 	i;
-	int 	j;
+	int		i;
+	int		j;
 
 	i = ft_strchr_i(line, comm);
 	j = ft_strchr_i(line, alt_comm);
 	if (i == -1)
-		return(j);
+		return (j);
 	else if (j == -1)
 		return (i);
 	else
@@ -94,8 +94,8 @@ int 	position_of_comm(char *line, char comm, char alt_comm)
 
 char	*check_comm(char *line)
 {
-	int 	position;
-	char 	*new_line;
+	int		position;
+	char	*new_line;
 
 	if (ft_strchr(line, COMMENT_CHAR)
 		|| ft_strchr(line, ALT_COMMENT_CHAR))

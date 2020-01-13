@@ -12,40 +12,17 @@
 
 #include "asm.h"
 
-int		check_for_op_after_label(char *line, int label_char_pos)
-{
-	// int		i;
-	// char 	**check;
-
-//	check = ft_strsplit(line, ' ');
-//	if (check[1])
-//	{
-//		i = 0;
-//		while (check[i])
-//			free(check[i++]);
-//		free(check);
-//		return (1);
-//	}
-//	free(check[0]);
-//	free(check);
-	if (line[label_char_pos + 1])
-		return (1);
-	return (0);
-}
-
-char 	*label_check(t_pasm *pasm, char *line, int line_number)
+char	*label_check(t_pasm *pasm, char *line, int line_number)
 {
 	int		label_char_pos;
-	char 	*label;
-	
+	char	*label;
+
 	if (line_number == 1 || line_number == 2)
 		return (NULL);
-	// if (!check_legal_chars(line, LABEL_CHARS))
-	// 	error_exit_line(pasm, "not ASCII characters in line",
-	// 		line_number);
 	if ((label_char_pos = ft_strchr_i(line, LABEL_CHAR)) == -1)
 		return (NULL);
-	if (!ft_isalpha(line[label_char_pos - 1]) && (line[0] == ' ' || line[0] == '\t'))
+	if (!ft_isalpha(line[label_char_pos - 1])
+		&& (line[0] == ' ' || line[0] == '\t'))
 		return (NULL);
 	label = ft_strsub(line, 0, label_char_pos);
 	if (!check_legal_chars(label, LABEL_CHARS))
@@ -57,7 +34,7 @@ char 	*label_check(t_pasm *pasm, char *line, int line_number)
 int		open_file(char *file)
 {
 	int		fd;
-	int 	len;
+	int		len;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -71,44 +48,70 @@ int		open_file(char *file)
 	return (fd);
 }
 
+int		label_operations(t_pasm *pasm, char **label,
+	char **line, int *line_number)
+{
+	if (!(*label) && *line_number > 2
+		&& ft_strlen(*line) && !is_blanc((*line)[0]))
+	{
+		*label = label_check(pasm, *line, *line_number);
+		if (check_for_op_after_label(*line, ft_strchr_i(*line, LABEL_CHAR)))
+		{
+			*line = get_new_line_after_label(line);
+			return (1);
+		}
+		else
+		{
+			parse_file_helper(line, line_number, NULL);
+			return (0);
+		}
+	}
+	return (1);
+}
+
+void	line_parse(t_pasm *pasm, char *line,
+	int line_number, char **label)
+{
+	int		i;
+	char	*normalised_line;
+	t_code	*code_line;
+
+	if (get_champion_name_and_comment(pasm, line, line_number))
+		return ;
+	code_line = create_code_line();
+	normalised_line = ft_strtrim(line);
+	code_line->line = line_number;
+	i = op_to_code_line(pasm, code_line, normalised_line);
+	args_to_code_line(pasm, code_line, normalised_line, i);
+	label_to_code_line(code_line, label);
+	args_count_check(pasm, code_line);
+	size_to_code_line(code_line);
+	add_code_line(pasm, code_line);
+	free(normalised_line);
+}
+
 void	parse_file(int fd, t_pasm *pasm)
 {
 	int		ret;
-	int 	line_number;
+	int		line_number;
 	char	*line;
-	char 	*label;
-	char 	*check_line;
+	char	*label;
+	char	*check_line;
 
 	line_number = 1;
 	label = NULL;
 	while ((ret = get_next_line(fd, &line)))
 	{
-		if (ret < 0)
-			simple_error("corrupted file.");
-		line = check_comm(line);
-		if (!label && line_number > 2 && ft_strlen(line) && line[0] != '\t' && line[0] != ' ')
-		{
-			label = label_check(pasm, line, line_number);
-			if (check_for_op_after_label(line, ft_strchr_i(line, LABEL_CHAR)))
-				line = get_new_line_after_label(&line);
-			else
-			{
-				free(line);
-                line_number++;
-				continue ;
-			}
-		}
+		check_for_error_and_comm(ret, &line);
+		if (!label_operations(pasm, &label, &line, &line_number))
+			continue ;
 		check_line = ft_strtrim(line);
 		if (ft_strlen(check_line) == 0)
 		{
-			free(check_line);
-			free(line);
-			line_number++;
+			parse_file_helper(&line, &line_number, &check_line);
 			continue ;
 		}
 		line_parse(pasm, line, line_number, &label);
-		free(line);
-		free(check_line);
-		line_number++;
+		parse_file_helper(&line, &line_number, &check_line);
 	}
 }

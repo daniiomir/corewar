@@ -12,37 +12,6 @@
 
 #include "asm.h"
 
-t_pasm	*init_pasm(void)
-{
-	t_pasm	*pasm;
-
-	pasm = (t_pasm *)malloc(sizeof(t_pasm));
-	pasm->champion_name = NULL;
-	pasm->comment = NULL;
-	pasm->code = NULL;
-	pasm->hex_code = create_hex_struct();
-	pasm->final_code = NULL;
-	return (pasm);
-}
-
-void	free_pasm(t_pasm *pasm)
-{
-	if (pasm)
-	{
-		if (pasm->champion_name)
-			free(pasm->champion_name);
-		if (pasm->comment)
-			free(pasm->comment);
-		if (pasm->code)
-			free_code_lines(pasm->code);
-		if (pasm->hex_code)
-			free_hex_struct(pasm->hex_code);
-		if (pasm->final_code)
-			free(pasm->final_code);
-		free(pasm);
-	}
-}
-
 t_hcode	*create_hex_struct(void)
 {
 	t_hcode		*hex_code;
