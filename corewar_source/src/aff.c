@@ -20,6 +20,6 @@ void	op_aff(t_gstate *gstate, t_cursor *cursor)
 	cursor->next_op_steps += 2;
 	reg = get_arg(gstate->arena, cursor, T_DIR, 0);
 	value = (char)reg;
-	if (gstate->f_a)
+	if (gstate->f_a && !gstate->f_v)
 		ft_printf("Aff: %c\n", (char)value);
 }

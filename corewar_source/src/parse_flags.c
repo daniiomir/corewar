@@ -54,3 +54,20 @@ void	parse_flag_dump(t_gstate *gstate, int *argc, char ***argv)
 	else
 		print_error_and_exit("Invalid dump flag", 44);
 }
+
+void	parse_flag_d(t_gstate *gstate, int *argc, char ***argv)
+{
+	int f_d_arg;
+
+	if (*argc > 1 && (f_d_arg = ft_atoi(*(*argv + 1))))
+	{
+		if (f_d_arg < 0)
+			print_error_and_exit("D flag argument cannot be negative number", 45);
+		gstate->f_d = 1;
+		gstate->f_d_arg = f_d_arg;
+		(*argv) += 2;
+		(*argc) -= 2;
+	}
+	else
+		print_error_and_exit("Invalid d flag", 44);
+}

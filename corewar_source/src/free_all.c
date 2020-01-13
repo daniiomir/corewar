@@ -12,46 +12,32 @@
 
 #include "corewar.h"
 
-void		free_arena(t_arena *arena)
+void free_players(t_gstate *gstate)
 {
-	if (arena)
+	int		i;
+	t_champ *player;
+
+	i = 0;
+	while (i < gstate->players_num)
 	{
-		free(arena);
+		player = gstate->all_players[i];
+		free(player->name);
+		free(player->comment);
+		free(player->code);
+		free(player);
+		i++;
 	}
 }
 
-void		free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate)
+void free_all(t_gstate *gstate)
 {
-	int 	a;
-
-	a = 0;
-	if (arena)
-		free_arena(arena);
-	while (cursor)
-	{
-		free(cursor);
-		cursor = cursor->next;
-	}
 	if (gstate)
 	{
-		if (gstate->all_players)
-		{
-			while (gstate->all_players[a])
-			{
-				if (gstate->all_players[a])
-				{
-					if (gstate->all_players[a]->code)
-						free(gstate->all_players[a]->code);
-					if (gstate->all_players[a]->name)
-						free(gstate->all_players[a]->name);
-					if (gstate->all_players[a]->comment)
-						free(gstate->all_players[a]->comment);
-					free(gstate->all_players[a]);
-				}
-				gstate->all_players[a] = NULL;
-				a++;
-			}
-		}
+		if (gstate->arena)
+			free(gstate->arena);
+		free_players(gstate);
+		if (gstate->f_v)
+			free(gstate->vis);
 		free(gstate);
 	}
 }

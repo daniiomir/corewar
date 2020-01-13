@@ -81,9 +81,13 @@ void			one_cycle(t_gstate *gstate)
 void main_alg(t_gstate *gstate)
 {
 	init_battle(gstate);
-	print_arena(gstate->arena, gstate->first_cursor);
 	while (gstate->processes_num)
+	{
+		if (gstate->f_dump && gstate->f_dump_arg == gstate->arena->all_cycles)
+			print_arena_and_exit(gstate->arena, 32);
+		if (gstate->f_d && gstate->f_d_arg == gstate->arena->all_cycles)
+			print_arena_and_exit(gstate->arena, 64);
 		one_cycle(gstate);
+	}
 	end_of_battle(gstate);
-	free_all(gstate->arena, gstate->first_cursor, gstate);
 }

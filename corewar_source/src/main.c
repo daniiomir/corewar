@@ -24,9 +24,9 @@ int	main(int argc, char **argv)
 	fill_arena_and_init_cursors(gstate->arena, gstate);
 	if (gstate->f_v)
 		visualisation(gstate, gstate->arena);
-//		visualisation_debug(gstate, gstate->arena);
 	else
 		main_alg(gstate);
+	free_all(gstate);
 }
 
 /*

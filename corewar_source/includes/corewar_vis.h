@@ -40,6 +40,14 @@
 # define MAGENTA_CUR	16
 # define YELLOW_CUR		17
 
+/*
+**	SPEED
+*/
+
+# define DEFAULT_SPEED	50000
+# define MIN_SPEED		0
+# define MAX_SPEED		100000
+
 static int g_colors[COLORS_AMOUNT * 2] = {
 		COLOR_PAIR(GRAY),
 		COLOR_PAIR(GREEN),
@@ -64,6 +72,10 @@ static int g_colors[COLORS_AMOUNT * 2] = {
 # define EXIT			27
 # define RUN			32
 # define ONE_CYCLE		's'
+# define SPEED_UP10		'e'
+# define SPEED_UP100	'r'
+# define SLOW_DOWN10	'w'
+# define SLOW_DOWN100	'q'
 
 typedef struct	s_cell
 {
@@ -87,8 +99,6 @@ typedef struct	s_vis
 
 t_vis	*init_vis();
 void	visualisation(t_gstate *gstate, t_arena *arena);
-void	visualisation_debug(t_gstate *gstate, t_arena *arena);
-void	init_vis_arena(t_gstate *gstate);				// удалить вместе с visualisation_debug
 void	prepare_map(t_gstate *gstate);
 void	check_window_size(t_vis *vis);
 void	init_color_palette();

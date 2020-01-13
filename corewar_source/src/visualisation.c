@@ -32,41 +32,38 @@ void	btn_handler(t_vis *vis)
 {
 	if (vis->btn == RUN)
 		vis->is_running = !vis->is_running;
+	if (vis->btn == SLOW_DOWN10)
+		vis->speed += 1000;
+	if (vis->btn == SLOW_DOWN100)
+		vis->speed += 10000;
+	if (vis->btn == SPEED_UP10)
+		vis->speed -= 1000;
+	if (vis->btn == SPEED_UP100)
+		vis->speed -= 10000;
+	if (vis->speed < MIN_SPEED)
+		vis->speed = MIN_SPEED;
+	if (vis->speed >= MAX_SPEED)
+		vis->speed = MAX_SPEED - 1000;
 }
 
 void	visualisation(t_gstate *gstate, t_arena *arena)
 {
 	prepare_map(gstate);
+	system("say -v Alex -r 200 'Welcome to the battle' &");
 	while ((gstate->vis->btn = getch()) != EXIT)
 	{
+		gstate->vis->btn = (char)ft_tolower(gstate->vis->btn);
 		btn_handler(gstate->vis);
 		if (gstate->processes_num == 0)
-		{
 			gstate->vis->is_running = 0;
-		}
 		if (gstate->vis->btn == ONE_CYCLE)
 			one_cycle(gstate);
-		else if (gstate->vis->is_running)
+		if (gstate->vis->is_running)
 		{
 			one_cycle(gstate);
+			usleep(gstate->vis->speed);
 		}
 		refresh_window(gstate, arena);
 	}
 	endwin();
-}
-
-void visualisation_debug(t_gstate *gstate, t_arena *arena)
-{
-	init_vis_arena(gstate);
-
-	gstate->vis->is_running = 1;
-	while (gstate->vis->is_running)
-	{
-		if (gstate->processes_num == 0)			// конец игры
-		{
-			gstate->vis->is_running = 0;
-			break;
-		}
-		one_cycle(gstate);
-	}
 }

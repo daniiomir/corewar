@@ -22,7 +22,7 @@ static void	draw_is_running(t_vis *vis, int *row)
 	wattron(vis->w_info, A_BOLD | COLOR_PAIR(color));
 	wprintw(vis->w_info, "===== %s =====", status);
 	wattroff(vis->w_info, A_BOLD | COLOR_PAIR(color));
-	(*row) += 3;
+	(*row) += 2;
 }
 
 static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
@@ -46,7 +46,6 @@ static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 		wmove(vis->w_info, (*row) += 1, col + 5);
 		wprintw(vis->w_info, "Lives in current period : %16d",
 				player->lives_in_cur_period);
-
 		wmove(vis->w_info, (*row) += 2, col);
 		i++;
 	}
@@ -65,6 +64,21 @@ void		draw_winner(t_gstate *gstate)
 	wattroff(gstate->vis->w_info, color);
 }
 
+static void	draw_info2(t_gstate *gstate, t_arena *arena, int *row, int col)
+{
+	t_vis	*vis;
+
+	vis = gstate->vis;
+	wmove(vis->w_info, (*row) += 1, col);
+	wprintw(vis->w_info, "Cycles to die : %10d", arena->cycle_to_die);
+	wmove(vis->w_info, (*row) += 2, col);
+	wprintw(vis->w_info, "Cycle delta : %10d", CYCLE_DELTA);
+	wmove(vis->w_info, (*row) += 2, col);
+	wprintw(vis->w_info, "Max checks : %10d/10", arena->checks);
+	wmove(vis->w_info, (*row) += 2, col);
+	wprintw(vis->w_info, "Nbr of lives : %8d/21", arena->lives_nbr);
+}
+
 void		draw_info(t_gstate *gstate, t_arena *arena)
 {
 	t_vis	*vis;
@@ -78,19 +92,14 @@ void		draw_info(t_gstate *gstate, t_arena *arena)
 	draw_is_running(vis, &row);
 	wmove(vis->w_info, row, col);
 	wattron(vis->w_info, A_BOLD);
+	wprintw(vis->w_info, "Speed : %d", (MAX_SPEED - vis->speed) / 1000);
+	wmove(vis->w_info, row += 3, col);
 	wprintw(vis->w_info, "Cycle : %d", arena->all_cycles);
 	wmove(vis->w_info, row += 2, col);
 	wprintw(vis->w_info, "Processes : %d", gstate->processes_num);
 	wmove(vis->w_info, row += 2, col);
 	draw_players(gstate, vis, &row, col);
-	wmove(vis->w_info, row += 1, col);
-	wprintw(vis->w_info, "Cycles to die : %10d", arena->cycle_to_die);
-	wmove(vis->w_info, row += 2, col);
-	wprintw(vis->w_info, "Cycle delta : %10d", CYCLE_DELTA);
-	wmove(vis->w_info, row += 2, col);
-	wprintw(vis->w_info, "Max checks : %10d/10", arena->checks);
-	wmove(vis->w_info, row += 2, col);
-	wprintw(vis->w_info, "Nbr of lives : %8d/21", arena->lives_nbr);
+	draw_info2(gstate, arena, &row, col);
 	wmove(vis->w_info, row += 3, col);
 	if (gstate->processes_num == 0)
 		draw_winner(gstate);

@@ -19,7 +19,7 @@ t_champ		*parse_champion_file(int n_arg, int id, char *filename)
 
 	player = init_champion(n_arg, id);
 	if ((fd = open(filename, O_RDONLY)) <= 0)
-		print_error_and_exit(ft_strjoin("Cannot open file ", filename), 50);	// утечка
+		print_error_and_exit(ft_strjoin("Cannot open file ", filename), 50);
 	check_header(fd);
 	player->name = get_name_and_comment(fd, PROG_NAME_LENGTH);
 	miss_nulls(fd);

@@ -89,6 +89,8 @@ typedef struct		s_arena
 **	all_players		- array of all players in game.
 **  f_dump			- flag dump (stops execution on a specific loop).
 **  f_dump_arg		- dump flag argument.
+**  f_d				- flag d (stops execution on a specific loop).
+**  f_d_arg			- d flag argument.
 **  f_v				- flag v (visualisation).
 **  f_a				- flag a (aff). Displays register value.
 **	processes_num	- number of active cursors.
@@ -101,6 +103,8 @@ typedef struct	s_gstate
     t_champ			*all_players[MAX_PLAYERS];
     char			f_dump:2;
     int				f_dump_arg;
+    char			f_d:2;
+    int				f_d_arg;
     char			f_v:2;
     char			f_a:2;
     int 			processes_num;

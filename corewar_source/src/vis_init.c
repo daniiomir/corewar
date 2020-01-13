@@ -25,7 +25,7 @@ t_vis			*init_vis(void)
 	vis->width = 0;
 	vis->height = 0;
 	vis->is_running = 0;
-	vis->speed = 1;
+	vis->speed = DEFAULT_SPEED;
 	vis->btn = 0;
 	return (vis);
 }

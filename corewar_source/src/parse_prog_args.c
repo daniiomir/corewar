@@ -59,8 +59,12 @@ void		parse_arguments(t_gstate *gstate, int argc, char **argv)
 			parse_champion_filename(gstate, &argc, &argv);
 		else if (ft_strequ(*argv, "-dump"))
 			parse_flag_dump(gstate, &argc, &argv);
+		else if (ft_strequ(*argv, "-d"))
+			parse_flag_d(gstate, &argc, &argv);
 		else if (ft_strequ(*argv, "-v"))
 			parse_flag_v(gstate, &argc, &argv);
+		else if (ft_strequ(*argv, "-a"))
+			gstate->f_a = 1;
 		else
 			print_usage();
 	}

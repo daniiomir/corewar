@@ -49,9 +49,9 @@ void		draw_map(t_vis *vis, t_arena *arena)
 void		draw_usage(t_vis *vis)
 {
 	wmove(vis->w_usage, 2, 2);
-	wprintw(vis->w_usage, "ESC - exit", vis->is_running);
+	wprintw(vis->w_usage, "ESC - exit");
 	wmove(vis->w_usage, 2, 20);
-	wprintw(vis->w_usage, "SPACE - ", vis->is_running);
+	wprintw(vis->w_usage, "SPACE - ");
 	vis->is_running ? wattron(vis->w_usage, A_BOLD) : 0;
 	wprintw(vis->w_usage, "run");
 	vis->is_running ? wattroff(vis->w_usage, A_BOLD) : 0;
@@ -61,6 +61,10 @@ void		draw_usage(t_vis *vis)
 	!vis->is_running ? wattroff(vis->w_usage, A_BOLD) : 0;
 	wmove(vis->w_usage, 2, 44);
 	wprintw(vis->w_usage, "s - one step");
+	wmove(vis->w_usage, 2, 64);
+	wprintw(vis->w_usage, "q, w - slow down (-10, -1)");
+	wmove(vis->w_usage, 2, 98);
+	wprintw(vis->w_usage, "e, r - speed up (+1, +10)");
 	wattron(vis->w_usage, COLOR_PAIR(GRAY));
 	box(vis->w_usage, 0, 0);
 	wattroff(vis->w_usage, COLOR_PAIR(GRAY));

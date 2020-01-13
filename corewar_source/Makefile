@@ -35,7 +35,6 @@ SRC_NAMES = main.c \
     		init_arena.c \
     		free_all.c \
     		cursor_operations.c \
-    		print_arena.c \
     		visualisation.c \
     		vis_prepare_map.c \
     		vis_tools.c \

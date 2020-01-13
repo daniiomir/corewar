@@ -23,6 +23,8 @@ t_gstate	*init_global_state(void)
 	ft_bzero(&gstate->all_players, MAX_PLAYERS * sizeof(t_champ*));
 	gstate->f_dump = 0;
 	gstate->f_dump_arg = 0;
+	gstate->f_d = 0;
+	gstate->f_d_arg = 0;
 	gstate->f_v = 0;
 	gstate->f_a = 0;
 	gstate->processes_num = 0;

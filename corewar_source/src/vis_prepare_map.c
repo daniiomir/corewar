@@ -57,7 +57,7 @@ void	prepare_map(t_gstate *gstate)
 	refresh();
 	getmaxyx(stdscr, gstate->vis->height, gstate->vis->width);
 	init_color_palette();
-	// check_window_size(gstate->vis);
+	check_window_size(gstate->vis);
 	init_vis_arena(gstate);
 	gstate->vis->w_map = newwin(MAP_HEIGHT, MAP_WIDTH, 1, 2);
 	gstate->vis->w_info = newwin(MAP_HEIGHT, COL_WIDTH, 1, MAP_WIDTH + 3);

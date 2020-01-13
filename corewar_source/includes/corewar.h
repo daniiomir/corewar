@@ -15,8 +15,6 @@ t_op			op_tab[17];
 ** ___________________________ General Functions _______________________________
 */
 
-int				ft_printf(const char *format, ...);
-void			print_error_and_exit(char *errstr, int errno);
 int				byte_to_int(unsigned char *code, int byte_len);
 int				get_map_ind(int current_position, int shift);
 int				get_map_int(t_arena *arena, int first_pos, int size);
@@ -29,6 +27,8 @@ int				get_cur_pos_byte(t_arena *arena, t_cursor *cursor);
 void			print_usage();
 void			init_battle(t_gstate *gstate);
 void			end_of_battle(t_gstate *gstate);
+void			print_arena_and_exit(t_arena *arena, int format);
+void			print_error_and_exit(char *errstr, int errno);
 
 /*
 ** ________________________ Structure Initialization ___________________________
@@ -45,6 +45,7 @@ t_cursor		*init_cursor(int id, int reg);
 
 void			parse_arguments(t_gstate *gstate, int argc, char **argv);
 void			parse_flag_dump(t_gstate *gstate, int *argc, char ***argv);
+void			parse_flag_d(t_gstate *gstate, int *argc, char ***argv);
 void			parse_flag_v(t_gstate *gstate, int *argc, char ***argv);
 int				parse_flag_n(int *argc, char ***argv);
 
@@ -79,16 +80,10 @@ void			main_alg(t_gstate *gstate);
 void			one_cycle(t_gstate *gstate);
 
 /*
-** ________________________________ Graphic ____________________________________
-*/
-
-void			print_arena(t_arena *arena, t_cursor *cursor);
-
-/*
 ** ______________________________ Memory erase _________________________________
 */
 
-void			free_all(t_arena *arena, t_cursor *cursor, t_gstate *gstate);
+void			free_all(t_gstate *gstate);
 
 /*
 ** __________________________ Operation Validation _____________________________
