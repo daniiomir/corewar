@@ -52,7 +52,7 @@ SRC_NAMES = main.c \
     		ld_ldi_lld_lldi.c \
     		st_sti.c \
     		zjmp.c \
-    		live.c \
+    		live.c
 
 ASM_SRC = $(addprefix $(SRC_FOLDER)/, $(SRC_NAMES))
 
@@ -63,7 +63,7 @@ all: $(LIBFT_PATH) $(COREWAR)
 $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c
 	@mkdir -p $(OBJ_FOLDER)
 	@gcc $(FLAGS) $(HEADERS) -c $< -o $@
-	@echo "Obj -> done"
+	@echo "$< -> done"
 
 $(LIBFT_PATH):
 	@make -C $(LIBFT)
