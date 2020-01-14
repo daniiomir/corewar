@@ -6,7 +6,7 @@
 #    By: swarner <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/13 15:57:22 by swarner           #+#    #+#              #
-#    Updated: 2019/11/13 15:57:23 by swarner          ###   ########.fr        #
+#    Updated: 2020/01/14 16:48:31 by rrika            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ COREWAR_SRC_NAMES = main.c \
     		parse_flags.c \
     		parse_champion_file.c \
     		parse_prog_args.c \
-    		parse_op.c \
 			read_and_check_champ_file.c \
     		put_players_in_order.c \
     		byte_shift.c \

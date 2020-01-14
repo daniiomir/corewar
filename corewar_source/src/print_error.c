@@ -14,6 +14,6 @@
 
 void	print_error_and_exit(char *errstr, int errno)
 {
-	ft_printf("%s\n", errstr);
+	ft_printf("Error: %s\n", errstr);
 	exit(errno);
 }

@@ -53,8 +53,10 @@ static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 
 void		draw_winner(t_gstate *gstate)
 {
-	t_champ	*winner;
-	int		color;
+	t_champ		*winner;
+	int			color;
+	static int	voice;
+	char		*buffer;
 
 	winner = gstate->all_players[INDEX(gstate->arena->last_live)];
 	color = g_colors[winner->id];
@@ -62,6 +64,15 @@ void		draw_winner(t_gstate *gstate)
 	wattron(gstate->vis->w_info, color);
 	wprintw(gstate->vis->w_info, "%s", winner->name);
 	wattroff(gstate->vis->w_info, color);
+	if (voice == 0)
+	{
+		buffer = malloc(200 * sizeof(char));
+
+		sprintf(buffer, "say -v Alex -r 200 'The winner is %s' &", winner->name);
+		system(buffer);
+		free(buffer);
+		voice = 1;
+	}
 }
 
 static void	draw_info2(t_gstate *gstate, t_arena *arena, int *row, int col)
