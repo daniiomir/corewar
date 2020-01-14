@@ -61,7 +61,6 @@ t_arena		*init_arena(t_gstate *gstate)
 	arena->lives_nbr = 0;
 	arena->cycle_to_die = CYCLE_TO_DIE;
 	arena->checks = 0;
-	arena->next_cursor_num = 0;
 	return (arena);
 }
 
