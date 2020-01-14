@@ -12,7 +12,7 @@
 
 #include "corewar_vis.h"
 
-static void check_has_color()
+static void	check_has_color(void)
 {
 	if (has_colors() == 0)
 	{
@@ -21,7 +21,7 @@ static void check_has_color()
 	}
 }
 
-void init_color_palette()
+void		init_color_palette(void)
 {
 	check_has_color();
 	init_pair(COLOR_ERROR, COLOR_WHITE, COLOR_RED);
@@ -41,16 +41,17 @@ void init_color_palette()
 	init_pair(YELLOW_CUR, COLOR_BLACK, COLOR_YELLOW);
 }
 
-void	check_window_size(t_vis *vis)
+void		check_window_size(t_vis *vis)
 {
-	WINDOW	*error_win;
 	int		len;
 	int		indent;
 	int		box_width;
+	WINDOW	*error_win;
 
-	if (vis->width < (COL_WIDTH * 4 + 5) || vis->height < MAP_HEIGHT + USAGE_HEIGHT + 2)
+	if (vis->width < (4 * COL_WIDTH + 5) ||
+		vis->height < 2 + MAP_HEIGHT + USAGE_HEIGHT)
 	{
-		len = strlen("Make the window bigger");
+		len = ft_strlen("Make the window bigger");
 		box_width = vis->width / 2;
 		indent = (box_width - len) / 2;
 		error_win = newwin(5, box_width, (vis->height / 2) - 3, box_width / 2);

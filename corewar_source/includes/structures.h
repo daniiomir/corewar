@@ -45,13 +45,13 @@ typedef struct		s_champ
 /*
 ** ______________________ Cursor Structure Definition __________________________
 **
-**	player_id					- unique identifier.
+**	player_id			- unique identifier.
 **  f_carry				- flag that some operations may change.
 **  current_op			- operation code on which the cursor stands
 **  last_live_cycle		- the loop on which the "live" operation was performed.
 **  cycles_remaining	- number of cycles before operation execution.
-**  cur_pos				- cursor position on map.
-**  next_op_steps		- number of bytes before next operation.
+**  pos					- cursor position on map.
+**  steps				- number of bytes before next operation.
 **  reg					- registers.
 **  args				- types of arguments operation takes.
 **  next				- pointer to next cursor.
@@ -64,8 +64,8 @@ typedef struct		s_cursor
 	unsigned char	current_op;
 	int				last_live_cycle;
 	int				cycles_remaining;
-	int				cur_pos;
-	int				next_op_steps;
+	int				pos;
+	int				steps;
 	int				reg[REG_NUMBER];
 	unsigned char	args[3];
 	struct s_cursor *next;
@@ -80,7 +80,6 @@ typedef struct		s_cursor
 **  lives_nbr     	- number of live ops made by start of last cycle_to_die.
 **  cycle_to_die	- cycle on which the check will occur.
 **  checks          - number of checks performed.
-**	next_cursor_num - number that will be given to the next created cursor
 */
 
 typedef struct		s_arena
@@ -91,7 +90,6 @@ typedef struct		s_arena
 	int				lives_nbr;
 	int				cycle_to_die;
 	int				checks;
-	int				next_cursor_num;
 }					t_arena;
 
 /*
@@ -136,7 +134,7 @@ typedef struct		s_gstate
 **	need_cycles		- number of cycles to be executed.
 **	arg_code_type	- arguments code type.
 **	f_change_carry	- does the operation change the "carry" flag.
-**	t_dir_size		- size of t_dir argument.
+**	dir_size		- size of t_dir argument.
 **	func			- function that performs the operation.
 */
 
@@ -150,7 +148,7 @@ typedef struct		s_op
 	char			*description;
 	int				arg_code_type;
 	int				f_change_carry;
-	int				t_dir_size;
+	int				dir_size;
 	void			(*func)(t_gstate *, t_cursor *);
 }					t_op;
 

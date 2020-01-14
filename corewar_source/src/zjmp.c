@@ -16,8 +16,8 @@ void	op_zjmp(t_gstate *gstate, t_cursor *cursor)
 {
 	int addr;
 
-	cursor->next_op_steps += 1;
+	cursor->steps += 1;
 	addr = get_arg(gstate->arena, cursor, T_DIR, 1);
 	if (cursor->f_carry)
-		cursor->next_op_steps = addr % IDX_MOD;
+		cursor->steps = addr % IDX_MOD;
 }

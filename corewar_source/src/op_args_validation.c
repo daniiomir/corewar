@@ -18,18 +18,18 @@ static int		check_one_arg(t_cursor *cursor, t_arena *arena,
 	int				current_pos;
 	unsigned char	arg;
 
-	current_pos = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
+	current_pos = get_map_ind(cursor->pos, cursor->steps);
 	arg = cursor->args[arg_order];
 	if (arg == REG_CODE)
 	{
-		cursor->next_op_steps++;
+		cursor->steps++;
 		if (arena->map[current_pos] < 1 || arena->map[current_pos] > 16)
 			return (0);
 	}
 	else if (arg == DIR_CODE)
-		cursor->next_op_steps += operation.t_dir_size;
+		cursor->steps += operation.dir_size;
 	else if (arg == IND_CODE)
-		cursor->next_op_steps += T_IND_SIZE;
+		cursor->steps += T_IND_SIZE;
 	else
 		return (0);
 	return (1);
@@ -57,8 +57,8 @@ int				argument_code_type_check(t_cursor *cursor,
 	unsigned char	byte_shift;
 	int				i;
 
-	args_type_code = arena->map[get_map_ind(cursor->cur_pos, 1)];
-	cursor->next_op_steps += 2;
+	args_type_code = arena->map[get_map_ind(cursor->pos, 1)];
+	cursor->steps += 2;
 	i = 0;
 	if (!operation.arg_code_type)
 		return (0);

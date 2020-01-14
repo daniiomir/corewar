@@ -16,7 +16,7 @@ void	op_live(t_gstate *gstate, t_cursor *cursor)
 {
 	int arg;
 
-	cursor->next_op_steps += 1;
+	cursor->steps += 1;
 	arg = get_arg(gstate->arena, cursor, T_DIR, 0);
 	cursor->last_live_cycle = gstate->arena->all_cycles;
 	gstate->arena->lives_nbr++;

@@ -25,7 +25,6 @@ SRC_NAMES = main.c \
     		parse_flags.c \
     		parse_champion_file.c \
     		parse_prog_args.c \
-    		parse_op.c \
 			read_and_check_champ_file.c \
     		put_players_in_order.c \
     		byte_shift.c \

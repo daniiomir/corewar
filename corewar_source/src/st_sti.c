@@ -52,7 +52,7 @@ void	op_st(t_gstate *gstate, t_cursor *cursor)
 	int arg2;
 	int addr;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	reg = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	if (cursor->args[1] == T_REG)
 	{
@@ -62,12 +62,12 @@ void	op_st(t_gstate *gstate, t_cursor *cursor)
 	else
 	{
 		arg2 = get_map_int(gstate->arena,
-				cursor->cur_pos + cursor->next_op_steps, T_IND_SIZE);
-		addr = cursor->cur_pos + (arg2 % IDX_MOD);
+				cursor->pos + cursor->steps, T_IND_SIZE);
+		addr = cursor->pos + (arg2 % IDX_MOD);
 		write_to_map(gstate, reg, addr, DIR_SIZE);
 		if (gstate->f_v)
 			vis_write_to_map(gstate, cursor, addr, DIR_SIZE);
-		cursor->next_op_steps += IND_SIZE;
+		cursor->steps += IND_SIZE;
 	}
 }
 
@@ -78,11 +78,11 @@ void	op_sti(t_gstate *gstate, t_cursor *cursor)
 	int arg3;
 	int addr;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	reg = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(gstate->arena, cursor, cursor->args[1], 1);
 	arg3 = get_arg(gstate->arena, cursor, cursor->args[2], 1);
-	addr = cursor->cur_pos + ((arg2 + arg3) % IDX_MOD);
+	addr = cursor->pos + ((arg2 + arg3) % IDX_MOD);
 	write_to_map(gstate, reg, addr, DIR_SIZE);
 	if (gstate->f_v)
 		vis_write_to_map(gstate, cursor, addr, DIR_SIZE);

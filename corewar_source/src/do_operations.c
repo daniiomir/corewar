@@ -16,11 +16,11 @@
 void		move_cursor(t_gstate *gstate, t_cursor *cursor)
 {
 	if (gstate->f_v)
-		gstate->vis->map[cursor->cur_pos].is_cursor = 0;
-	cursor->cur_pos = get_map_ind(cursor->cur_pos, cursor->next_op_steps);
-	cursor->next_op_steps = 0;
+		gstate->vis->map[cursor->pos].is_cursor = 0;
+	cursor->pos = get_map_ind(cursor->pos, cursor->steps);
+	cursor->steps = 0;
 	if (gstate->f_v)
-		gstate->vis->map[cursor->cur_pos].is_cursor = 1;
+		gstate->vis->map[cursor->pos].is_cursor = 1;
 	ft_bzero(cursor->args, sizeof(unsigned char) * 3);
 }
 
@@ -33,11 +33,11 @@ void		do_operation(t_gstate *gstate, t_cursor *cursor)
 	{
 		if (argument_code_type_check(cursor, gstate->arena, curr_op) == 0)
 		{
-			cursor->next_op_steps = 0;
+			cursor->steps = 0;
 			g_op_tab[cursor->current_op].func(gstate, cursor);
 		}
 	}
 	else
-		cursor->next_op_steps = 1;
+		cursor->steps = 1;
 	move_cursor(gstate, cursor);
 }

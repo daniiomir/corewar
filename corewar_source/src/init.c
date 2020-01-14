@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <corewar_vis.h>
+#include "corewar.h"
 
 t_gstate	*init_global_state(void)
 {
@@ -20,7 +20,7 @@ t_gstate	*init_global_state(void)
 	if (gstate == NULL)
 		print_error_and_exit("Memory does not allocated", 3);
 	gstate->players_num = 0;
-	ft_bzero(&gstate->all_players, MAX_PLAYERS * sizeof(t_champ*));
+	ft_bzero(&gstate->all_players, sizeof(t_champ*) * MAX_PLAYERS);
 	gstate->f_dump = 0;
 	gstate->f_dump_arg = 0;
 	gstate->f_d = 0;
@@ -48,7 +48,7 @@ t_champ		*init_champion(int n_arg, int id)
 	return (player);
 }
 
-t_arena *init_arena(t_gstate *gstate)
+t_arena		*init_arena(t_gstate *gstate)
 {
 	t_arena		*arena;
 
@@ -65,7 +65,7 @@ t_arena *init_arena(t_gstate *gstate)
 	return (arena);
 }
 
-t_cursor		*init_cursor(int id, int reg)
+t_cursor	*init_cursor(int id, int reg)
 {
 	t_cursor	*cursor;
 
@@ -73,11 +73,11 @@ t_cursor		*init_cursor(int id, int reg)
 		print_error_and_exit("Memory does not allocated", 3);
 	cursor->f_carry = 0;
 	cursor->current_op = 0;
-	cursor->cur_pos = 0;
+	cursor->pos = 0;
 	cursor->cycles_remaining = 0;
 	cursor->last_live_cycle = 0;
 	cursor->next = NULL;
-	cursor->next_op_steps = 0;
+	cursor->steps = 0;
 	cursor->player_id = id;
 	ft_bzero(cursor->args, 3);
 	ft_bzero(cursor->reg, sizeof(int) * 16);

@@ -18,7 +18,7 @@ void	op_and(t_gstate *gstate, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	arg1 = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(gstate->arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(gstate->arena, cursor);
@@ -32,7 +32,7 @@ void	op_or(t_gstate *gstate, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	arg1 = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(gstate->arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(gstate->arena, cursor);
@@ -46,7 +46,7 @@ void	op_xor(t_gstate *gstate, t_cursor *cursor)
 	int arg2;
 	int reg;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	arg1 = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	arg2 = get_arg(gstate->arena, cursor, cursor->args[1], 0);
 	reg = get_cur_pos_byte(gstate->arena, cursor);

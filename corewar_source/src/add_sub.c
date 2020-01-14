@@ -18,7 +18,7 @@ void	op_add(t_gstate *gstate, t_cursor *cursor)
 	int reg2;
 	int reg3;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	reg1 = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	reg2 = get_arg(gstate->arena, cursor, cursor->args[1], 0);
 	reg3 = get_cur_pos_byte(gstate->arena, cursor);
@@ -32,7 +32,7 @@ void	op_sub(t_gstate *gstate, t_cursor *cursor)
 	int reg2;
 	int reg3;
 
-	cursor->next_op_steps += 2;
+	cursor->steps += 2;
 	reg1 = get_arg(gstate->arena, cursor, cursor->args[0], 0);
 	reg2 = get_arg(gstate->arena, cursor, cursor->args[1], 0);
 	reg3 = get_cur_pos_byte(gstate->arena, cursor);
