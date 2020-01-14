@@ -25,6 +25,12 @@ char	*label_check(t_pasm *pasm, char *line, int line_number)
 		&& (line[0] == ' ' || line[0] == '\t'))
 		return (NULL);
 	label = ft_strsub(line, 0, label_char_pos);
+	if (ft_strchr_i(label, '%') > 0 || ft_strchr_i(label, ' ') > 0
+	|| ft_strchr_i(label, '\t') > 0)
+	{
+		free(label);
+		return (NULL);
+	}
 	if (!check_legal_chars(label, LABEL_CHARS))
 		error_exit_line(pasm, NULL, "not ASCII characters in label",
 			line_number);
@@ -51,10 +57,18 @@ int		open_file(char *file)
 int		label_operations(t_pasm *pasm, char **label,
 	char **line, int *line_number)
 {
-	if (!(*label) && *line_number > 2
-		&& ft_strlen(*line) && !is_blanc((*line)[0]))
+	char	*new_label;
+	char	*check_line;
+
+	if (*line_number > 2 && ft_strlen(*line) && !is_blanc((*line)[0]))
 	{
-		*label = label_check(pasm, *line, *line_number);
+		new_label = label_check(pasm, *line, *line_number);
+		if (!new_label || (*line)[0] == '.')
+		{
+			free(new_label);
+			return (1);
+		}
+		*label = new_label;
 		if (check_for_op_after_label(*line, ft_strchr_i(*line, LABEL_CHAR)))
 		{
 			*line = get_new_line_after_label(line);
@@ -62,7 +76,8 @@ int		label_operations(t_pasm *pasm, char **label,
 		}
 		else
 		{
-			parse_file_helper(line, line_number, NULL);
+			check_line = NULL;
+			parse_file_helper(line, line_number, &check_line);
 			return (0);
 		}
 	}
@@ -111,7 +126,7 @@ void	parse_file(int fd, t_pasm *pasm)
 			parse_file_helper(&line, &line_number, &check_line);
 			continue ;
 		}
-		line_parse(pasm, line, line_number, &label);
+		line_parse(pasm, check_line, line_number, &label);
 		parse_file_helper(&line, &line_number, &check_line);
 	}
 }
