@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include <stdio.h>
 
 void	fill_arena_and_init_cursors(t_arena *arena, t_gstate *gstate)
 {

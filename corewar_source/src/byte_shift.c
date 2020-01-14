@@ -38,10 +38,10 @@ int		get_map_ind(int current_position, int shift)
 {
 	int sum;
 
-	sum = current_position + shift;
+	sum = (current_position + shift) % MEM_SIZE;
 	if (sum < 0)
-		return (MEM_SIZE + sum);
-	return (sum % MEM_SIZE);
+		return (sum + MEM_SIZE);
+	return (sum);
 }
 
 int		get_map_int(t_arena *arena, int first_pos, int size)
