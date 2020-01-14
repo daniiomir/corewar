@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 14:54:21 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/14 14:54:22 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COREWAR_H
 # define COREWAR_H
 
@@ -9,7 +21,7 @@
 # include "structures.h"
 # include "macroses.h"
 
-t_op			op_tab[17];
+t_op			g_op_tab[17];
 
 /*
 ** ___________________________ General Functions _______________________________
@@ -35,7 +47,7 @@ void			print_error_and_exit(char *errstr, int errno);
 */
 
 t_gstate		*init_global_state(void);
-t_champ         *init_champion(int n_arg, int id);
+t_champ			*init_champion(int n_arg, int id);
 t_arena			*init_arena(t_gstate *gstate);
 t_cursor		*init_cursor(int id, int reg);
 
@@ -53,18 +65,18 @@ int				parse_flag_n(int *argc, char ***argv);
 ** _________________________ Champion File Parsing _____________________________
 */
 
-t_champ         *parse_champion_file(int n_arg, int id, char *filename);
-unsigned char   *get_exec_code(int fd, int len);
-int             get_exec_code_size(int fd);
+t_champ			*parse_champion_file(int n_arg, int id, char *filename);
+unsigned char	*get_exec_code(int fd, int len);
+int				get_exec_code_size(int fd);
 char			*get_name_and_comment(int fd, int len);
-unsigned int    miss_nulls(int fd);
-void            check_header(int fd);
+unsigned int	miss_nulls(int fd);
+void			check_header(int fd);
 
 /*
 ** _____________________________ Players Order _________________________________
 */
 
-void	        order_of_champs(t_gstate *gstate);
+void			order_of_champs(t_gstate *gstate);
 
 /*
 ** ____________________________ Arena initiation _______________________________
@@ -89,16 +101,18 @@ void			free_all(t_gstate *gstate);
 ** __________________________ Operation Validation _____________________________
 */
 
-int				argument_code_type_check(t_cursor *cursor, t_arena *arena, t_op operation);
+int				argument_code_type_check(t_cursor *cursor,
+		t_arena *arena, t_op operation);
 
 /*
 ** ____________________________ Cursor operations ______________________________
 */
 
 void			cursor_operations_exec(t_gstate *gstate);
-void 			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
+void			kill_cursor(t_cursor **search_cursor, t_cursor **first_cursor);
 void			do_operation(t_gstate *gstate, t_cursor *cursor);
-int				get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod);
+int				get_arg(t_arena *arena,
+		t_cursor *cursor, unsigned char arg, int mod);
 
 /*
 ** _______________________________ Operations __________________________________
@@ -126,7 +140,6 @@ void			op_zjmp(t_gstate *gstate, t_cursor *cursor);
 void			op_live(t_gstate *gstate, t_cursor *cursor);
 
 void			op_aff(t_gstate *gstate, t_cursor *cursor);
-
 
 /*
 ** ______________________________ Error Number _________________________________

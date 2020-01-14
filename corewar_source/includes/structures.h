@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 14:55:13 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/14 14:55:14 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COREWAR_SOURCE_STRUCTURES_H
 # define COREWAR_SOURCE_STRUCTURES_H
 
@@ -20,14 +32,14 @@
 
 typedef struct		s_champ
 {
-    int				id;
-    int 			f_n_arg;
-    char			*name;
-    char			*comment;
-    int				size;
-    unsigned char	*code;
-    int 			last_live_cycle;
-    int 			lives_in_cur_period;
+	int				id;
+	int				f_n_arg;
+	char			*name;
+	char			*comment;
+	int				size;
+	unsigned char	*code;
+	int				last_live_cycle;
+	int				lives_in_cur_period;
 }					t_champ;
 
 /*
@@ -47,14 +59,14 @@ typedef struct		s_champ
 
 typedef struct		s_cursor
 {
-	int 			player_id;
-	int 			f_carry;
+	int				player_id;
+	int				f_carry;
 	unsigned char	current_op;
-	int 			last_live_cycle;
-	int 			cycles_remaining;
-	int 			cur_pos;
-	int 			next_op_steps;
-	int 			reg[REG_NUMBER];
+	int				last_live_cycle;
+	int				cycles_remaining;
+	int				cur_pos;
+	int				next_op_steps;
+	int				reg[REG_NUMBER];
 	unsigned char	args[3];
 	struct s_cursor *next;
 }					t_cursor;
@@ -73,13 +85,13 @@ typedef struct		s_cursor
 
 typedef struct		s_arena
 {
-	unsigned char 	map[MEM_SIZE];
-	int 			last_live;
-	int 			all_cycles;
-	int 			lives_nbr;
-	int 			cycle_to_die;
-	int 			checks;
-	int 			next_cursor_num;
+	unsigned char	map[MEM_SIZE];
+	int				last_live;
+	int				all_cycles;
+	int				lives_nbr;
+	int				cycle_to_die;
+	int				checks;
+	int				next_cursor_num;
 }					t_arena;
 
 /*
@@ -97,21 +109,21 @@ typedef struct		s_arena
 **  first_cursor	- pointer to the first cursor.
 */
 
-typedef struct	s_gstate
+typedef struct		s_gstate
 {
-    int				players_num;
-    t_champ			*all_players[MAX_PLAYERS];
-    char			f_dump:2;
-    int				f_dump_arg;
-    char			f_d:2;
-    int				f_d_arg;
-    char			f_v:2;
-    char			f_a:2;
-    int 			processes_num;
+	int				players_num;
+	t_champ			*all_players[MAX_PLAYERS];
+	char			f_dump:2;
+	int				f_dump_arg;
+	char			f_d:2;
+	int				f_d_arg;
+	char			f_v:2;
+	char			f_a:2;
+	int				processes_num;
 	t_cursor		*first_cursor;
 	struct s_vis	*vis;
 	t_arena			*arena;
-}				t_gstate;
+}					t_gstate;
 
 /*
 ** _____________________ Operation Structure Definition ________________________
@@ -128,7 +140,7 @@ typedef struct	s_gstate
 **	func			- function that performs the operation.
 */
 
-typedef struct	s_op
+typedef struct		s_op
 {
 	int				op_code;
 	char			*op_name;
@@ -138,8 +150,8 @@ typedef struct	s_op
 	char			*description;
 	int				arg_code_type;
 	int				f_change_carry;
-	int 			t_dir_size;
+	int				t_dir_size;
 	void			(*func)(t_gstate *, t_cursor *);
-}				t_op;
+}					t_op;
 
 #endif

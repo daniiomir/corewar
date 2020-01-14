@@ -45,7 +45,8 @@ void	parse_flag_dump(t_gstate *gstate, int *argc, char ***argv)
 	if (*argc > 1 && (f_dump_arg = ft_atoi(*(*argv + 1))))
 	{
 		if (f_dump_arg < 0)
-			print_error_and_exit("Dump flag argument cannot be negative number", 45);
+			print_error_and_exit("Dump flag argument cannot be negative number",
+					45);
 		gstate->f_dump = 1;
 		gstate->f_dump_arg = f_dump_arg;
 		(*argv) += 2;
@@ -62,7 +63,8 @@ void	parse_flag_d(t_gstate *gstate, int *argc, char ***argv)
 	if (*argc > 1 && (f_d_arg = ft_atoi(*(*argv + 1))))
 	{
 		if (f_d_arg < 0)
-			print_error_and_exit("D flag argument cannot be negative number", 45);
+			print_error_and_exit("D flag argument cannot be negative number",
+					45);
 		gstate->f_d = 1;
 		gstate->f_d_arg = f_d_arg;
 		(*argv) += 2;

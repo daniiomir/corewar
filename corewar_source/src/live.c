@@ -22,7 +22,8 @@ void	op_live(t_gstate *gstate, t_cursor *cursor)
 	gstate->arena->lives_nbr++;
 	if (arg <= -1 && arg >= gstate->players_num * -1)
 	{
-		gstate->all_players[INDEX(ft_abs(arg))]->last_live_cycle = gstate->arena->all_cycles;
+		gstate->all_players[INDEX(ft_abs(arg))]->last_live_cycle =
+				gstate->arena->all_cycles;
 		gstate->all_players[INDEX(ft_abs(arg))]->lives_in_cur_period++;
 		gstate->arena->last_live = ft_abs(arg);
 	}

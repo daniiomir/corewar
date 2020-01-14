@@ -13,7 +13,8 @@
 #include "corewar.h"
 #include "corewar_vis.h"
 
-void	write_to_map(t_gstate *gstate, int what, int where, int size) {
+void	write_to_map(t_gstate *gstate, int what, int where, int size)
+{
 	int		i;
 	int		j;
 	int		index;
@@ -29,10 +30,11 @@ void	write_to_map(t_gstate *gstate, int what, int where, int size) {
 	}
 }
 
-void vis_write_to_map(t_gstate *gstate, t_cursor *cursor, int where, int size)
+void	vis_write_to_map(t_gstate *gstate,
+		t_cursor *cursor, int where, int size)
 {
-	int 	i;
-	int 	index;
+	int		i;
+	int		index;
 
 	i = 0;
 	while (i < size)
