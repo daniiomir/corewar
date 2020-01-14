@@ -12,14 +12,17 @@
 
 #include "corewar_vis.h"
 
-static void check_has_color() {
-	if (has_colors() == 0) {
+static void check_has_color()
+{
+	if (has_colors() == 0)
+	{
 		endwin();
 		print_error_and_exit("Terminal does not support color", 91);
 	}
 }
 
-void init_color_palette() {
+void init_color_palette()
+{
 	check_has_color();
 	init_pair(COLOR_ERROR, COLOR_WHITE, COLOR_RED);
 	init_pair(GRAY, COLOR_GRAY, 0);

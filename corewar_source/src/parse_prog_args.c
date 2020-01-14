@@ -31,8 +31,10 @@ static int	is_champion_filename(char *filename)
 
 static void	parse_champion_filename(t_gstate *gstate, int *argc, char ***argv)
 {
-	int	champion_order;
+	int		champion_order;
+	char	*a;
 
+	a = "After the -n flag should be the name of the champion file";
 	champion_order = 0;
 	if (ft_strequ(**argv, "-n"))
 		champion_order = parse_flag_n(argc, argv);
@@ -43,7 +45,7 @@ static void	parse_champion_filename(t_gstate *gstate, int *argc, char ***argv)
 						gstate->players_num, **argv);
 	}
 	else
-		print_error_and_exit("After the -n flag should be the name of the champion file", 42);
+		print_error_and_exit(a, 42);
 	(*argv)++;
 	(*argc)--;
 	gstate->players_num++;

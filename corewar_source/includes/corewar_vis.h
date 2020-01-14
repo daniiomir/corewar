@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar_vis.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnikia <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 14:54:56 by cnikia            #+#    #+#             */
+/*   Updated: 2020/01/14 14:54:57 by cnikia           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef COREWAR_VIS_H
 # define COREWAR_VIS_H
 
@@ -48,21 +60,22 @@
 # define MIN_SPEED		0
 # define MAX_SPEED		100000
 
-static int g_colors[COLORS_AMOUNT * 2] = {
-		COLOR_PAIR(GRAY),
-		COLOR_PAIR(GREEN),
-		COLOR_PAIR(RED),
-		COLOR_PAIR(PURPLE),
-		COLOR_PAIR(MAGENTA),
-		COLOR_PAIR(CYAN),
-		COLOR_PAIR(YELLOW),
-		COLOR_PAIR(GRAY_CUR),
-		COLOR_PAIR(GREEN_CUR),
-		COLOR_PAIR(RED_CUR),
-		COLOR_PAIR(PURPLE_CUR),
-		COLOR_PAIR(MAGENTA_CUR),
-		COLOR_PAIR(CYAN_CUR),
-		COLOR_PAIR(YELLOW_CUR),
+static int				g_colors[COLORS_AMOUNT * 2] =
+{
+	COLOR_PAIR(GRAY),
+	COLOR_PAIR(GREEN),
+	COLOR_PAIR(RED),
+	COLOR_PAIR(PURPLE),
+	COLOR_PAIR(MAGENTA),
+	COLOR_PAIR(CYAN),
+	COLOR_PAIR(YELLOW),
+	COLOR_PAIR(GRAY_CUR),
+	COLOR_PAIR(GREEN_CUR),
+	COLOR_PAIR(RED_CUR),
+	COLOR_PAIR(PURPLE_CUR),
+	COLOR_PAIR(MAGENTA_CUR),
+	COLOR_PAIR(CYAN_CUR),
+	COLOR_PAIR(YELLOW_CUR),
 };
 
 /*
@@ -77,33 +90,33 @@ static int g_colors[COLORS_AMOUNT * 2] = {
 # define SLOW_DOWN10	'w'
 # define SLOW_DOWN100	'q'
 
-typedef struct	s_cell
+typedef struct			s_cell
 {
-	int 		player_id;
-	char 		is_cursor:2;
-}				t_cell;
+	int			player_id;
+	char		is_cursor:2;
+}						t_cell;
 
-typedef struct	s_vis
+typedef struct			s_vis
 {
 	WINDOW		*w_map;
 	WINDOW		*w_usage;
 	WINDOW		*w_info;
 
-	int 		width;
-	int 		height;
+	int			width;
+	int			height;
 	char		is_running:2;
 	int			speed;
-	char 		btn;
+	char		btn;
 	t_cell		map[MEM_SIZE];
-}				t_vis;
+}						t_vis;
 
-t_vis	*init_vis();
-void	visualisation(t_gstate *gstate, t_arena *arena);
-void	prepare_map(t_gstate *gstate);
-void	check_window_size(t_vis *vis);
-void	init_color_palette();
-void	draw_map(t_vis *vis, t_arena *arena);
-void	draw_usage(t_vis *vis);
-void	draw_info(t_gstate *gstate, t_arena *arena);
+t_vis					*init_vis();
+void					visualisation(t_gstate *gstate, t_arena *arena);
+void					prepare_map(t_gstate *gstate);
+void					check_window_size(t_vis *vis);
+void					init_color_palette();
+void					draw_map(t_vis *vis, t_arena *arena);
+void					draw_usage(t_vis *vis);
+void					draw_info(t_gstate *gstate, t_arena *arena);
 
 #endif

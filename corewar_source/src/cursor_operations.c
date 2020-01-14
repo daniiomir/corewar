@@ -23,7 +23,8 @@ void	cursor_operations_exec(t_gstate *gstate)
 		{
 			cursor->current_op = gstate->arena->map[cursor->cur_pos];
 			if (cursor->current_op >= 0x01 && cursor->current_op <= 0x10)
-				cursor->cycles_remaining = op_tab[(int)cursor->current_op].need_cycles;
+				cursor->cycles_remaining =
+						g_op_tab[(int)cursor->current_op].need_cycles;
 		}
 		if (cursor->cycles_remaining > 0)
 			cursor->cycles_remaining--;

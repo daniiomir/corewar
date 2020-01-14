@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-void free_players(t_gstate *gstate)
+void		free_players(t_gstate *gstate)
 {
 	int		i;
 	t_champ *player;
@@ -29,7 +29,7 @@ void free_players(t_gstate *gstate)
 	}
 }
 
-void free_all(t_gstate *gstate)
+void		free_all(t_gstate *gstate)
 {
 	if (gstate)
 	{

@@ -19,7 +19,7 @@ int		get_arg(t_arena *arena, t_cursor *cursor, unsigned char arg, int mod)
 	t_op			*op;
 
 	value = 0;
-	op = &op_tab[cursor->current_op];
+	op = &g_op_tab[cursor->current_op];
 	if (arg == T_DIR)
 	{
 		value = get_map_int(arena, cursor->cur_pos + cursor->next_op_steps, op->t_dir_size);

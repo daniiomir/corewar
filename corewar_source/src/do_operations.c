@@ -28,13 +28,13 @@ void		do_operation(t_gstate *gstate, t_cursor *cursor)
 {
 	t_op	curr_op;
 
-	curr_op = op_tab[(int)cursor->current_op];
+	curr_op = g_op_tab[(int)cursor->current_op];
 	if (cursor->current_op >= 0x01 && cursor->current_op <= 0x10)
 	{
 		if (argument_code_type_check(cursor, gstate->arena, curr_op) == 0)
 		{
 			cursor->next_op_steps = 0;
-			op_tab[cursor->current_op].func(gstate, cursor);
+			g_op_tab[cursor->current_op].func(gstate, cursor);
 		}
 	}
 	else

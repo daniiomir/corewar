@@ -53,8 +53,8 @@ static void	draw_players(t_gstate *gstate, t_vis *vis, int *row, int col)
 
 void		draw_winner(t_gstate *gstate)
 {
-	t_champ *winner;
-	int 	color;
+	t_champ	*winner;
+	int		color;
 
 	winner = gstate->all_players[INDEX(gstate->arena->last_live)];
 	color = g_colors[winner->id];

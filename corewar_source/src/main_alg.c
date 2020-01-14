@@ -77,8 +77,7 @@ void			one_cycle(t_gstate *gstate)
 	}
 }
 
-
-void main_alg(t_gstate *gstate)
+void			main_alg(t_gstate *gstate)
 {
 	init_battle(gstate);
 	while (gstate->processes_num)
