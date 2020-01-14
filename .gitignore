@@ -5,3 +5,4 @@ cmake-build-debug/
 examples/champs/
 *.o
 .vscode
+42-corewar/
