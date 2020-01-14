@@ -68,7 +68,8 @@ void		draw_winner(t_gstate *gstate)
 	{
 		buffer = malloc(200 * sizeof(char));
 
-		sprintf(buffer, "say -v Alex -r 200 'The winner is %s' &", winner->name);
+		sprintf(buffer, "say -v Alex -r 150 'WINNER WINNER CHICKEN DINNER!!" \
+			"THE WINNER IS %s' &", winner->name);
 		system(buffer);
 		free(buffer);
 		voice = 1;
