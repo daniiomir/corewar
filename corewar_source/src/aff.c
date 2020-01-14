@@ -18,8 +18,8 @@ void	op_aff(t_gstate *gstate, t_cursor *cursor)
 	int	value;
 
 	cursor->steps += 2;
-	reg = get_arg(gstate->arena, cursor, T_DIR, 0);
-	value = (char)reg;
+	reg = get_cur_pos_byte(gstate->arena, cursor);
+	value = cursor->reg[INDEX(reg)];
 	if (gstate->f_a && !gstate->f_v)
 		ft_printf("Aff: %c\n", (char)value);
 }
