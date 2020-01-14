@@ -64,7 +64,7 @@ void		parse_arguments(t_gstate *gstate, int argc, char **argv)
 		else if (ft_strequ(*argv, "-v"))
 			parse_flag_v(gstate, &argc, &argv);
 		else if (ft_strequ(*argv, "-a"))
-			gstate->f_a = 1;
+			parse_flag_a(gstate, &argc, &argv);
 		else
 			print_usage();
 	}

@@ -2,7 +2,6 @@
 # define COREWAR_H
 
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include "../lib/includes/libft.h"
 # include "op.h"
@@ -48,6 +47,7 @@ void			parse_flag_dump(t_gstate *gstate, int *argc, char ***argv);
 void			parse_flag_d(t_gstate *gstate, int *argc, char ***argv);
 void			parse_flag_v(t_gstate *gstate, int *argc, char ***argv);
 int				parse_flag_n(int *argc, char ***argv);
+void			parse_flag_a(t_gstate *gstate, int *argc, char ***argv);
 
 /*
 ** _________________________ Champion File Parsing _____________________________

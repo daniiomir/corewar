@@ -30,6 +30,13 @@ int		parse_flag_n(int *argc, char ***argv)
 	return (champion_order);
 }
 
+void	parse_flag_a(t_gstate *gstate, int *argc, char ***argv)
+{
+	gstate->f_a = 1;
+	(*argv)++;
+	(*argc)--;
+}
+
 void	parse_flag_v(t_gstate *gstate, int *argc, char ***argv)
 {
 	gstate->vis = init_vis();
