@@ -52,8 +52,8 @@ void			init_battle(t_gstate *gstate)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 				(a + 1),
-	gstate->all_players[a]->size, gstate->all_players[a]->name,
-	gstate->all_players[a]->comment);
+				gstate->all_players[a]->size, gstate->all_players[a]->name,
+				gstate->all_players[a]->comment);
 		a++;
 	}
 }
