@@ -27,7 +27,7 @@ Then just execute the corewar binary with your warrior(s) as arguments.
 
 Installation
 ------------
->make &&  ./corewar -v [champion1] [champion2] [champion3] [champion4]
+>git clone https://github.com/daniiomir/corewar.git && cd corewar && make
 
 Works on Mac and Linux.
 The ncurse library is needed for visualisation.
