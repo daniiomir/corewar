@@ -31,3 +31,14 @@ Installation
 
 Works on Mac and Linux.
 The ncurse library is needed for visualisation.
+
+Authors
+-------
+
+agottlie
+
+swarner
+
+cnikia
+
+rrika
