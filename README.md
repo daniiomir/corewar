@@ -37,7 +37,7 @@ Authors
 
 agottlie
 
-swarner (this is me - damiiomir)
+swarner (this is me - daniiomir)
 
 cnikia
 
